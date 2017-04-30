@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oneworld.web.dao.AnswerMapper">
+    <resultMap id="BaseResultMap" type="com.oneworld.web.model.Answer">
+        <id column="pk_id" property="pk_id" jdbcType="INTEGER"/>
+        <result column="id" property="id" jdbcType="VARCHAR" />
+        <result column="discuss_id" property="discuss_id" jdbcType="VARCHAR"/>
+        <result column="answer_account" property="answer_account" jdbcType="VARCHAR"/>
+        <result column="answer_content" property="answer_content" jdbcType="VARCHAR"/>
+        <result column="answer_time" property="answer_time" jdbcType="TIMESTAMP"/>
+        <result column="agree_times" property="agree_times" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, discuss_id,answer_account, answer_content, answer_time, agree_times
+    </sql>
+
+    <insert id="insertAnswer" parameterType="com.oneworld.web.model.Answer">
+        insert into t_answer (id, discuss_id, answer_account,
+        answer_content, answer_time, agree_times)
+        values (#{id,jdbcType=VARCAHR}, #{discuss_id,jdbcType=VARCHAR}, #{answer_account,jdbcType=VARCHAR},
+        #{answer_content,jdbcType=VARCHAR}, #{answer_time,jdbcType=TIMESTAMP}, #{agree_times,jdbcType=INTEGER})
+    </insert>
+
+    <delete id="deleteAnswer" parameterType="java.lang.String">
+        delete from t_answer
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <select id="findAllAnswersByDiscuss_id" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_answer
+        WHERE discuss_id = #{discuss_id,jdbcType=VARCHAR}
+    </select>
+    <!--用于圆桌显示，限制个数-->
+    <select id="findAnswersByDiscuss_id" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_answer
+        WHERE discuss_id = #{discuss_id,jdbcType=VARCHAR} limit 0,6
+    </select>
+    <select id="findAnswerById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_answer
+        WHERE id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findAnswerByDiscuss_idAndUser_account" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_answer
+        WHERE discuss_id = #{discuss_id,jdbcType=VARCHAR} AND answer_account = #{answer_account,jdbcType=VARCHAR}
+    </select>
+    <select id="findAnswersByUser_account" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_answer
+        WHERE answer_account = #{answer_account,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

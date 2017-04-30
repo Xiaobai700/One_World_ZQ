@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oneworld.web.dao.DiscussMapper">
+    <resultMap id="BaseResultMap" type="com.oneworld.web.model.Discuss">
+        <id column="pk_id" property="pk_id" jdbcType="INTEGER"/>
+        <result column="id" property="id" jdbcType="VARCHAR" />
+        <result column="asker_account" property="asker_account" jdbcType="VARCHAR"/>
+        <result column="discuss_title" property="discuss_title" jdbcType="VARCHAR"/>
+        <result column="question_describe" property="question_describe" jdbcType="VARCHAR"/>
+        <result column="ask_time" property="ask_time" jdbcType="TIMESTAMP"/>
+        <result column="answer_times" property="answer_times" jdbcType="INTEGER"/>
+        <result column="industry_id" property="industry_id" jdbcType="INTEGER"/>
+        <result column="is_over" property="is_over" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,asker_account,discuss_title,question_describe,ask_time,answer_times,industry_id,is_over
+    </sql>
+
+    <insert id="insertDiscuss" parameterType="com.oneworld.web.model.Discuss">
+        insert into t_discuss (id,asker_account,discuss_title,question_describe,ask_time,answer_times,industry_id,is_over)
+        values (#{id,jdbcType=VARCHAR},#{asker_account,jdbcType=VARCHAR},#{discuss_title,jdbcType=VARCHAR},
+        #{question_describe,jdbcType=VARCHAR}, #{ask_time,jdbcType=TIMESTAMP}, #{answer_times,jdbcType=INTEGER},#{industry_id,jdbcType=INTEGER},
+        #{is_over,jdbcType=INTEGER})
+    </insert>
+
+    <select id="queryAllDiscuss"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_discuss
+    </select>
+<!--根据时间降序排列并且取出前三个-->
+    <select id="hotDiscuess"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_discuss ORDER BY answer_times DESC limit 0,3
+    </select>
+
+    <select id="queryDiscussByLike"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_discuss ORDER BY answer_times DESC
+    </select>
+
+    <select id="findDiscussById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_discuss
+        WHERE id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="queryDiscussByUserAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        FROM t_discuss
+        WHERE asker_account = #{asker_account,jdbcType=VARCHAR}
+    </select>
+
+    <update id="updateDiscuss" parameterType="com.oneworld.web.model.Discuss">
+        UPDATE t_discuss
+        <set>
+            <if test="answer_times != null">
+                amswer_times = #{answer_times,jdbcType=INTEGER}
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <select id="queryDiscussByPageTimes" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_discuss
+        ORDER BY answer_times DESC
+        <if test="pageBegin != null and pageSize != null">
+            LIMIT #{pageBegin},#{pageSize}
+        </if>
+    </select>
+
+    <select id="queryDiscussPageNew" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_discuss
+        ORDER BY ask_time DESC
+        <if test="pageBegin != null and pageSize != null">
+            LIMIT #{pageBegin},#{pageSize}
+        </if>
+    </select>
+    <select id="queryAllDiscussPage"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_discuss
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="discuss_title!=null and discuss_title!='' ">
+                and discuss_title = #{discuss_title,jdbcType=VARCHAR}
+            </if>
+            <if test="keys!=null and keys!='' ">
+                AND discuss_title LIKE '%${keys}%'
+                OR question_describe LIKE '%${keys}%'
+            </if>
+        </trim>
+        ORDER BY ask_time DESC
+        <if test="index != null and length != null">
+            LIMIT #{index},#{length}
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oneworld.web.dao.ReportMapper">
+    <resultMap id="BaseResultMap" type="com.oneworld.web.model.Report">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="report_type" property="report_type" jdbcType="INTEGER"/>
+        <result column="target_id" property="target_id" jdbcType="INTEGER"/>
+        <result column="target_type" property="target_type" jdbcType="INTEGER"/>
+        <result column="current_state" property="current_state" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="update_time" property="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+       id,report_type,target_id,target_type,current_state,status,update_time
+    </sql>
+
+    <insert id="insertReport" parameterType="com.oneworld.web.model.Report">
+        insert into t_report (id,report_type,target_id,target_type,current_state,status,update_time )
+        values (#{id,jdbcType=INTEGER},#{report_type,jdbcType=INTEGER},#{target_id,jdbcType=INTEGER},#{target_type,jdbcType=INTEGER},#{current_state,jdbcType=INTEGER},
+        #{status,jdbcType=INTEGER}, #{update_time,jdbcType=TIMESTAMP})
+    </insert>
+
+    <delete id="deleteReport" parameterType="java.lang.Integer">
+        delete from t_report
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <select id="queryReportPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_report
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="report_type!=null and report_type!='' ">
+                and report_type = #{report_type,jdbcType=VARCHAR} OR report_type LIKE CONCAT('%','${report_type}','%')
+            </if>
+            <if test="current_state!=null and current_state!='' ">
+                and current_state = #{current_state,jdbcType=VARCHAR}
+            </if>
+            <if test="keys!=null and keys!='' ">
+                AND report_type LIKE '%${keys}%'
+                OR current_state LIKE '%${keys}%'
+            </if>
+        </trim>
+        ORDER BY update_time DESC
+        <if test="index != null and length != null">
+            LIMIT #{index},#{length}
+        </if>
+    </select>
+
+</mapper>

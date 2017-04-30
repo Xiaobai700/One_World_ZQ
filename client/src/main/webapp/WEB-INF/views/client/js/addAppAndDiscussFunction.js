@@ -1,0 +1,248 @@
+/**
+ * Created by Master ZQ on 2017/3/24.
+ */
+$(function () {
+    toastr.options = {
+        "closeButton": false, //是否显示关闭按钮
+        "debug": false, //是否使用debug模式
+        "positionClass": "toast-top-center",//弹出窗的位置
+        "showDuration": "300",//显示的动画时间
+        "hideDuration": "1000",//消失的动画时间
+        "timeOut": "5000", //展现时间
+        "extendedTimeOut": "1000",//加长展示时间
+        "showEasing": "swing",//显示时的动画缓冲方式
+        "hideEasing": "linear",//消失时的动画缓冲方式
+        "showMethod": "fadeIn",//显示时的动画方式
+        "hideMethod": "fadeOut" //消失时的动画方式
+    };
+});
+
+
+
+/**关于websocket*/
+var account = $("#account").val();
+var ws ;
+var url = "ws://localhost:8080/hello?"+account;
+// ws = new WebSocket("ws://localhost:8080/hello?"+account);
+if ('WebSocket' in window) {
+    ws = new WebSocket(url);
+} else if ('MozWebSocket' in window) {
+    ws = new MozWebSocket(url);
+} else {
+    alert('WebSocket is not supported by this browser.');
+}
+ws.onopen = function(evn){
+    console.log("就是这个信息："+evn.toString());
+};
+var messageNumber = 0;
+ws.onmessage = function(evn){
+    var dv = document.getElementById("dv");
+    var size = document.getElementById("size");
+    var underSize = document.getElementById("underSize");
+    var messageDetail = document.getElementById("messageDetail");
+
+    // if(evn.data != undefined){
+    //         dv.innerHTML+=evn.data;
+    //     }else {
+            var message = JSON.parse(evn.data);
+            console.log(message);
+            console.log(message.message);
+            if(Array.isArray(message.message)){
+                messageNumber = message.messageSize;
+                // messageDetail.innerHTML = '<i class="fa fa-envelope fa-fw"></i>'+messageNumber+'条未读消息';
+                $.each(message.message,function () {
+                    dv.innerHTML+=this.content;
+                    messageDetail.innerHTML+= "<span class='small' style='color: #5BC4C8;;'>"+this.sendTime+"</span><br />"+this.content+"<br />";
+                });
+                size.innerHTML = message.messageSize;
+                underSize.innerHTML = messageNumber;
+                // messageDetail.innerHTML = '<i class="fa fa-envelope fa-fw"></i>'+messageNumber+'条未读消息 <span class="pull-right text-muted small">4分钟前</span>';
+            }else {
+                dv.innerHTML+=message.message.content;
+                toastr.info(message.message.content);
+                // toast(message.message.content,"消息");
+                messageNumber += 1;
+                size.innerHTML = "";
+                size.innerHTML += messageNumber;
+                underSize.innerHTML ="";
+                underSize.innerHTML += messageNumber;
+                messageDetail.innerHTML+= "<span class='small' style='color: #5BC4C8;;'>"+message.message.sendTime+"</span><br />"+message.message.content+"<br />";
+
+            }
+
+    // }
+    /*统一的接收格式*/
+    /*var message = JSON.parse(evn.data);
+     dv.innerHTML+=message.content;*/
+
+};
+ws.onclose = function(){
+    console.log("关闭");
+};
+/**
+ * 相关功能代码*/
+/*发布约伴活动*/
+function addAppPage(title,url) {
+    var editor = url;
+    var w = 900;
+    var h = 600;
+    //layer_show(title,editor,w,h);
+    layer.open({
+        type: 2,
+        area: [w + 'px', h + 'px'],
+        fix: false, //不固定
+        maxmin: true,
+        shadeClose: true,/*点击遮罩层 弹出框消失*/
+        shade: 0.4,
+        title: title,
+        content: editor,
+        end: function () {
+            // location.reload();
+        }
+    });
+}
+function add_app() {
+    var sex_restrict = $("#sex_restrict").val();
+    var theme = $("#theme").val();
+    var content = UE.getEditor('editor').getContent();
+    var site = $("#site").val();
+    var begin_time = $(".kssj").val();
+    var more_time = $("#jqsj").val();
+    var duration = $("#duration").val();
+    if(sex_restrict == -1){
+        layer.msg("请选择性别限制！");
+    }else if(theme.trim() == ""){
+        layer.msg("请填写活动主题！");
+    }else if(content.trim() == ""){
+        layer.msg("请填写活动内容！");
+    }else if(site.trim() == ""){
+        layer.msg("请填写活动地点！");
+    }else if(begin_time == ""){
+        layer.msg("请选择活动开始时间！");
+    }else if(duration.trim() == ""){
+        layer.msg("请填写活动持续时间！");
+    }else {
+        $.ajax({
+            url: "add-app.action",
+            type: "post",
+            data: {
+                theme:theme ,
+                content:content,
+                site: site,
+                begin_time: begin_time, /* 年月日 */
+                more_time: more_time, /* 小时 分钟 */
+                duration: duration,
+                sex_restrict: sex_restrict
+            },
+            dataType: "text",
+            success: function (data) {
+                /*增加成功之后，父页面跳转至所有活动页面*/
+                parent.location.href = "allyueban.do";
+            }
+        });
+    }
+
+}
+/*发布讨论活动*/
+function addDiscussPage(title,url) {
+    var editor = url;
+    var w = 400;
+    var h = 300;
+    //layer_show(title,editor,w,h);
+    layer.open({
+        type: 2,
+        area: [w + 'px', h + 'px'],
+        fix: false, //不固定
+        maxmin: true,
+        shade: 0.4,
+        title: title,
+        content: editor,
+        end: function () {
+        }
+    });
+}
+/*发起一个讨论*/
+function add_discuss() {
+    $.ajax({
+        url:"add-discuss.action",
+        type:"post",
+        data:{
+            title:$("#discuss_title").val(),
+            description:$("#question_describe").val()
+        },
+        dataType:"text",
+        success:function(data){
+            /* 增加一个讨论时候跳转至按时间排序的讨论页面 */
+            parent.location.href="discussPageNew.do";
+        }
+    });
+}
+
+/*加入约伴活动*/
+function join_app(id) {
+    layer.confirm("确定要加入吗？",function (index) {
+        if($("#account").val() == ""){
+            layer.msg("你还未登陆,请先登陆!");
+            // window.location.href="welcome.do";
+        }else {
+            $.ajax({
+                url:"joinApp.action",
+                type:"post",
+                data:{
+                    appointment_id:id
+                },
+                success:function(data){
+                    var dataObj=eval("("+data+")");
+                    layer.msg(dataObj.msg);
+                    if(dataObj.code == 0){
+                        window.location.reload();
+                    }
+                }
+            });
+        }
+
+    });
+}
+
+/*关注某用户*/
+/*var ws ;
+ws = new WebSocket("ws://localhost:8080/hello");
+ws.onopen = function(evn){
+    console.log("就是这个信息："+evn.toString());
+};
+ws.onmessage = function(evn){
+    console.log(evn.data);
+    var dv = document.getElementById("dv");
+    dv.innerHTML+=evn.data;
+};
+ws.onclose = function(){
+    console.log("关闭");
+};*/
+function careUser(user_account) {
+   /* var ws ;
+    ws = new WebSocket("ws://localhost:8080/hello?"+user_account);*/
+    layer.confirm("确定要关注TA吗？",function (index) {
+        if($("#account").val() == "") {
+            layer.msg("你还未登陆,请先登陆!");
+        }else {
+            $.ajax({
+                url:"careUser.action",
+                type:"post",
+                data:{
+                    user_account:user_account
+                },
+                success:function(data){
+                    // var dataObj=eval("("+data+")");
+                    layer.msg(data.msg);
+                    if(data.code == 0){
+                        window.location.reload();
+                        /*ws相关的代码*/
+                        /*把关注的目标用户的账号发给服务器*/
+                        ws.send(user_account+','+1);
+                    }
+                }
+            });
+        }
+
+    });
+}

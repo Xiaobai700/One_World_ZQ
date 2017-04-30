@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oneworld.web.dao.AppTypeMapper">
+    <resultMap id="BaseResultMap" type="com.oneworld.web.model.AppType">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="type_name" property="typeName" jdbcType="VARCHAR"/>
+        <result column="attention_num" property="attention_num" jdbcType="INTEGER"/>
+        <result column="create_time" property="create_time" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,type_name,attention_num,create_time,update_time
+    </sql>
+
+    <insert id="insertAppTye" parameterType="com.oneworld.web.model.AppType">
+        insert into t_apptype (id,type_name,attention_num,create_time,update_time)
+        values (#{id,jdbcType=INTEGER},#{typeName,jdbcType=VARCHAR},#{attention_num,jdbcType=INTEGER},#{create_time,jdbcType=TIMESTAMP},#{update_time,jdbcType=TIMESTAMP})
+    </insert>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from t_apptype
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <select id="queryAllAppType" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_apptype
+    </select>
+
+
+    <select id="queryAppTypeByPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_apptype
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="typeName!=null and typeName!='' ">
+                and type_name = #{typeName,jdbcType=VARCHAR}
+            </if>
+            <if test="keys!=null and keys!='' ">
+                AND type_name LIKE '%${keys}%'
+            </if>
+        </trim>
+        ORDER BY update_time DESC
+        <if test="index != null and length != null">
+            LIMIT #{index},#{length}
+        </if>
+    </select>
+
+    <update id="updateAppType" parameterType="com.oneworld.web.model.AppType" >
+        UPDATE t_apptype
+        <set>
+            <if test="typeName!= null">
+                type_name = #{typeName,jdbcType=VARCHAR},
+            </if>
+            <if test="attention_num != null">
+                attention_num = #{attention_num,jdbcType=INTEGER},
+            </if>
+            <if test="update_time != null">
+                update_time = #{update_time,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="findAppTypeByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_apptype
+        WHERE type_name = #{typeName,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findAppTypeById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_apptype
+        WHERE id = #{id,jdbcType=INTEGER}
+    </select>
+</mapper>

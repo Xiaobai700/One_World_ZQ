@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oneworld.web.dao.IndustryMapper">
+    <resultMap id="BaseResultMap" type="com.oneworld.web.model.Industry">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="industry_name" property="industry_name" jdbcType="VARCHAR"/>
+        <result column="industry_userNum" property="industry_userNum" jdbcType="INTEGER"/>
+        <result column="create_time" property="create_time" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,industry_name,industry_userNum,create_time,update_time
+    </sql>
+
+    <insert id="insertIndustry" parameterType="com.oneworld.web.model.Industry">
+        insert into t_industry (id,industry_name,industry_userNum,create_time,update_time )
+        values (#{id,jdbcType=INTEGER},#{industry_name,jdbcType=VARCHAR},#{industry_userNum,jdbcType=INTEGER},#{create_time,jdbcType=TIMESTAMP},#{update_time,jdbcType=TIMESTAMP})
+    </insert>
+
+    <delete id="deleteIndustry" parameterType="java.lang.Integer">
+        delete from t_industry
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <select id="queryAllIndustry" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_industry
+    </select>
+
+    <select id="findIndustryById"  parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_industry
+        WHERE id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="findIndustryByName"  parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_industry
+        WHERE industry_name = #{industry_name,jdbcType=VARCHAR}
+    </select>
+
+    <select id="queryIndustryPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_industry
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="industry_name!=null and industry_name!='' ">
+                and industry_name = #{industry_name,jdbcType=VARCHAR}
+            </if>
+            <if test="keys!=null and keys!='' ">
+                AND industry_name LIKE '%${keys}%'
+            </if>
+        </trim>
+        ORDER BY update_time DESC
+        <if test="index != null and length != null">
+            LIMIT #{index},#{length}
+        </if>
+    </select>
+
+    <update id="updateIndustry" parameterType="com.oneworld.web.model.Industry" >
+        update t_industry
+        set industry_name = #{industry_name,jdbcType=VARCHAR},
+        industry_userNum = #{industry_userNum,jdbcType=INTEGER},
+        create_time = #{create_time,jdbcTypr=TIMESTAMP},
+       update_time = #{update_time,jdbcTypr=TIMESTAMP},
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

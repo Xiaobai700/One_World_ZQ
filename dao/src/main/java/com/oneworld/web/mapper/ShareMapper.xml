@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oneworld.web.dao.ShareMapper">
+    <resultMap id="BaseResultMap" type="com.oneworld.web.model.Share">
+        <id column="pk_id" property="pk_id" jdbcType="INTEGER"/>
+        <result column="id" property="id" jdbcType="VARCHAR" />
+        <result column="sharer_account" property="sharer_account" jdbcType="VARCHAR"/>
+        <result column="share_title" property="share_title" jdbcType="VARCHAR"/>
+        <result column="share_content" property="share_content" jdbcType="VARCHAR"/>
+        <result column="share_time" property="share_time" jdbcType="TIMESTAMP"/>
+        <result column="like_times" property="like_times" jdbcType="INTEGER"/>
+        <result column="share_thumbnail" property="share_thumbnail" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,sharer_account,share_title,share_content,share_time,like_times,share_thumbnail
+    </sql>
+
+    <insert id="insertShare" parameterType="com.oneworld.web.model.Share">
+        insert into t_share (id,sharer_account,share_title,share_content,share_time,like_times,share_thumbnail)
+        values (#{id,jdbcType=VARCHAR},#{sharer_account,jdbcType=VARCHAR}, #{share_title,jdbcType=VARCHAR},
+        #{share_content,jdbcType=VARCHAR}, #{share_time,jdbcType=TIMESTAMP},#{like_times,jdbcType=INTEGER},
+        #{share_thumbnail,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="queryAllByTime"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_share
+        ORDER BY share_time DESC
+    </select>
+
+    <select id="queryAllByLike"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_share
+        ORDER BY like_times DESC
+    </select>
+
+    <select id="findShareById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_share
+        WHERE id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findSharesByAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_share
+        WHERE sharer_account = #{sharer_account,jdbcType=VARCHAR}
+    </select>
+
+    <select id="querySharePage"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_share
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="keys!=null and keys!='' ">
+                AND share_title LIKE '%${keys}%'
+                OR share_content LIKE '%${keys}%'
+            </if>
+        </trim>
+        ORDER BY share_time DESC
+        <if test="index != null and length != null">
+            LIMIT #{index},#{length}
+        </if>
+    </select>
+</mapper>

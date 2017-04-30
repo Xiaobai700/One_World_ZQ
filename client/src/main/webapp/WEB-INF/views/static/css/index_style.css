@@ -1,0 +1,708 @@
+body{
+    width: auto;
+    font-family: 微软雅黑;
+    margin: auto;
+}
+/*主页的中部*/
+.main{
+    background-color: #F4F3F1;
+}
+.main_1{
+    background-color: #F4F3F1;
+    margin-left: 180px;
+    margin-right: 180px;
+}
+.main_1 .row{/*为了让讨论的信息能和下面的同行者和约伴活动对齐*/
+    margin-left: 20px;
+}
+/*你要加入吗*/
+.jia_ru{
+    text-align: center;
+    margin-top: 26px;
+    height: 60px;
+    background-color: #F4F3F1;
+}
+.title_words{
+    text-align: center;
+    vertical-align:middle;/*让div中的文字纵向居中*/
+    font-size: 22px;
+    color: #4f4f4f;
+}
+/*约伴信息*/
+.main_yb_div{
+    width: 260px;
+    height: 360px;
+    border: 1px solid white;
+    box-shadow: 5px 5px 5px black;
+    float: left;
+    margin-left: 15px;
+    margin-bottom: 10px;
+    border-radius: 25px;
+}
+/*存放头像昵称时间的那个div*/
+.main_yb_div_1{
+    margin-right: 5px;
+    height: 65px;
+    background-color: white;
+}
+.main_tx{
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+}
+/*约伴活动的其他信息div*/
+.main_yb_div_hd_xq {
+    width: 258px;
+    height: 100px;
+    background-color: white;
+}
+.location{
+    color: #af8022;
+    font-size: 16px;
+    white-space: nowrap;/*不换行*/
+    border-right: 2px solid darkgray;
+}
+.theme{
+    color:black;
+    font-size: 14px;
+    white-space: nowrap;
+}
+.stay{
+    color: #919191;
+    border-right: 2px solid darkgray;
+}
+.m_or_w{
+    color: #919191;
+}
+.ms{
+    padding-bottom: 5px;
+    color: #bfbfbf;
+    height: 53px;
+    height:83px;
+    overflow: hidden;
+
+}
+.ms p{/*多行文本溢出 在谷歌浏览器下可以火狐不可以*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient:vertical;/*将对象作为弹性伸缩盒子模型显示*/
+    -webkit-line-clamp:3;/*用来限制在一个块元素显示的文本的行数*/
+}
+/*约伴活动的缩略图*/
+.main_yb_div_slt{
+    width: 248px;
+    height: 195px;
+    background: black;
+    border-radius: 25px;
+}
+.main_yb_div_slt img{
+    height: 193px;
+    width: 258px;
+}
+
+/*讨论信息*/
+.main_tl_div{
+    width: 300px;
+    height: 300px;
+}
+/*活跃的用户信息*/
+.main_yh_div{
+    width: 260px;
+    height: 126px;
+    box-shadow: 5px 5px 5px black;
+    background-color: #F4F3F1;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.user_tx{
+    width: 85px;
+    height: 85px;
+    border-radius: 40px
+}
+.y_h{
+    height: 25px;
+}
+.yh_name{
+    font-size: 13px;
+    color: #777777;
+}
+.yh_location{
+    color: #bfbfbf;
+}
+/*主页的底部*/
+footer{
+    height: 140px;
+    background-color: #E5E5E5;
+}
+
+/*欢迎页面的样式*/
+/*大图所在的大div*/
+.wel_main_1{
+    background-color: #FCFCF6;
+    margin-left: 80px;
+    margin-right: 80px;
+}
+.wel_tp{
+    width: 500px;
+    height: 400px;
+    text-align: left;
+}
+.wel_tp img {
+    width: 500px;
+    height: 400px;
+}
+.wel_right{
+    margin-top: 90px;
+}
+/*四个方块*/
+.wel_main_2{
+    height: 310px;
+    margin-left: 147px;
+    margin-right: 14px;
+}
+.wel_main_3{
+    height: 310px;
+    margin-left: 157px;
+    margin-right: 147px;
+}
+/*炫酷的样式*/
+.container_x{
+    box-shadow: 0 0 5px gray;
+}
+.container_x img{
+    width: 250px;
+    height: 250px;
+}
+img{
+    border-radius: 15px;
+}
+.t_3d {
+    width: 250px;
+    height: 250px;
+    /*overflow: hidden;*/
+    float: left;
+    border-radius: 15px;
+    margin:0px 5px;
+    position: relative;
+
+}
+.t_3d .back , .t_3d .front{
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all 0.5s;
+    backface-visibility: hidden;
+}
+
+.t_3d .back{
+    transform: rotateY(-180deg);
+
+}
+.t_3d .front{
+    transform: rotateY(0deg);
+}
+.t_3d:hover .front{
+    transform: rotateY(180deg);
+}
+.t_3d:hover .back{
+    transform: rotateY(0deg);
+}
+.t_zi{
+    text-align: center;
+    padding-top: 70px;
+    width: 250px;
+    height: 250px;
+    background-color: gold;
+    border-radius: 15px;
+}
+.wel_zi_1{
+    color:#af8022;
+    font-size: 18px;
+}
+.wel_zi_2{
+    color:#af8022;
+    font-size: 18px;
+}
+/*圆桌*/
+.row{
+    margin-left: 10px;margin-right: 0px;
+}
+.tl_img{
+    width: 60px;
+    height: 60px;
+    float: left;
+    border-radius: 40px;
+}
+.tl_title{
+    width: 150px;
+    height: 110px;
+    float: left;
+    background-color: white;
+    box-shadow: 5px 5px 5px black;
+    text-align: center;
+    padding-top: 30px;
+}
+/*XX*/
+img.img-circle{
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    top:-60px;
+    transition: all 2s ease-out;
+}
+
+/*.img-content{
+    position: relative;
+    top: 80px;
+    margin: 0px;
+    padding: 0px;
+}*/
+.mycircle{
+    margin-left:0px;
+    height: 160px;
+    width: 160px;
+    border: 2px solid black;
+    text-align: center;
+    padding-top: 50px;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: black;
+}
+/*XX*/
+/*约伴详情页面样式*/
+.yb_xq_main{
+    width: 100%;
+    font-family: 微软雅黑;
+}
+.yb_xq_main_1{
+    margin-top: 70px;
+    background-color: white;
+    margin-left: 200px;
+    margin-right: 120px;
+    width: 1030px;
+    margin-bottom: 10px;
+}
+.main_1_1{
+    text-align: center;
+    /*width: 240px;*/
+    height:240px;
+    margin-left: 390px;
+}
+.one_left{
+    float: left;
+    text-align: center;
+    height:240px;
+}
+.one_right{
+    float: right;
+}
+.main_1_2{
+    width: 720px;
+    margin-left: 120px;
+    text-align: center;
+}
+/* 约伴详情的图片不显示，想让所有的图片组成list有规则的展示,所有图片是约伴表里的一个字段 */
+.yue_ban_content img {
+    width: 200px;
+    height: 170px;
+}
+.yue_ban_img img{
+    width: 200px;
+    height: 170px;
+}
+.main_1_3{
+    /*border: 2px solid #A9DBA9;*/
+    width: 720px;
+    margin-left: 120px;
+    margin-top: 10px;
+}
+.can_yu_tx img{
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+}
+.can_yu_tx ul li{
+    list-style: none;
+    display: inline-block;
+}
+.main_1_4{
+    /*border: 2px solid #A9DBA9;*/
+    width: 720px;
+    margin-left: 120px;
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 15px;
+}
+/*所有职业讨论展示页面样式*/
+.zy_tl_main{
+    margin-top: 70px;
+}
+.zy_tl_main_1{
+    margin-left: 200px;
+    margin-top: 75px;
+    /*height: 920px;*/
+    overflow: hidden;
+}
+.one{
+    border: 1px solid #A9DBA9;
+    border-radius: 17px;
+    width: 750px;
+    height: 74px;
+    margin-bottom: 10px;
+}
+.zy_tl_main_1_zuo{
+    width: 70px;
+    height: 70px;
+    float: left;
+    padding-top: 10px;
+}
+
+.color_2{
+    color: lightgray;
+}
+.color_1{
+    color: black;
+}
+span.js_bz:hover{
+    color: black;
+}
+.zy_tl_main_1_you{
+    width: 900px;
+    float: left;
+    background-color: white;
+}
+.small_tx{
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    float: left;
+}
+.small_tx_div{
+    margin-top: 5px;
+    width: 60px;
+    height: 50px;
+    float: left;
+}
+
+.tl_bt{
+    width: 580px;
+    height: 70px;
+    float: left;
+    padding-top: 17px;
+}
+.tl_bt_hd{
+    width: 100px;
+    height: 70px;
+    float: left;
+    padding-top: 5px;
+}
+.tl_bt p{
+    font-size: 18px;
+}
+.zy_tl_main_1_you ul li{
+    list-style: none;
+}
+
+/*所有约伴样式，因为之前搞错了，自己明明写的是约伴，还给人家命名为分享，我也是醉了，这里是显示所有约伴信息的那个页面的样式*/
+.fx_main{
+    margin-top: 40px;
+    margin-left: 120px;
+    margin-right: 120px;
+}
+.fx_main_0{
+    height: 50px;
+}
+.fx_guang_chang{
+    background-color: #A9DBA9;
+    width: 50%;
+    height: 50px;
+    float: left;
+    margin-right: 70px;
+    border-radius: 17px;
+    text-align: center;
+    padding-top: 10px;
+}
+.me_share{
+    background-color: #A9DBA9;
+    width: 20%;
+    height: 50px;
+    float: left;
+    border-radius: 17px;
+    text-align: center;
+    padding-top: 10px;
+}
+.fx_main_1{
+    margin-top: 10px;
+    /*height: 1110px;*/
+    min-height: 420px;
+    overflow: hidden;
+}
+.fx_left{
+    width: 7%;
+    float: left;
+}
+.fx_right{
+    float: left;
+    width: 78%;
+}
+.fx_right1{
+    float: left;
+    width: 93%;
+}
+.final_right{
+    width: 15%;
+    float: right;
+}
+.find_type{
+    position: fixed;
+    /*float: right;*/
+}
+.find_type button{
+    margin-bottom: 5px;
+}
+.share_one{
+    float: left;
+    width: 298px;
+    height: 243px;
+    background-color: yellow;
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+/*职业讨论详情的样式*/
+.td_main{
+    margin-top: 70px;
+    margin-left: 120px;
+    margin-right: 120px;
+    padding-left: 60px;
+}
+.td_main_1{
+    height: 170px;
+}
+.td_main_2{
+    margin-left: 90px;
+}
+.media-body ul{
+    margin-left: -38px;
+}
+.media-body ul li{
+    display: inline-block;
+    list-style: none;
+    color: darkgray;
+}
+.media-body ul li a{
+    color: black;
+    text-decoration: none;
+}
+.media-body ul li a:hover{
+    color: blue;
+}
+.er_ji_pl{
+    margin-left: 20px;
+}
+.td_main_3{
+    margin-top: 40px;
+    margin-left: 100px;
+    margin-bottom: 20px;
+}
+.under_answer{
+    padding-bottom: 17px;
+}
+.under_answer a.other{
+    display: none;
+}
+.under_answer a{
+    color: #999;
+}
+.time{
+    float: left;
+}
+.talk{
+    float: left;
+    margin-left: 5px;
+}
+div.other{
+    display: none;
+    float: left;
+    padding-left: 5px;
+}
+/*所有分享的样式*/
+.fx_dt{
+    float: left;
+    width: 298px;
+    height: 243px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    box-shadow: 5px 5px 5px black;
+}
+.fx_dt img{
+    width: 298px;
+    height: 243px;
+}
+
+.fx_main_dt{
+    margin-top: 10px;
+    margin-bottom: 5px;
+    height: 1010px;
+    overflow: hidden;
+}
+
+.share_contents img{
+    width:190px;
+    height:170px;
+    border-radius: 25px;
+}
+/*个人中心的样式*/
+.personal_main{
+    margin-top: 20px;
+    height: 400px;
+    margin-left: 120px;
+    margin-right: 100px;
+    margin-bottom:200px;
+}
+.personal_main_left{
+    float: left;
+}
+.personal_main_right{
+    border: 1px solid green;
+    padding-top: 15px;
+    margin-left: 21px;
+    float: left;
+    width: 90%;
+    height: 70px;
+}
+.personal_main_right_1{
+    text-align: center;
+    height: 60px;
+}
+.personal_main_right_1 ul li{
+    display: inline-block;
+    list-style: none;
+    line-height: 38px;
+    width: 200px;
+    margin-left: 10px;
+    text-align: center;
+}
+.background_gray{
+    background-color: grey;
+}
+.personal_main_right_1 ul li:first-child{
+    margin-left: 0px;
+}
+.personal_main_right_1 ul li:hover{
+    background-color: grey;
+}
+.personal_main_right_2{
+
+}
+.content{
+    float:left;
+    padding-top: 10px;
+    margin-left: 20px;
+    margin-bottom:20px;
+}
+.personal_zi{
+    font-size: large;
+}
+.personal_main_right_zy{
+    height: 300px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.shang{
+    margin-left: 5px;
+    width: 80%;
+    height:30px;
+}
+.zhong{
+    width: 100%;
+    height:60px;
+    text-align: center;
+    padding-top: 15px;
+    font-size: 20px;
+    color:#CB9F07;
+}
+.personal_main_right_yb{
+    height: 300px;
+    display: none;
+    margin-bottom:15px;
+}
+.huo_dong_zuo{
+    width: 220px;
+    height: 200px;
+    border-radius: 12px;
+    float: left;
+    background:#ead146;
+    padding-left: 60px;
+    padding-top: 50px;
+    margin-bottom:5px;
+}
+.huo_dong_you{
+    width: 687px;
+    height: 200px;
+    border-radius: 12px;
+    float: left;
+    background:white;
+    margin-left:15px;
+    margin-bottom:9px;
+}
+.personal_main_right_jl{
+    display: none;
+    width: 920px;
+}
+.jl_zuo{
+    padding-top: 8px;
+    float: left;
+    width: 60px;
+    height: 60px;
+    border-radius: 6px;
+    background-color: darkgray;
+    margin-left: 20px;
+}
+.jl_you{
+    padding-left: 5px;
+    padding-top: 5px;
+    margin-left: 15px;
+    width: 800px;
+    height: 60px;
+    float: left;
+    border-radius: 13px;
+    border: 1px solid purple;
+}
+.personal_main_right_fx{
+    height: 300px;
+    display: none;
+}
+.shi_jian{
+    font-size: 19px;
+    width: 120px;
+    height: 60px;
+    float: left;
+    padding-top: 50px;
+    padding-left: 8px;
+}
+.zhao_pian{
+    float: left;
+}
+.zhao_pian img{
+    width: 160px;
+    height: 160px;
+    border-radius: 16px;
+}
+.content_zi {
+    height: 153px;
+    float: left;
+    width: 670px;
+    margin-left: 10px;
+}
+.content_zi img{
+    display:none;
+}
+.content_zi p{
+    overflow: hidden;/*谷歌显示的效果好 在火狐上甚至不可以隐藏*/
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient:vertical;/*将对象作为弹性伸缩盒子模型显示*/
+    -webkit-line-clamp:3;/*用来限制在一个块元素显示的文本的行数*/
+}
+

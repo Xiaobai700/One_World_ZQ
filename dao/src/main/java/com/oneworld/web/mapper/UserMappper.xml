@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oneworld.web.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="com.oneworld.web.model.User">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="account" property="account" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,account,password
+    </sql>
+
+    <insert id="insertUser" parameterType="com.oneworld.web.model.User">
+        insert into t_user(id,account,password)
+        values (#{id,jdbcType=INTEGER},#{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="findUserByAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_user
+        where account = #{account,jdbcType=VARCHAR}
+    </select>
+
+
+    <update id="changePassword" parameterType="com.oneworld.web.model.User">
+        update t_user
+        <set>
+            <if test="password!= null">
+                password = #{password,jdbcType = VARCHAR},
+            </if>
+        </set>
+        where account = #{account,jdbcType=VARCHAR}
+    </update>
+</mapper>

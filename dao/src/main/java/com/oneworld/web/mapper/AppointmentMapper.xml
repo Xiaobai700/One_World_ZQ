@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oneworld.web.dao.AppointmentMapper">
+    <resultMap id="BaseResultMap" type="com.oneworld.web.model.Appointment">
+        <id column="pk_id" property="pk_id" jdbcType="INTEGER"/>
+        <result column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="organizer_account" property="organizer_account" jdbcType="VARCHAR"/>
+        <result column="theme" property="theme" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="site" property="site" jdbcType="VARCHAR"/>
+        <result column="begin_time" property="begin_time" jdbcType="VARCHAR"/>
+        <result column="publish_time" property="publish_time" jdbcType="TIMESTAMP"/>
+        <result column="duration" property="duration" jdbcType="VARCHAR"/>
+        <result column="thumbnail" property="thumbnail" jdbcType="VARCHAR"/>
+        <result column="sex_restrict" property="sex_restrict" jdbcType="VARCHAR"/>
+        <result column="over_flag" property="over_flag" jdbcType="INTEGER"/>
+        <result column="want_join" property="want_join" jdbcType="INTEGER"/>
+        <result column="is_checked" property="is_checked" jdbcType="INTEGER"/>
+        <result column="app_type" property="app_type" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,organizer_account,theme,content,site,begin_time,publish_time,duration,thumbnail,sex_restrict,over_flag,want_join,is_checked,app_type
+    </sql>
+
+    <insert id="insertAppointment" parameterType="com.oneworld.web.model.Appointment">
+        insert into t_appointment (id,organizer_account,theme,content,site,begin_time,publish_time,duration,thumbnail,sex_restrict,over_flag,want_join,is_checked,app_type)
+        values (#{id,jdbcType=VARCHAR},#{organizer_account,jdbcType=VARCHAR}, #{theme,jdbcType=VARCHAR},
+        #{content,jdbcType=VARCHAR}, #{site,jdbcType=VARCHAR}, #{begin_time,jdbcType=VARCHAR},#{publish_time,jdbcType=TIMESTAMP},#{duration,jdbcType=VARCHAR},
+        #{thumbnail,jdbcType=VARCHAR},#{sex_restrict,jdbcType=VARCHAR},#{over_flag,jdbcType=INTEGER},#{want_join,jdbcType=INTEGER},#{is_checked,jdbcType=INTEGER},
+        #{app_type,jdbcType=INTEGER})
+    </insert>
+
+<!--限制个数-->
+    <select id="newestAppointment" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_appointment
+        limit 0,3
+    </select>
+
+    <select id="findAllAppointment" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_appointment
+    </select>
+    <select id="findAppointmentById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_appointment
+        WHERE id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findAppointmentByWant_join"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_appointment
+        ORDER BY want_join DESC
+    </select>
+    <select id="findAppointmentByUserAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_appointment
+        WHERE organizer_account = #{organizer_account,jdbcType=VARCHAR}
+    </select>
+    <select id="queryAppsPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_appointment
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="theme!=null and theme!='' ">
+                and theme = #{theme,jdbcType=VARCHAR}
+            </if>
+            <if test="app_type!=null and app_type!=''">
+                and app_type = #{app_type,jdbcType=INTEGER}
+            </if>
+            <if test="keys!=null and keys!='' ">
+                AND theme LIKE '%${keys}%'
+                OR content LIKE '%${keys}%'
+                OR site LIKE '%${keys}%'
+            </if>
+        </trim>
+        ORDER BY publish_time DESC
+        <if test="index != null and length != null">
+            LIMIT #{index},#{length}
+        </if>
+    </select>
+
+    <update id="updateApp" parameterType="com.oneworld.web.model.Appointment" >
+        update t_appointment
+        <set>
+            <if test="is_checked != null">
+                is_checked = #{is_checked,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+</mapper>

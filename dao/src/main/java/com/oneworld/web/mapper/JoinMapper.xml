@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oneworld.web.dao.JoinMapper">
+    <resultMap id="BaseResultMap" type="com.oneworld.web.model.Join">
+        <id column="pk_id" property="pk_id" jdbcType="INTEGER"/>
+        <result column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="appointment_id" property="appointment_id" jdbcType="VARCHAR"/>
+        <result column="join_account" property="join_account" jdbcType="VARCHAR"/>
+        <result column="want_join_time" property="want_join_time" jdbcType="TIMESTAMP"/>
+        <result column="t_join_time" property="t_join_time" jdbcType="TIMESTAMP"/>
+        <result column="join_or_not" property="join_or_not" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,appointment_id,join_account,want_join_time,t_join_time,join_or_not
+    </sql>
+
+    <insert id="insertJoin" parameterType="com.oneworld.web.model.Join">
+        insert into t_join (id,appointment_id,join_account,want_join_time,t_join_time,join_or_not)
+        values (#{id,jdbcType=VARCHAR},#{appointment_id,jdbcType=VARCHAR},#{join_account,jdbcType=VARCHAR}, #{want_join_time,jdbcType=TIMESTAMP},
+        #{t_join_time,jdbcType=TIMESTAMP}, #{join_or_not,jdbcType=INTEGER})
+    </insert>
+
+    <select id="queryJoinsByAppId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_join
+        WHERE appointment_id =#{appointment_id,jdbcType=VARCHAR}
+    </select>
+    <select id="queryJoinsByJoinAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_join
+        WHERE join_account = #{join_account,jdbcType=VARCHAR}
+    </select>
+
+    <select id="isJoined" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_join
+        WHERE join_account = #{join_account,jdbcType=VARCHAR} AND appointment_id = #{appointment_id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="queryWantJoinsByAppId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_join
+        WHERE appointment_id = #{appointment_id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findJoinByUserAccountAndId" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_join
+        WHERE join_account = #{join_account,jdbcType=VARCHAR} AND appointment_id = #{appointment_id,jdbcType=VARCHAR}
+    </select>
+
+    <update id="updateJoin" parameterType="com.oneworld.web.model.Join">
+        UPDATE t_join
+        <set>
+            <if test="want_join_time != null">
+                want_join_time = #{want_join_time,jdbcType = TIMESTAMP}
+            </if>
+            <if test="t_join_time != null">
+                t_join_time = #{t_join_time,jdbcType = TIMESTAMP}
+            </if>
+            <if test="join_or_not != null">
+                join_or_not = #{join_or_not,jdbcType = INTEGER}
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+</mapper>

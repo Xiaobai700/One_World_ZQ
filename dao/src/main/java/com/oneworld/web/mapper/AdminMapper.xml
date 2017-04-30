@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oneworld.web.dao.AdminMapper">
+    <resultMap id="BaseResultMap" type="com.oneworld.web.model.Admin">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="account" property="account" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="admin_name" property="admin_name" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="INTEGER"/>
+        <result column="regist_time" property="regist_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+       id,account,password,admin_name,sex,regist_time
+    </sql>
+
+    <insert id="insertAdmin" parameterType="com.oneworld.web.model.Admin">
+        insert into t_admin(id,account,password,admin_name,sex,regist_time)
+        values (#{id,jdbcType=INTEGER},#{account,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{admin_name,jdbcType=VARCHAR},#{sex,jdbcType=INTEGER},#{regist_time,jdbcType=TIMESTAMP})
+    </insert>
+
+    <delete id="deleteAdmin" parameterType="java.lang.String">
+        delete from t_admin
+        where account = #{account,jdbcType=VARCHAR}
+    </delete>
+
+    <select id="queryAdminPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_admin
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="account!=null and account!='' ">
+                and account = #{account,jdbcType=VARCHAR}
+            </if>
+            <if test="admin_name!=null and admin_name!='' ">
+                and admin_name = #{admin_name,jdbcType=VARCHAR}
+            </if>
+            <if test="sex!=null and sex!='' ">
+                and sex = #{sex,jdbcType=INTEGER}
+            </if>
+            <if test="keys!=null and keys!='' ">
+                AND admin_name LIKE '%${keys}%'
+                OR account LIKE '%${keys}%'
+            </if>
+        </trim>
+        ORDER BY regist_time DESC
+        <if test="index != null and length != null">
+            LIMIT #{index},#{length}
+        </if>
+    </select>
+
+    <select id="findAdminByAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_admin
+        WHERE account =#{account,jdbcType=VARCHAR}
+    </select>
+</mapper>

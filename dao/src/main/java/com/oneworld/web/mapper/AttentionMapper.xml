@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oneworld.web.dao.AttentionMapper">
+    <resultMap id="BaseResultMap" type="com.oneworld.web.model.Attention">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="carer_account" property="carer_account" jdbcType="VARCHAR"/>
+        <result column="attention_time" property="attention_time" jdbcType="TIMESTAMP"/>
+        <result column="user_account" property="user_account" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, carer_account, attention_time,user_account
+    </sql>
+
+    <insert id="insertAttention" parameterType="com.oneworld.web.model.Attention">
+        insert into t_attention (carer_account,attention_time,user_account)
+        values (#{carer_account,jdbcType=VARCHAR}, #{attention_time,jdbcType=TIMESTAMP},
+        #{user_account,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="findAttentionsBycarer_account" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_attention
+        WHERE carer_account = #{carer_account,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findAttentionsByCared_account" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_attention
+        WHERE user_account = #{user_account,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findAttentionByTwoAccount" parameterType="java.util.Map" resultMap="BaseResultMap">
+      SELECT
+      <include refid="Base_Column_List" />
+        FROM t_attention
+        WHERE user_account = #{user_account,jdbcType=VARCHAR} AND carer_account = #{carer_account,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

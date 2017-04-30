@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <classPathEntry
+            location="C:/Users/admin/.m2/repository/mysql/mysql-connector-java/5.1.26/mysql-connector-java-5.1.26.jar"/>
+    <context id="my" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressDate" value="false"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+                        <!--connectionURL="jdbc:mysql://120.27.138.43:3306/sunongtong?characterEncoding=UTF-8" userId="remoteuser"-->
+                        <!--password="remoteuser"/>-->
+
+        <!--<javaModelGenerator targetPackage="com.bandou.sunongtong.dao.model"-->
+                            <!--targetProject="D:\sunongtong\Server\sunongtong\src\main\java">-->
+            <!--<property name="enableSubPackages" value="true"/>-->
+            <!--<property name="trimStrings" value="true"/>-->
+        <!--</javaModelGenerator>-->
+
+        <!--<sqlMapGenerator targetPackage="com.bandou.sunongtong.dao.mapper"-->
+                         <!--targetProject="D:\sunongtong\Server\sunongtong\src\main\java">-->
+            <!--<property name="enableSubPackages" value="true"/>-->
+        <!--</sqlMapGenerator>-->
+
+        <!--<javaClientGenerator targetPackage="com.bandou.sunongtong.dao.dao"-->
+                             <!--targetProject="D:\sunongtong\Server\sunongtong\src\main\java"-->
+                             <!--type="XMLMAPPER">-->
+            <!--<property name="enableSubPackages" value="true"/>-->
+        <!--</javaClientGenerator>-->
+
+        <!--<table tableName="t_ad" domainObjectName="Ad"-->
+                       <!--enableCountByExample="false" enableUpdateByExample="false"-->
+                       <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+                       <!--selectByExampleQueryId="false" />-->
+        <!--<table tableName="t_brand" domainObjectName="Brand"-->
+                       <!--enableCountByExample="false" enableUpdateByExample="false"-->
+                       <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+                       <!--selectByExampleQueryId="false" />-->
+        <!--<table tableName="t_collection" domainObjectName="Collection"-->
+                       <!--enableCountByExample="false" enableUpdateByExample="false"-->
+                       <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+                       <!--selectByExampleQueryId="false" />-->
+        <!--<table tableName="t_comment" domainObjectName="Comment"-->
+                       <!--enableCountByExample="false" enableUpdateByExample="false"-->
+                       <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+                       <!--selectByExampleQueryId="false" />-->
+        <!--<table tableName="t_exchange" domainObjectName="Exchange"-->
+                       <!--enableCountByExample="false" enableUpdateByExample="false"-->
+                       <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+                       <!--selectByExampleQueryId="false" />-->
+        <!--<table tableName="t_expert" domainObjectName="Expert"-->
+                       <!--enableCountByExample="false" enableUpdateByExample="false"-->
+                       <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+                       <!--selectByExampleQueryId="false" />-->
+        <!--<table tableName="t_idea" domainObjectName="Idea"-->
+                       <!--enableCountByExample="false" enableUpdateByExample="false"-->
+                       <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+                       <!--selectByExampleQueryId="false" />-->
+        <!--<table tableName="t_interlocution" domainObjectName="Interlocution"-->
+                       <!--enableCountByExample="false" enableUpdateByExample="false"-->
+                       <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+                       <!--selectByExampleQueryId="false" />-->
+        <!--<table tableName="t_news" domainObjectName="News"-->
+                       <!--enableCountByExample="false" enableUpdateByExample="false"-->
+                       <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+                       <!--selectByExampleQueryId="false" />-->
+        <!--<table tableName="t_notice" domainObjectName="Notice"-->
+                       <!--enableCountByExample="false" enableUpdateByExample="false"-->
+                       <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+                       <!--selectByExampleQueryId="false" />-->
+        <!--<table tableName="t_read" domainObjectName="Read"-->
+                       <!--enableCountByExample="false" enableUpdateByExample="false"-->
+                       <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+                       <!--selectByExampleQueryId="false" />-->
+        <!--<table tableName="t_special" domainObjectName="Special"-->
+                       <!--enableCountByExample="false" enableUpdateByExample="false"-->
+                       <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+                       <!--selectByExampleQueryId="false" />-->
+        <!--<table tableName="t_special_type" domainObjectName="SpecialType"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false" />-->
+        <!--<table tableName="t_type" domainObjectName="Type"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false" />-->
+        <!--<table tableName="t_user" domainObjectName="User"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false" />-->
+        <!--<table tableName="t_video" domainObjectName="Video"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false" />-->
+
+        <!--<table tableName="t_edition" domainObjectName="Edition"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false" />-->
+
+        <!--<table tableName="t_admin" domainObjectName="Admin"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false" />-->
+        <!--<table tableName="t_code" domainObjectName="Code"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false" />-->
+        <!--<table tableName="t_model" domainObjectName="Model"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false" />-->
+       <!-- <table tableName="t_question" domainObjectName="Question"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false" />-->
+        <!--<table tableName="t_city" domainObjectName="City"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false" />-->
+        <!--<table tableName="t_district" domainObjectName="District"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false" />-->
+
+        <!--<table tableName="t_street" domainObjectName="Street"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false" />-->
+        <!--<table tableName="t_video_type" domainObjectName="VideoType"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false" />-->
+        <!--<table tableName="t_news_association" domainObjectName="NewsAssociation"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false" />-->
+        <table tableName="t_phonesms" domainObjectName="NewsAssociation"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false" />
+
+    </context>
+</generatorConfiguration>

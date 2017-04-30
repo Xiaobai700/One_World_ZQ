@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oneworld.web.dao.CommentMapper">
+    <resultMap id="BaseResultMap" type="com.oneworld.web.model.Comment">
+        <id column="pk_id" property="pk_id" jdbcType="INTEGER"/>
+        <result column="id" property="id" jdbcType="VARCHAR" />
+        <result column="target_id" property="target_id" jdbcType="VARCHAR"/>
+        <result column="comment_content" property="comment_content" jdbcType="VARCHAR"/>
+        <result column="comment_time" property="comment_time" jdbcType="TIMESTAMP"/>
+        <result column="commenter_account" property="commenter_account" jdbcType="VARCHAR"/>
+        <result column="reply_times" property="reply_times" jdbcType="INTEGER"/>
+        <result column="label" property="label" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,target_id,comment_content,comment_time,commenter_account,reply_times,label
+    </sql>
+
+    <insert id="insertComment" parameterType="com.oneworld.web.model.Comment">
+        insert into t_comment (id,target_id,comment_content,comment_time,commenter_account,reply_times,label)
+        values (#{id,jdbcType=VARCHAR}, #{target_id,jdbcType=VARCHAR}, #{comment_content,jdbcType=VARCHAR},
+        #{conment_time,jdbcType=TIMESTAMP}, #{commenter_account,jdbcType=VARCHAR}, #{reply_times,jdbcType=INTEGER},#{label,jdbcType=INTEGER})
+    </insert>
+
+    <delete id="deleteComment" parameterType="java.lang.String">
+        delete
+        FROM t_comment
+        WHERE id= #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <select id="queryCommentsByTargetIdAndLabel" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_comment
+        WHERE target_id = #{target_id,jdbcType=VARCHAR} AND label = #{label,jdbcType=INTEGER}
+    </select>
+
+    <select id="findCommentById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_comment
+        WHERE id=#{id,idbcType=VARCHAR}
+    </select>
+</mapper>

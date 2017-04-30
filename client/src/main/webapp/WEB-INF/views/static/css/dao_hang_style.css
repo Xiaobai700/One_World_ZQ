@@ -1,0 +1,95 @@
+/*导航栏*/
+nav{
+    height: 105px;
+    background-color: #a9dba9;
+}
+/*包含logo和登陆者的头像*/
+.dh_div_left{
+    float: left;
+}
+.dh_div_logo{
+    padding: 10px;
+}
+/*登陆者头像*/
+.dh_div_dl_tx{
+    width: 50px;
+    height: 185px;
+    margin-top: -100px;
+    margin-left: 240px;
+}
+.xian{
+    margin-left: 24px;
+    width: 4px;
+    height: 124px;
+    background-color: #FFCCFF;
+}
+.dl_tx img{
+    width: 50px;
+    height: 50px;
+    border-radius:25px;
+}
+/*右边菜单*/
+.dh_div_right{
+    float: right;
+    margin-top: 20px;
+}
+.dh_div_right ul li:not(.a){
+    display: inline-block;
+    list-style: none;
+    width: 80px;
+}
+.dh_div_right li a{
+    color: black;
+}
+.cai_dan{
+    width: 66px;
+    height:30px;
+    border:1px solid black;
+    text-align: center;
+    display: table-cell;/*让div中的文字纵向居中*/
+    vertical-align:middle;/*让div中的文字纵向居中*/
+    box-shadow: 5px 5px 5px #0e0e0e;
+    background-color: pink;
+}
+.cai_dan:hover{
+    background-color: #F47A7A;
+}
+.zhu_ce{
+    border-right: 2px solid darkgrey;
+}
+.hd{
+    border-radius: 4px;
+    display: none;
+    width:90px;
+    background-color: pink;
+    position: absolute;
+    z-index: 8000;
+    margin-left: -17px;
+    text-align: center;
+}
+.hd li{
+    width: 100px;
+    list-style: none;
+    margin-left:-39px;
+}
+.message{
+    border-radius: 4px;
+    display: none;
+    width:180px;
+    background-color: whitesmoke;
+    position: absolute;
+    z-index: 8000;
+    margin-left: -53px;
+    text-align: center;
+}
+
+.message li{
+    width: 180px;
+    list-style: none;
+    margin-left:-39px;
+}
+/*主页的底部*/
+footer{
+    height: 140px;
+    background-color: #E5E5E5;
+}
