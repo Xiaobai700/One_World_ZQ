@@ -37,13 +37,15 @@ public class DisscussServiceImpl implements DiscussService {
             String discuss_title =(String) map.get("title");
             String question_describe = (String) map.get("description");
             String account = (String) map.get("account");
+            String industry_id = (String) map.get("industry_id");
+
             Discuss discuss  = new Discuss();
             discuss.setId(UUID.randomUUID().toString());
             discuss.setAnswer_times(0);
             discuss.setAsker_account(account);
             discuss.setDiscuss_title(discuss_title);
             discuss.setQuestion_describe(question_describe);
-            discuss.setIndustry_id(0);
+            discuss.setIndustry_id(industry_id);
             discuss.setIs_over(0);
             discuss.setAsk_time(new Timestamp(new Date().getTime()));
             discussMapper.insertDiscuss(discuss);
@@ -149,10 +151,12 @@ public class DisscussServiceImpl implements DiscussService {
                 UserInfo discussUser = userinfoMapper.findUserInfoByAccount(discuss.getAsker_account());
                 List<Answer> answerList = answerMapper.findAnswersByDiscuss_id(id);
                 if(answerList.size()>0){
+                    SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     for (Answer a:answerList) {
                         Map<String,Object> answer = new HashedMap();
                         UserInfo userInfo = userinfoMapper.findUserInfoByAccount(a.getAnswer_account());
                         answer.put("answer",a);
+                        answer.put("answerTime",fmt.format(a.getAnswer_time()));
                         answer.put("answeUser",userInfo);
                         answers.add(answer);
                     }

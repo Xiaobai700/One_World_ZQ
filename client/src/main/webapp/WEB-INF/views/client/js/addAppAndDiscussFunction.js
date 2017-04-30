@@ -21,54 +21,54 @@ $(function () {
 
 /**关于websocket*/
 var account = $("#account").val();
-var ws ;
-var url = "ws://localhost:8080/hello?"+account;
+    var ws ;
+    var url = "ws://localhost:8080/hello?"+account;
 // ws = new WebSocket("ws://localhost:8080/hello?"+account);
-if ('WebSocket' in window) {
-    ws = new WebSocket(url);
-} else if ('MozWebSocket' in window) {
-    ws = new MozWebSocket(url);
-} else {
-    alert('WebSocket is not supported by this browser.');
-}
-ws.onopen = function(evn){
-    console.log("就是这个信息："+evn.toString());
-};
-var messageNumber = 0;
-ws.onmessage = function(evn){
-    var dv = document.getElementById("dv");
-    var size = document.getElementById("size");
-    var underSize = document.getElementById("underSize");
-    var messageDetail = document.getElementById("messageDetail");
+    if ('WebSocket' in window) {
+        ws = new WebSocket(url);
+    } else if ('MozWebSocket' in window) {
+        ws = new MozWebSocket(url);
+    } else {
+        alert('WebSocket is not supported by this browser.');
+    }
+    ws.onopen = function(evn){
+        console.log("就是这个信息："+evn.toString());
+    };
+    var messageNumber = 0;
+    ws.onmessage = function(evn){
+        var dv = document.getElementById("dv");
+        var size = document.getElementById("size");
+        var underSize = document.getElementById("underSize");
+        var messageDetail = document.getElementById("messageDetail");
 
-    // if(evn.data != undefined){
-    //         dv.innerHTML+=evn.data;
-    //     }else {
-            var message = JSON.parse(evn.data);
-            console.log(message);
-            console.log(message.message);
-            if(Array.isArray(message.message)){
-                messageNumber = message.messageSize;
-                // messageDetail.innerHTML = '<i class="fa fa-envelope fa-fw"></i>'+messageNumber+'条未读消息';
-                $.each(message.message,function () {
-                    dv.innerHTML+=this.content;
-                    messageDetail.innerHTML+= "<span class='small' style='color: #5BC4C8;;'>"+this.sendTime+"</span><br />"+this.content+"<br />";
-                });
-                size.innerHTML = message.messageSize;
-                underSize.innerHTML = messageNumber;
-                // messageDetail.innerHTML = '<i class="fa fa-envelope fa-fw"></i>'+messageNumber+'条未读消息 <span class="pull-right text-muted small">4分钟前</span>';
-            }else {
-                dv.innerHTML+=message.message.content;
-                toastr.info(message.message.content);
-                // toast(message.message.content,"消息");
-                messageNumber += 1;
-                size.innerHTML = "";
-                size.innerHTML += messageNumber;
-                underSize.innerHTML ="";
-                underSize.innerHTML += messageNumber;
-                messageDetail.innerHTML+= "<span class='small' style='color: #5BC4C8;;'>"+message.message.sendTime+"</span><br />"+message.message.content+"<br />";
+        // if(evn.data != undefined){
+        //         dv.innerHTML+=evn.data;
+        //     }else {
+        var message = JSON.parse(evn.data);
+        console.log(message);
+        console.log(message.message);
+        if(Array.isArray(message.message)){
+            messageNumber = message.messageSize;
+            // messageDetail.innerHTML = '<i class="fa fa-envelope fa-fw"></i>'+messageNumber+'条未读消息';
+            $.each(message.message,function () {
+                dv.innerHTML+=this.content;
+                messageDetail.innerHTML+= "<span class='small' style='color: #5BC4C8;;'>"+this.sendTime+"</span><br />"+this.content+"<br />";
+            });
+            size.innerHTML = message.messageSize;
+            underSize.innerHTML = messageNumber;
+            // messageDetail.innerHTML = '<i class="fa fa-envelope fa-fw"></i>'+messageNumber+'条未读消息 <span class="pull-right text-muted small">4分钟前</span>';
+        }else {
+            dv.innerHTML+=message.message.content;
+            toastr.info(message.message.content);
+            // toast(message.message.content,"消息");
+            messageNumber += 1;
+            size.innerHTML = "";
+            size.innerHTML += messageNumber;
+            underSize.innerHTML ="";
+            underSize.innerHTML += messageNumber;
+            messageDetail.innerHTML+= "<span class='small' style='color: #5BC4C8;;'>"+message.message.sendTime+"</span><br />"+message.message.content+"<br />";
 
-            }
+        }
 
     // }
     /*统一的接收格式*/
@@ -101,6 +101,7 @@ function addAppPage(title,url) {
         }
     });
 }
+/*加入约伴活动*/
 function add_app() {
     var sex_restrict = $("#sex_restrict").val();
     var theme = $("#theme").val();
@@ -143,7 +144,7 @@ function add_app() {
     }
 
 }
-/*发布讨论活动*/
+/*发布讨论活动弹出层*/
 function addDiscussPage(title,url) {
     var editor = url;
     var w = 400;
@@ -163,19 +164,31 @@ function addDiscussPage(title,url) {
 }
 /*发起一个讨论*/
 function add_discuss() {
-    $.ajax({
-        url:"add-discuss.action",
-        type:"post",
-        data:{
-            title:$("#discuss_title").val(),
-            description:$("#question_describe").val()
-        },
-        dataType:"text",
-        success:function(data){
-            /* 增加一个讨论时候跳转至按时间排序的讨论页面 */
-            parent.location.href="discussPageNew.do";
-        }
-    });
+    var industry_id = $("#industry").val();
+    var discuss_title = $("#discuss_title").val();
+    var des = $("#question_describe").val();
+    if(industry_id == -1){
+        layer.msg("请选择问题所属的行业");
+    }else if(discuss_title.trim() == ""){
+        layer.msg("标题不可为空！");
+    }else if(des.trim() == ""){
+        layer.msg("问题描述不可为空！");
+    }else {
+        $.ajax({
+            url:"add-discuss.action",
+            type:"post",
+            data:{
+                title:discuss_title,
+                description:des,
+                industry_id:industry_id
+            },
+            dataType:"text",
+            success:function(data){
+                /* 增加一个讨论时候跳转至按时间排序的讨论页面 */
+                parent.location.href="discussPageNew.do";
+            }
+        });
+    }
 }
 
 /*加入约伴活动*/
@@ -204,7 +217,6 @@ function join_app(id) {
     });
 }
 
-/*关注某用户*/
 /*var ws ;
 ws = new WebSocket("ws://localhost:8080/hello");
 ws.onopen = function(evn){
@@ -218,6 +230,7 @@ ws.onmessage = function(evn){
 ws.onclose = function(){
     console.log("关闭");
 };*/
+/*关注某用户*/
 function careUser(user_account) {
    /* var ws ;
     ws = new WebSocket("ws://localhost:8080/hello?"+user_account);*/
@@ -235,14 +248,93 @@ function careUser(user_account) {
                     // var dataObj=eval("("+data+")");
                     layer.msg(data.msg);
                     if(data.code == 0){
-                        window.location.reload();
-                        /*ws相关的代码*/
                         /*把关注的目标用户的账号发给服务器*/
                         ws.send(user_account+','+1);
+                        /*在发送消息之后刷新页面*/
+                        window.location.reload();
                     }
                 }
             });
         }
 
     });
+}
+
+function answerDiscuss(account,discussId,label) {
+var answerContent = $("#my_reply").val();
+    if($("#account").val() == "") {
+        layer.msg("你还未登陆,请先登陆!");
+    }else {
+        layer.confirm("确定回答？",function (index) {
+            if(answerContent.trim() == ""){
+                layer.msg("回答内容不可为空哦！")
+            }else {
+                $.ajax({
+                    url:"answerDiscuss.action",
+                    type:"post",
+                    data:{
+                        discussId:discussId,
+                        answerContent:answerContent
+                    },
+                    success:function(data){
+                        layer.msg(data.msg);
+                        if(data.code == 0){
+                            $("#my_reply").val("");
+                            /*把 目标用户的账号 消息的类型  评论的类型 帖子的id 发给服务器*/
+                            ws.send(account+','+5+','+label+','+discussId);
+                            window.location.reload();
+                        }
+                    }
+                });
+            }
+        })
+    }
+}
+/**关于对问题的回复的评论1 对约伴活动的评论2 对分享的评论3
+ * ******************************************************************/
+/*对约伴活动的评论*/
+function commentAPP(account,targetId,label) {
+    var content = "";
+    switch(label){
+        case 1:
+            break;
+        case 2:
+            content = $("#commentContent").val();
+            break;
+        case 3:
+            content = $("#commentContent").val();
+            break;
+    }
+    if($("#account").val() == "") {
+        layer.msg("你还未登陆,请先登陆!");
+    }else {
+        /*加这个判断之后 分享的详情的评论因为是弹出层所有 内容较多的时候 探矿不显示 于是去掉*/
+        // layer.confirm("确定评论？",function (index) {
+            if(content.trim() == ""){
+                layer.msg("评论内容不可为空哦！");
+            }else {
+                $.ajax({
+                    url:"commentInvitation.action",
+                    type:"post",
+                    data:{
+                        targetId:targetId,
+                        label:label,
+                        content:content
+                    },
+                    success:function(data){
+                        // var dataObj=eval("("+data+")");
+                        layer.msg(data.msg);
+                        if(data.code == 0){
+                            $("#commentContent").val("");
+                            /*把 目标用户的账号 消息的类型  评论的类型 帖子的id 发给服务器*/
+                            ws.send(account+','+5+','+label+','+targetId);
+                            /*此处如果也main更新的语句放置发送提示之前 则消息提示不了*/
+                            window.location.reload();
+                        }
+                    }
+                });
+            }
+        // });
+    }
+
 }

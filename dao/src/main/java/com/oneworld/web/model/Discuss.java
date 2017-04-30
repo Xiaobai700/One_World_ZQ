@@ -10,7 +10,7 @@ private String discuss_title;
 private String question_describe;
 private Timestamp ask_time;
 private Integer answer_times;
-private Integer industry_id;
+private String industry_id;
 private Integer is_over;
 
 	public String getId() {
@@ -52,11 +52,11 @@ public void setAnswer_times(Integer answer_times) {
 	this.answer_times = answer_times;
 }
 
-	public Integer getIndustry_id() {
+	public String getIndustry_id() {
 		return industry_id;
 	}
 
-	public void setIndustry_id(Integer industry_id) {
+	public void setIndustry_id(String industry_id) {
 		this.industry_id = industry_id;
 	}
 

@@ -86,9 +86,11 @@ public class ShareController {
     @RequestMapping("shareDetail.do")
     public ModelAndView shareDetailPage(HttpServletRequest request,HttpServletResponse response,String id){
         ModelAndView modelAndView = new ModelAndView("/client/share/shareDetail");
+        String account = (String)request.getSession().getAttribute("account");
         Map returnMap = new HashMap();
         returnMap = shareService.findShareById(id);
         modelAndView.addObject("index",returnMap);
+        modelAndView.addObject("account",account);
         return modelAndView;
     }
 

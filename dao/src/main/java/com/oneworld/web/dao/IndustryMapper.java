@@ -12,7 +12,7 @@ public interface IndustryMapper {
 //    增加一种行业
     public int insertIndustry(Industry industry);
 //    删除一种行业
-    public int deleteIndustry(int id);
+    public int deleteIndustry(String id);
 //    修改行业信息
     public int updateIndustry(Industry industry);
 //    查看所有行业
@@ -20,7 +20,7 @@ public interface IndustryMapper {
 //    根据名称查询行业
     public Industry findIndustryByName(String industry_name);
 //        根据id查询行业
-    public Industry findIndustryById(int id);
+    public Industry findIndustryById(String id);
 //    分页查看（后台管理）
     public List<Industry> queryIndustryPage(Map map);
 }

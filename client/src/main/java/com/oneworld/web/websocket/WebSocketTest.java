@@ -2,10 +2,13 @@ package com.oneworld.web.websocket;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.oneworld.web.model.Message;
-import com.oneworld.web.model.UserInfo;
+import com.oneworld.web.dao.AppointmentMapper;
+import com.oneworld.web.dao.DiscussMapper;
+import com.oneworld.web.dao.ShareMapper;
+import com.oneworld.web.model.*;
 import com.oneworld.web.service.MessageService;
 import com.oneworld.web.service.UserInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.server.standard.SpringConfigurator;
 
 import javax.annotation.Resource;
@@ -28,6 +31,12 @@ public class WebSocketTest {
     private MessageService messageService;
     @Resource
     private UserInfoService userInfoService;
+    @Resource
+    private AppointmentMapper appointmentMapper;
+    @Resource
+    private DiscussMapper discussMapper;
+    @Autowired
+    private ShareMapper shareMapper;
 
     private String account;
     private UserInfo userInfo;
@@ -76,16 +85,15 @@ public class WebSocketTest {
     @OnMessage
     public void onsend(Session session,String msg){
         try {
-//    接收到的msg数据是被关注用户的账号
-            String account = msg.split(",")[0];
+            String objectUserAccount = msg.split(",")[0];
             Integer type =Integer.parseInt(msg.split(",")[1]);
-            Session to_sesstion = this.messmapsession.get(account);
+            Session to_sesstion = this.messmapsession.get(objectUserAccount);
             Map requestMap = new HashMap();
             requestMap.put("type",type);
             requestMap.put("sender",this.account);
-            requestMap.put("receiver",account);
+            requestMap.put("receiver",objectUserAccount);
             String content = "";
-            /*在这里对情况进行区分 1是关注  2是加入活动  3.是 是否同意加入活动  4.点赞等*/
+            /*在这里对情况进行区分 1是关注  2是加入活动  3.是 是否同意加入活动  4.点赞 5.评论等*/
             switch (type){
                 case 1:
                     content = "<a>"+userInfo.getNickName()+"</a>关注了你！";
@@ -96,8 +104,31 @@ public class WebSocketTest {
                     break;
                 case 4:
                     break;
+                case 5:
+                    String invitaionId = msg.split(",")[3];
+                    Integer label = Integer.parseInt(msg.split(",")[2]);
+                    switch (label){
+                        /*对问题回答的评论*/
+                        case 1:
+                            break;
+                        /*对约伴活动的评论*/
+                        case 2:
+                            Appointment appointment = appointmentMapper.findAppointmentById(invitaionId);
+                            content ="<a>"+userInfo.getNickName()+"</a>评论了你发布的主题为<a>"+appointment.getTheme()+"</a>的活动";
+                            break;
+                        /*对分享的评论*/
+                        case 3:
+                            Share share = shareMapper.findShareById(invitaionId);
+                            content = "<a>"+userInfo.getNickName()+"</a>评论了你标题为<a>"+share.getShare_title()+"</a>的分享";
+                            break;
+                        /*对讨论的回答*/
+                        case 4:
+                            Discuss discuss = discussMapper.findDiscussById(invitaionId);
+                            content = "<a>"+userInfo.getNickName()+"</a>回答了你标题为<a>"+discuss.getDiscuss_title()+"</a>的问题";
+                            break;
+                    }
+                    break;
             }
-            requestMap.put("content","<a>"+userInfo.getNickName()+"</a>关注了你！");
             requestMap.put("content",content);
             if(to_sesstion != null){
                 /**对方在线
@@ -107,7 +138,7 @@ public class WebSocketTest {
                 messageService.sendMessage(requestMap);
 
                 Message message = new Message();
-                message.setContent("<a>"+userInfo.getNickName()+"</a>关注了你！");
+                message.setContent(content);
                 message.setSendTime(new Timestamp(new Date().getTime()));
 
                 Map returnMap = new HashMap();

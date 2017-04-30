@@ -1,6 +1,7 @@
 package com.oneworld.web.service.impl;
 
 import com.oneworld.web.constant.ParameterConstant;
+import com.oneworld.web.constant.RequestConstant;
 import com.oneworld.web.dao.CommentMapper;
 import com.oneworld.web.dao.UserinfoMapper;
 import com.oneworld.web.model.Comment;
@@ -27,7 +28,16 @@ public class CommentServiceImpl implements CommentService{
     private UserinfoMapper userinfoMapper;
 
     public Map insertComment(Comment comment) {
-        return null;
+        Map returnMap = new HashMap();
+        try{
+            commentMapper.insertComment(comment);
+            returnMap.put(ParameterConstant.RETURN_CODE,0);
+            returnMap.put(ParameterConstant.RETURN_MSG,"评论成功！");
+        }catch (Exception e){
+            e.printStackTrace();
+            returnMap = RequestConstant.getRequestDesCode(-1);
+        }
+        return  returnMap;
     }
 
     public Map deleteComment(String id) {
@@ -42,9 +52,9 @@ public class CommentServiceImpl implements CommentService{
             requestMap.put("label",label);
             List<Comment> commentList = commentMapper.queryCommentsByTargetIdAndLabel(requestMap);
             List<Map<String,Object>> commentResult = new ArrayList<Map<String, Object>>();
-            Map<String,Object> commentMap = new HashedMap();
             if(commentList.size()>0){
                 for (Comment comment:commentList) {
+                    Map<String,Object> commentMap = new HashedMap();
                     /*评论者的信息*/
                     UserInfo userInfo = userinfoMapper.findUserInfoByAccount(comment.getCommenter_account());
                     commentMap.put("userInfo",userInfo);

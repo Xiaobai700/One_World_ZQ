@@ -5,7 +5,7 @@ import com.oneworld.web.model.Comment;
 import java.util.Map;
 
 public interface CommentService {
-	//增加一个评论
+		//增加一个评论
 		public Map insertComment(Comment comment);
 		//根据评论的id，删除一个评论
 		public Map deleteComment(String id);

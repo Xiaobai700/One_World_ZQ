@@ -18,7 +18,7 @@
     <insert id="insertComment" parameterType="com.oneworld.web.model.Comment">
         insert into t_comment (id,target_id,comment_content,comment_time,commenter_account,reply_times,label)
         values (#{id,jdbcType=VARCHAR}, #{target_id,jdbcType=VARCHAR}, #{comment_content,jdbcType=VARCHAR},
-        #{conment_time,jdbcType=TIMESTAMP}, #{commenter_account,jdbcType=VARCHAR}, #{reply_times,jdbcType=INTEGER},#{label,jdbcType=INTEGER})
+        #{comment_time,jdbcType=TIMESTAMP}, #{commenter_account,jdbcType=VARCHAR}, #{reply_times,jdbcType=INTEGER},#{label,jdbcType=INTEGER})
     </insert>
 
     <delete id="deleteComment" parameterType="java.lang.String">

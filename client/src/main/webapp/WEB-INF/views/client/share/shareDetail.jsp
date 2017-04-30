@@ -24,7 +24,7 @@
     <script src="static/js/index_js.js"></script>
     <%--layer--%>
     <script type="text/javascript" src="../../static/js/layer/2.1/layer.js"></script>
-    <script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>
+
     <style type="text/css">
         .share_contents img{
             margin-left:38px;
@@ -35,6 +35,7 @@
     <title>分享详情</title>
 </head>
 <body>
+<input type="hidden" value="${account}" id="account">
 <!--  -->
 <div style="padding-left: 10px;padding-right: 10px;">
     <div style="margin-top: 10px;">
@@ -76,21 +77,22 @@
             </ul>
         </div>
     </c:forEach>
-    <div style="margin-top: 20px;">
+    <div style="margin-top: 20px;margin-bottom: 30px;">
         <div style="margin-bottom: 20px;">
             <h4>我的评论</h4>
         </div>
-        <form action="commentShare.do?target_id=${shares1.share.id }">
             <div class="input-group">
-                <input type="text" class="form-control" name="comment_content">
+                <input type="text" class="form-control" id="commentContent">
                 <input type="hidden" value="" name="target_id">
                 <span class="input-group-btn">
-                    <button class="btn btn-success" type="submit">发表评论</button>
+                    <button class="btn btn-success" onclick="commentAPP(${index.editor.account},'${index.share.id}',3)">发表评论</button>
                   </span>
             </div>
-        </form>
     </div>
 </div>
 <!--  -->
+<script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>
+<script src="../../static/js/toastr.min.js"></script>
+<script src="../../static/js/toast.js"></script>
 </body>
 </html>

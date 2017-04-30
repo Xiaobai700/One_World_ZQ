@@ -846,7 +846,11 @@ dsy.add("0_33",["台北","高雄","台中","花莲","基隆","嘉义","金门","
                 	<div class="col-md-6"><!-- 职业 -->
                 	<div>职业: ${userInfo.job }</div>
 			                <select id="job-select" class="form-control duckr-select" data-reactid=".0.1.1.1.1.0.3.0.1" value="">
-			                <option data-reactid=".0.1.1.1.1.0.3.0.1.0">计算机/互联网/通讯</option>
+                                <option value="-1">请选择</option>
+                                <c:forEach var="industry" items="${industries}">
+                                    <option data-reactid=".0.1.1.1.1.0.3.0.1.0">${industry.industry_name}</option>
+                                </c:forEach>
+			               <%-- <option data-reactid=".0.1.1.1.1.0.3.0.1.0">计算机/互联网/通讯</option>
 			                <option data-reactid=".0.1.1.1.1.0.3.0.1.1">商业/服务业/个体经营</option>
 			                <option data-reactid=".0.1.1.1.1.0.3.0.1.2">金融/银行/投资/保险</option>
 			                <option data-reactid=".0.1.1.1.1.0.3.0.1.3">文化/广告/传媒</option>
@@ -855,7 +859,7 @@ dsy.add("0_33",["台北","高雄","台中","花莲","基隆","嘉义","金门","
 			                <option data-reactid=".0.1.1.1.1.0.3.0.1.6">律师/法务</option>
 			                <option data-reactid=".0.1.1.1.1.0.3.0.1.7">教育/培训</option>
 			                <option data-reactid=".0.1.1.1.1.0.3.0.1.8">公务员/事业单位</option>
-			                <option data-reactid=".0.1.1.1.1.0.3.0.1.9">学生</option>
+			                <option data-reactid=".0.1.1.1.1.0.3.0.1.9">学生</option>--%>
 			                </select>
                 	</div>
                 	<div class="col-md-6">

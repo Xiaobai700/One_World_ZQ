@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Master ZQ
@@ -39,6 +40,15 @@
                 <div style="width: 88%;margin-left: 20px;">
                     <input type="text" id="discuss_title" placeholder="输入问题" class="form-control"><br />
                     <textarea id="question_describe" placeholder="输入问题描述" class="form-control"></textarea>
+                    <select id="industry" class="form-control">
+                        <option value="-1">请选择问题所属的行业</option>
+                        <c:forEach var="industry" items="${industries}">
+                            <option value="${industry.id}">
+                                ${industry.industry_name}
+                            </option>
+                        </c:forEach>
+
+                    </select>
                 </div>
                 <button type="button" onclick="add_discuss()" class="btn btn-primary discuss_btn" style="margin-top: 10px;">发起活动</button>
 </div>

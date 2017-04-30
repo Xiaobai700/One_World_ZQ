@@ -30,6 +30,7 @@
     <link href="../../static/css/animate.min.css" rel="stylesheet">
     <link href="../../static/css/style.min862f.css?v=4.1.0" rel="stylesheet">
     <script src="../../static/js/jquery-1.8.3.min.js"></script>
+
     <%--<script type="text/javascript" src="../../static/js/jquery.min.js?v=2.1.4"></script>--%>
     <script type="text/javascript" src="../../static/js/bootstrap.min.js?v=3.3.6"></script>
     <script type="text/javascript" src="../../static/js/content.min.js?v=1.0.0"></script>
@@ -38,7 +39,7 @@
     <script src="../../static/js/index_js.js"></script>
     <%--layer--%>
     <script type="text/javascript" src="../../static/js/layer/2.1/layer.js"></script>
-    <script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>
+    <%--<script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>--%>
     <title>约伴详情</title>
     <script type="text/javascript">
 
@@ -187,15 +188,16 @@
                     </div>
                     <!--评论框-->
                     <div class="input-group">
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="commentContent">
                         <span class="input-group-btn">
-                    <button class="btn btn-success" type="button">发表评论</button>
+                    <button class="btn btn-success" type="button" onclick="commentAPP(${index.find_userInfo.account },'${index.appointment.id}',2)">发表评论</button>
                   </span>
                     </div>
         </div>
 </div>
     </div>
 </div>
+<div id="dv"></div>
 <footer>
     <div>
         <br />
@@ -226,5 +228,8 @@
         $(this).find("div.other").hide();
     })
 </script>
+<script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>
+<script src="../../static/js/toastr.min.js"></script>
+<script src="../../static/js/toast.js"></script>
 </body>
 </html>

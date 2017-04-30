@@ -17,7 +17,7 @@
     <insert id="insertAnswer" parameterType="com.oneworld.web.model.Answer">
         insert into t_answer (id, discuss_id, answer_account,
         answer_content, answer_time, agree_times)
-        values (#{id,jdbcType=VARCAHR}, #{discuss_id,jdbcType=VARCHAR}, #{answer_account,jdbcType=VARCHAR},
+        values (#{id,jdbcType=VARCHAR}, #{discuss_id,jdbcType=VARCHAR}, #{answer_account,jdbcType=VARCHAR},
         #{answer_content,jdbcType=VARCHAR}, #{answer_time,jdbcType=TIMESTAMP}, #{agree_times,jdbcType=INTEGER})
     </insert>
 

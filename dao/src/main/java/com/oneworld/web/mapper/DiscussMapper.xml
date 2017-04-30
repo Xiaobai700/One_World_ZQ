@@ -9,7 +9,7 @@
         <result column="question_describe" property="question_describe" jdbcType="VARCHAR"/>
         <result column="ask_time" property="ask_time" jdbcType="TIMESTAMP"/>
         <result column="answer_times" property="answer_times" jdbcType="INTEGER"/>
-        <result column="industry_id" property="industry_id" jdbcType="INTEGER"/>
+        <result column="industry_id" property="industry_id" jdbcType="VARCHAR"/>
         <result column="is_over" property="is_over" jdbcType="INTEGER"/>
     </resultMap>
     <sql id="Base_Column_List">
@@ -19,7 +19,7 @@
     <insert id="insertDiscuss" parameterType="com.oneworld.web.model.Discuss">
         insert into t_discuss (id,asker_account,discuss_title,question_describe,ask_time,answer_times,industry_id,is_over)
         values (#{id,jdbcType=VARCHAR},#{asker_account,jdbcType=VARCHAR},#{discuss_title,jdbcType=VARCHAR},
-        #{question_describe,jdbcType=VARCHAR}, #{ask_time,jdbcType=TIMESTAMP}, #{answer_times,jdbcType=INTEGER},#{industry_id,jdbcType=INTEGER},
+        #{question_describe,jdbcType=VARCHAR}, #{ask_time,jdbcType=TIMESTAMP}, #{answer_times,jdbcType=INTEGER},#{industry_id,jdbcType=VARCHAR},
         #{is_over,jdbcType=INTEGER})
     </insert>
 

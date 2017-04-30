@@ -1,8 +1,10 @@
 package com.oneworld.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.oneworld.web.dao.IndustryMapper;
 import com.oneworld.web.model.Attention;
 import com.oneworld.web.model.IPTimeStamp;
+import com.oneworld.web.model.Industry;
 import com.oneworld.web.model.UserInfo;
 import com.oneworld.web.service.AttentionService;
 import com.oneworld.web.service.IndexService;
@@ -42,6 +44,9 @@ public class UserController {
     @Autowired
     private AttentionService attentionService;
 
+    @Autowired
+    private IndustryMapper industryMapper;
+
     @RequestMapping("userLogin.action")
     @ResponseBody
     public void userLogin(HttpServletRequest request, HttpServletResponse response,
@@ -80,7 +85,9 @@ public class UserController {
             Map requestMap = new HashedMap();
             requestMap.put("account",account);
             returnMap = (Map) indexService.userSpace(requestMap).get("data");
+            List<Industry> industries = industryMapper.queryAllIndustry();
             modelAndView.addObject("index",returnMap);
+            modelAndView.addObject("industries",industries);
             return modelAndView;
         }
     }

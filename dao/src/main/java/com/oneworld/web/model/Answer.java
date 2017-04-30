@@ -4,17 +4,18 @@ import java.sql.Timestamp;
 
 public class Answer {
 	private Integer pk_id;
-	private int id;
+	private String id;
 	private String discuss_id;
 	private String answer_account;
 	private String answer_content;
 	private Timestamp answer_time;//回答的时间
 	private int agree_times;//点赞数
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+
+	public void setId(String id) {
 		this.id = id;
 	}
 

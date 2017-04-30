@@ -61,6 +61,9 @@ private AppTypeService appTypeService;
 
 @Autowired
 private AppTypeMapper appTypeMapper;
+
+@Autowired
+private IndustryMapper industryMapper;
 /**首页*/
     public Map indexAll(Map map) {
         Map returnMap = new HashMap();
@@ -250,6 +253,9 @@ private AppTypeMapper appTypeMapper;
 //                获得这个讨论的作者的信息
                 UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(d.getAsker_account()).get("data");
                 String time = fmt.format(d.getAsk_time());
+//                获得讨论所属的行业
+                Industry industry = industryMapper.findIndustryById(d.getIndustry_id());
+                disResult.put("industry",industry);
                 disResult.put("time",time);
                 disResult.put("discuss",d);
                 disResult.put("userInfo",userInfo);
@@ -329,7 +335,7 @@ private AppTypeMapper appTypeMapper;
         }
         return returnMap;
     }
-/*所有分享 按点赞数降序*/
+/**所有分享 按点赞数降序*/
     public Map allShare(Map map) {
         Map returnMap = new HashMap();
         try{

@@ -27,7 +27,15 @@ public class AnswerServiceImpl implements AnswerService {
     private UserinfoMapper userinfoMapper;
 
     public Map insertAnswer(Answer answer) {
-        return null;
+        Map returnMap = new HashMap();
+        try{
+            answerMapper.insertAnswer(answer);
+            returnMap.put(ParameterConstant.RETURN_CODE,0);
+            returnMap.put(ParameterConstant.RETURN_MSG,"回答成功！");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return returnMap;
     }
 
     public Map findAnswersByDiscuss_id(String discuss_id) {

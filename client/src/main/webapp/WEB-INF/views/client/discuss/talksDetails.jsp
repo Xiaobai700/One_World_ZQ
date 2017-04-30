@@ -27,18 +27,20 @@
     <link href="../../static/css/animate.min.css" rel="stylesheet">
     <link href="../../static/css/style.min862f.css?v=4.1.0" rel="stylesheet">
 
-    <script src="../../static/js/jquery.min.js?v=2.1.4"></script>
+    <script src="../../static/js/jquery-1.8.3.min.js"></script>
+    <%--<script src="../../static/js/jquery.min.js?v=2.1.4"></script>--%>
+
     <script src="../../static/js/bootstrap.min.js?v=3.3.6"></script>
     <script src="../../static/js/content.min.js?v=1.0.0"></script>
     <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
     <!--引入主页的js文件-->
     <script src="../../static/js/index_js.js"></script>
     <%--layer--%>
-    <script type="text/javascript" src="static/js/layer/2.1/layer.js"></script>
-    <script type="text/javascript" src="client/js/addAppAndDiscussFunction.js"></script>
+    <script type="text/javascript" src="../../static/js/layer/2.1/layer.js"></script>
     <title>职业讨论的详情</title>
 </head>
 <body style=" background-color: #FFFFFF;">
+<input type="hidden" value="${account}" id="account">
 <header>
     <!--通栏导航部分-->
     <nav>
@@ -126,7 +128,7 @@
                                 ${answer.answer.answer_content }
                         </p>
                         <div class="under_answer">
-                            <a class="time"><i class="fa fa-clock-o"></i>${answer.answer.answer_time }</a>
+                            <a class="time"><i class="fa fa-clock-o"></i>${answer.answerTime }</a>
                             <div class="other">
                                 <a><i class="glyphicon glyphicon-thumbs-up"></i>点赞</a>
                                 <a><i class="glyphicon glyphicon-thumbs-down"></i>踩</a>
@@ -142,7 +144,6 @@
         </div>
     </div>
     <!--回答问题的文本框-->
-     <form action="answerDiscuss.do?discuss_id=${discuss.id }">
     <div class="td_main_3">
         <div style="margin-bottom: 10px;">
             <h4><strong>我的回答</strong></h4>
@@ -153,10 +154,9 @@
             <input type="hidden" value="${discuss.id }" name="discuss_id">
         </div>
         <span class="input-group-btn">
-                    <button class="btn btn-success" type="submit" style="margin-top: 10px;float: right;">发表回答</button>
+                    <button class="btn btn-success" onclick="answerDiscuss(${index.discussUser.account},'${index.discuss.id}',4)" style="margin-top: 10px;float: right;">发表回答</button>
             </span>
     </div>
-    </form>
 <div>
 </div>
 </div>
@@ -173,5 +173,8 @@
         $(this).find("div.other").hide();
     })
 </script>
+<script type="text/javascript" src="client/js/addAppAndDiscussFunction.js"></script>
+<script src="../../static/js/toastr.min.js"></script>
+<script src="../../static/js/toast.js"></script>
 </body>
 </html>

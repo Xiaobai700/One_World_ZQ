@@ -1,7 +1,9 @@
 package com.oneworld.web.controller;
 
 import com.oneworld.web.constant.RequestConstant;
+import com.oneworld.web.dao.IndustryMapper;
 import com.oneworld.web.model.Discuss;
+import com.oneworld.web.model.Industry;
 import com.oneworld.web.model.UserInfo;
 import com.oneworld.web.service.DiscussService;
 import com.oneworld.web.service.IndexService;
@@ -38,6 +40,9 @@ public class DiscussController {
     @Autowired
     private IndexService indexService;
 
+    @Autowired
+    private IndustryMapper industryMapper;
+
     //分页获取讨论信息,按回答的次数降序排列
     @RequestMapping("discussPageTimes.do")
     public ModelAndView disscussPageTimes(HttpServletRequest request){
@@ -62,6 +67,7 @@ public class DiscussController {
             modelAndView.addObject("color_1", "badge");
             modelAndView.addObject("color_2", "badge badge-primary");
             modelAndView.addObject("index",returnMap);
+            modelAndView.addObject("account",user_account);
             int count = all.size();
             int pages = 0;
             if(count % 10 == 0){
@@ -173,15 +179,19 @@ public class DiscussController {
             UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(account).get("data");
             modelAndView.addObject("userHead",userInfo.getHead());
         }
-//        UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(account).get("data");
-//        modelAndView.addObject("userInfo",userInfo);
+        List<Industry> industries = industryMapper.queryAllIndustry();
+        modelAndView.addObject("industries",industries);
         return  modelAndView;
     }
     @RequestMapping("discussDetail.do")
     @ResponseBody
-    public ModelAndView discussDetail(HttpServletRequest request,String id){
-        ModelAndView modelAndView = new ModelAndView("/client/discuss/talksDetails");
+    public ModelAndView discussDetail(HttpServletResponse response,HttpServletRequest request,String id) throws IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        PrintWriter outWriter = response.getWriter();
+        ObjectMapper mapper = new ObjectMapper();
         Map returnMap = new HashedMap();
+
+        ModelAndView modelAndView = new ModelAndView("/client/discuss/talksDetails");
         String user_account = (String) request.getSession().getAttribute("account");
         if(user_account == null){
             modelAndView.addObject("userHead","img/person.jpg");
@@ -189,19 +199,19 @@ public class DiscussController {
             UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(user_account).get("data");
             modelAndView.addObject("userHead",userInfo.getHead());
         }
-//        UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(user_account).get("data");
         returnMap =(Map)discussService.discussDetail(id).get("data");
-//        Discuss discuss = (Discuss) discussService.discussDetail(id).get("data");
-//        modelAndView.addObject("userInfo",userInfo);/*当前用户的信息*/
+        mapper.writeValueAsString(returnMap);
         modelAndView.addObject("index",returnMap);
         return  modelAndView;
     }
 
     @RequestMapping("add-discuss.action")
+    @ResponseBody
     public void addDiscussDo(HttpServletRequest request,
                              HttpServletResponse response,
                              String title,
-                             String description
+                             String description,
+                             String industry_id
                              )throws IOException{
         String account = request.getSession().getAttribute("account").toString();
         response.setContentType("application/json;charset=UTF-8");
@@ -213,6 +223,7 @@ public class DiscussController {
             requestMap.put("account",account);
             requestMap.put("title",title);
             requestMap.put("description",description);
+            requestMap.put("industry_id",industry_id);
             returnMap = discussService.insertDiscuss(requestMap);
             outWriter.write(mapper.writeValueAsString(returnMap));
         }catch (Exception e){
