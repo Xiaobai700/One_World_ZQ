@@ -66,7 +66,7 @@ pageEncoding="utf-8"%>
                         <div class="xian"></div>
                         <div class="dl_tx">
                             <!--头像个人 点击可以进入个人中心的-->
-                            <a class="tx_gr" href="mySpace.do?account=${userInfo.account}"><%--<img src="upload/${userInfo.head}">--%><img src="${userHead}"></a>
+                            <a class="tx_gr" href="mySpace.do?account=${account}"><%--<img src="upload/${userInfo.head}">--%><img src="${userHead}"></a>
                         </div>
                     </div>
                 </div>
@@ -93,7 +93,7 @@ pageEncoding="utf-8"%>
                                         <div id="messageDetail" style="text-align: left">
                                         </div>
                                 </li>
-                                <li class="a">
+                                <li class="a" onclick="allMessagePage('与我相关','allMessage.do')">
                                     <i class="fa fa-envelope fa-fw"></i>查看更多消息
                                 </li>
                             </ul>
@@ -164,7 +164,7 @@ pageEncoding="utf-8"%>
 		    			    	</c:when>
 		    			    </c:choose>
 		    			  </c:forEach>
-                                <span style="float: right;margin-top: 10px;" class="glyphicon glyphicon-plus-sign joined join" onclick="join_app(${appointment.appointment.id})">申请加入</span><!--加入活动的小图标-->
+                                <span style="float: right;margin-top: 10px;" class="glyphicon glyphicon-plus-sign joined join" onclick="join_app(${appointment.appointment.id},${appointment.orgnizerInfo.account})">申请加入</span><!--加入活动的小图标-->
                                 <input type="hidden" value="${appointment.appointment.id}">
                                 <span style="float: right; margin-top: 10px;">${appointment.appointment.publish_time}&nbsp;</span><!--活动发起时间-->
                             </div>

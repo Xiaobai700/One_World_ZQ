@@ -29,9 +29,9 @@
     <link href="../../static/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
     <link href="../../static/css/animate.min.css" rel="stylesheet">
     <link href="../../static/css/style.min862f.css?v=4.1.0" rel="stylesheet">
-    <script src="../../static/js/jquery-1.8.3.min.js"></script>
+    <%--<script src="../../static/js/jquery-1.8.3.min.js"></script>--%>
 
-    <%--<script type="text/javascript" src="../../static/js/jquery.min.js?v=2.1.4"></script>--%>
+    <script type="text/javascript" src="../../static/js/jquery.min.js?v=2.1.4"></script>
     <script type="text/javascript" src="../../static/js/bootstrap.min.js?v=3.3.6"></script>
     <script type="text/javascript" src="../../static/js/content.min.js?v=1.0.0"></script>
     <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
@@ -103,19 +103,12 @@
                 <span style="margin-left: 1px;">${index.find_userInfo.age }</span>
             </div>
             <div class="one_right">
-                <%--<c:choose>
-                    <c:when test="${index.isJoin==true}">
-                        <button class="btn btn-outline btn-primary">您已申请加入活动</button>
-                    </c:when>
-                </c:choose>--%>
                 <c:if test="${index.isJoin==true}">
                     <button class="btn btn-primary">您已申请加入活动</button>
                 </c:if>
                 <c:if test="${index.isJoin==false}">
-                    <button class="btn btn-outline btn-primary" onclick="join_app('${index.appointment.id}')">申请加入活动</button>
+                    <button class="btn btn-outline btn-primary" onclick="join_app('${index.appointment.id}',${index.find_userInfo.account })">申请加入活动</button>
                 </c:if>
-
-
             </div>
         </div>
         <!--活动的内容详细，文字和图片-->
@@ -129,6 +122,30 @@
             </div>
         </div>
         <!--成功加入者的头像，鼠标悬停头像显示用户的姓名等（建议）-->
+        <c:if test="${index.find_userInfo.account == account }">
+            <div class="main_1_3">
+                <div class="row">
+                    <div class="col-md-10">
+                        <span>申请加入的用户(您可以双击未加入用户头像进行审核)</span>
+                    </div>
+                    <div class="can_yu_tx">
+                        <ul>
+                            <c:forEach var="joiner" items="${index.wantJoin_userInfos}">
+                                <li>
+                                    <a>
+                                        <img class="chenckJoin" src="head/${joiner.joinUser.head }" />
+                                        <input type="hidden" value="${joiner.join.id}">
+                                        <input type="hidden" value="${joiner.joinUser.account}">
+                                    </a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </c:if>
+
+        <!--成功加入者的头像，鼠标悬停头像显示用户的姓名等（建议）-->
         <div class="main_1_3">
             <div class="row">
                 <div class="col-md-10">
@@ -136,9 +153,9 @@
                 </div>
                 <div class="can_yu_tx">
                     <ul>
-                     <c:forEach var="joiner" items="${index.join_userInfos}">
-                        <li><a><img src="head/${joiner.head }" /></a></li>
-                      </c:forEach>
+                        <c:forEach var="joiner" items="${index.join_userInfos}">
+                            <li><a><img src="head/${joiner.head }" /></a></li>
+                        </c:forEach>
                     </ul>
                 </div>
             </div>
@@ -227,6 +244,20 @@
     },function () {
         $(this).find("div.other").hide();
     })
+
+    $(".chenckJoin").dblclick(function () {
+        var joinId = $(this).next().val();
+        var wantJoinerAccount = $(this).next().next().val();
+        layer.confirm('您同意此加入吗？', {
+            btn: ['欣然同意','残忍拒绝','我再想想'] //按钮
+        }, function(){
+            checkJoin(joinId,wantJoinerAccount);
+            /*是否加入字段值改成1*/
+        }, function(){
+            rejectJoin(joinId,wantJoinerAccount);
+            /*拒绝就把join表中这条数据删除*/
+        });
+    });
 </script>
 <script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>
 <script src="../../static/js/toastr.min.js"></script>

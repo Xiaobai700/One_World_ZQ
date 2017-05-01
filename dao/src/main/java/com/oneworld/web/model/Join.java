@@ -9,8 +9,8 @@ private String id;
 private String appointment_id;
 private String join_account;
 private Timestamp want_join_time;
-private String t_join_time;
-private int join_or_not;
+private Timestamp t_join_time;
+private Integer join_or_not;
 
 	public String getId() {
 		return id;
@@ -20,11 +20,11 @@ private int join_or_not;
 		this.id = id;
 	}
 
-	public String getT_join_time() {
+	public Timestamp getT_join_time() {
 		return t_join_time;
 	}
 
-	public void setT_join_time(String t_join_time) {
+	public void setT_join_time(Timestamp t_join_time) {
 		this.t_join_time = t_join_time;
 	}
 
@@ -48,20 +48,16 @@ public Timestamp getWant_join_time() {
 public void setWant_join_time(Timestamp want_join_time) {
 	this.want_join_time = want_join_time;
 }
-public String getJoin_time() {
-	return t_join_time;
-}
-public void setJoin_time(String join_time) {
-	this.t_join_time = join_time;
-}
-public int getJoin_or_not() {
-	return join_or_not;
-}
-public void setJoin_or_not(int join_or_not) {
-	this.join_or_not = join_or_not;
-}
 
-@Override
+	public Integer getJoin_or_not() {
+		return join_or_not;
+	}
+
+	public void setJoin_or_not(Integer join_or_not) {
+		this.join_or_not = join_or_not;
+	}
+
+	@Override
 public String toString() {
 	return "Join [id=" + id + ", appointment_id=" + appointment_id + ", join_account=" + join_account
 			+ ", want_join_time=" + want_join_time + ", join_time=" + t_join_time + ", join_or_not=" + join_or_not + "]";

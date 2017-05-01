@@ -13,6 +13,10 @@ public interface MessageMapper {
 
     int deleteMessageById(String id);
 
+    Message getMessageById(String id);
+
     /*根据条件查找消息*/
     List<Message> searchMessage(Map map);
+
+    List<Message> getMessageByMap(Map map);
 }

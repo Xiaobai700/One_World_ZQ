@@ -21,9 +21,15 @@ public interface JoinMapper {
 	//根据用户账号和活动的id查找加入信息
 	public Join isJoined(Map map);
 
-	//根据活动的id查询所有 想要 加入信息
-	public List<Join> queryWantJoinsByAppId(int id);
+	//根据是否成功加入 是否申请加入 还有约伴活动的id 查询加入信息
+	public List<Join> queryJoinsByMap(Map map);
 
 	//根据用户账号和约伴活动的id查找加入活动信息
 	public Join findJoinByUserAccountAndId(Map map);
+
+//	根据id查找
+	public Join findJoinById(String id);
+
+//	删除加入信息
+	public int deleteJoin(String id);
 }

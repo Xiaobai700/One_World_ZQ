@@ -9,4 +9,10 @@ public interface MessageService {
     Map sendMessage(Map map);
 
     Map getMessage(Map map);
+
+    Map allMessages(String account);
+
+    Map deleteMessage(String id);
+
+    Map batchDeleteMessage(String idString);
 }

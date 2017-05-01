@@ -106,7 +106,7 @@
                                 <img src="head/${app.orgnizerInfo.head}" class="main_tx"><!--活动发起者头像-->
                                 <span><b>${app.orgnizerInfo.nickName }</b></span><!--活动发起者昵称-->
                                 <c:if test="${app.isJoin == false}">
-                                    <span style="float: right;margin-top: 10px;" class="glyphicon glyphicon-plus-sign" onclick="join_app('${app.appointment.id}')"></span><!--加入活动的小图标-->
+                                    <span style="float: right;margin-top: 10px;" class="glyphicon glyphicon-plus-sign" onclick="join_app('${app.appointment.id}',${app.orgnizerInfo.account})"></span><!--加入活动的小图标-->
                                 </c:if>
                                 <c:if test="${app.isJoin == true}">
                                     <span style="float: right;margin-top: 10px;" class="glyphicon glyphicon-ok-circle">已申请</span>

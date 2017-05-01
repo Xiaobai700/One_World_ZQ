@@ -81,26 +81,7 @@ ws.onclose = function(){
 };
 /**
  * 相关功能代码*/
-/*发布约伴活动*/
-function addAppPage(title,url) {
-    var editor = url;
-    var w = 900;
-    var h = 600;
-    //layer_show(title,editor,w,h);
-    layer.open({
-        type: 2,
-        area: [w + 'px', h + 'px'],
-        fix: false, //不固定
-        maxmin: true,
-        shadeClose: true,/*点击遮罩层 弹出框消失*/
-        shade: 0.4,
-        title: title,
-        content: editor,
-        end: function () {
-            // location.reload();
-        }
-    });
-}
+
 /*加入约伴活动*/
 function add_app() {
     var sex_restrict = $("#sex_restrict").val();
@@ -144,24 +125,7 @@ function add_app() {
     }
 
 }
-/*发布讨论活动弹出层*/
-function addDiscussPage(title,url) {
-    var editor = url;
-    var w = 400;
-    var h = 300;
-    //layer_show(title,editor,w,h);
-    layer.open({
-        type: 2,
-        area: [w + 'px', h + 'px'],
-        fix: false, //不固定
-        maxmin: true,
-        shade: 0.4,
-        title: title,
-        content: editor,
-        end: function () {
-        }
-    });
-}
+
 /*发起一个讨论*/
 function add_discuss() {
     var industry_id = $("#industry").val();
@@ -192,7 +156,7 @@ function add_discuss() {
 }
 
 /*加入约伴活动*/
-function join_app(id) {
+function join_app(id,user_account) {
     layer.confirm("确定要加入吗？",function (index) {
         if($("#account").val() == ""){
             layer.msg("你还未登陆,请先登陆!");
@@ -206,8 +170,9 @@ function join_app(id) {
                 },
                 success:function(data){
                     var dataObj=eval("("+data+")");
-                    layer.msg(dataObj.msg);
                     if(dataObj.code == 0){
+                        layer.msg("加入成功！");
+                        ws.send(user_account+','+2);
                         window.location.reload();
                     }
                 }
@@ -216,7 +181,45 @@ function join_app(id) {
 
     });
 }
-
+/*活动发起者同意对方加入活动*/
+function checkJoin(id,user_account) {
+    $.ajax({
+        url:"checkJoin.action",
+        type:"post",
+        data:{
+            id:id
+        },
+        success:function(data){
+            if(data.code == 0){
+                layer.msg('对方加入成功！', {icon: 1});
+                /*把关注的目标用户的账号发给服务器*/
+                ws.send(user_account+','+3+','+1);
+                /*在发送消息之后刷新页面*/
+                window.location.reload();
+            }
+        }
+    });
+}
+/*活动发起者拒绝对方加入活动 即把这条加入信息从表中删除*/
+function rejectJoin(id,user_account) {
+    $.ajax({
+        url:"rejectJoin.action",
+        type:"post",
+        data:{
+            id:id
+        },
+        success:function(data){
+            layer.msg(data.msg);
+            if(data.code == 0){
+                layer.msg('成功拒绝！', {icon: 1});
+                /*把关注的目标用户的账号发给服务器*/
+                ws.send(user_account+','+3+','+1);
+                /*在发送消息之后刷新页面*/
+                window.location.reload();
+            }
+        }
+    });
+}
 /*var ws ;
 ws = new WebSocket("ws://localhost:8080/hello");
 ws.onopen = function(evn){
@@ -259,7 +262,7 @@ function careUser(user_account) {
 
     });
 }
-
+/*回答问题*/
 function answerDiscuss(account,discussId,label) {
 var answerContent = $("#my_reply").val();
     if($("#account").val() == "") {
@@ -337,4 +340,70 @@ function commentAPP(account,targetId,label) {
         // });
     }
 
+}
+
+
+
+
+
+
+
+
+/***********弹出层
+ * ******************************************************************************************/
+/*发布约伴活动*/
+function addAppPage(title,url) {
+    var editor = url;
+    var w = 900;
+    var h = 600;
+    //layer_show(title,editor,w,h);
+    layer.open({
+        type: 2,
+        area: [w + 'px', h + 'px'],
+        fix: false, //不固定
+        maxmin: true,
+        shadeClose: true,/*点击遮罩层 弹出框消失*/
+        shade: 0.4,
+        title: title,
+        content: editor,
+        end: function () {
+            // location.reload();
+        }
+    });
+}
+/*发布讨论活动弹出层*/
+function addDiscussPage(title,url) {
+    var editor = url;
+    var w = 400;
+    var h = 300;
+    //layer_show(title,editor,w,h);
+    layer.open({
+        type: 2,
+        area: [w + 'px', h + 'px'],
+        fix: false, //不固定
+        maxmin: true,
+        shade: 0.4,
+        title: title,
+        content: editor,
+        end: function () {
+        }
+    });
+}
+/*所有消息的弹出层*/
+function allMessagePage(title,url) {
+    var editor = url;
+    var w = 700;
+    var h = 500;
+    //layer_show(title,editor,w,h);
+    layer.open({
+        type: 2,
+        area: [w + 'px', h + 'px'],
+        fix: false, //不固定
+        maxmin: true,
+        shade: 0.4,
+        title: title,
+        content: editor,
+        end: function () {
+        }
+    });
 }

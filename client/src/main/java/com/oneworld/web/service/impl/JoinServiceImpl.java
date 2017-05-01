@@ -33,12 +33,44 @@ public class JoinServiceImpl implements JoinService {
         return returnMap;
     }
 
+    public Map deleteJoin(String id) {
+        Map returnMap = new HashMap();
+        try{
+            Join join = joinMapper.findJoinById(id);
+            if(join != null){
+                joinMapper.deleteJoin(id);
+                returnMap.put(ParameterConstant.RETURN_CODE,0);
+                returnMap.put(ParameterConstant.RETURN_MSG,"该用户的申请已经被您拒绝！");
+            }else {
+                returnMap = RequestConstant.getRequestDesCode(-1);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return  returnMap;
+    }
+
     public Map queryJoinsByAppId(int id) {
         return null;
     }
 
     public Map updateJoin(Join join) {
-        return null;
+        Map returnMap = new HashMap();
+        try{
+            Join join1 = joinMapper.findJoinById(join.getId());
+            if(join1 != null){
+                joinMapper.updateJoin(join);
+                returnMap.put(ParameterConstant.RETURN_CODE,0);
+                returnMap.put(ParameterConstant.RETURN_MSG,"修改成功！");
+            }else {
+                returnMap.put(ParameterConstant.RETURN_MSG,"该加入信息不存在！");
+                returnMap.put(ParameterConstant.RETURN_CODE,1008);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            returnMap = RequestConstant.getRequestDesCode(-1);
+        }
+        return returnMap;
     }
 
     public Map queryAllJoinsByJoin_account(String join_account) {

@@ -237,7 +237,7 @@ private IndustryMapper industryMapper;
         }
         return  returnMap;
     }
-
+/**所有讨论活动 按时间降序排列*/
     public Map discussPageAll(Map map) {
         Map returnMap = new HashMap();
         try{
@@ -269,7 +269,7 @@ private IndustryMapper industryMapper;
         }
         return returnMap;
     }
-
+/**所有讨论活动按回答次数降序排列*/
     public Map allPageDiscuss(Map map) {
         Map returnMap = new HashMap();
         try{
@@ -372,7 +372,7 @@ private IndustryMapper industryMapper;
         }
         return returnMap;
     }
-
+/**用户的个人中心*/
     public Map userSpace(Map map) {
         Map returnMap = new HashedMap();
         Map retMap = new HashedMap();
@@ -396,7 +396,10 @@ private IndustryMapper industryMapper;
                 List<Appointment> appointments = appointmentMapper.findAppointmentByUserAccount(account);
                 for (Appointment a:appointments) {
                     Map<String,Object> appMe = new HashedMap();
-                    List<Join> joins = joinMapper.queryJoinsByAppId(a.getId());
+//显示所有想要加入的信息 在显示在页面上的时候 再进行判断 如果已经成功加入 就再做标记
+                    Map requestMap = new HashMap();
+                    requestMap.put("appointment_id",a.getId());
+                    List<Join> joins = joinMapper.queryJoinsByMap(requestMap);
                     int count = joins.size();
                     appMe.put("appointment",a);
                     appMe.put("want_join_count",count);

@@ -7,6 +7,8 @@ import java.util.Map;
 public interface JoinService {
 		//增加一个加入信息
 		public Map insertJoin(Join join);
+		//删除一个加入信息
+		public Map deleteJoin(String id);
 		//根据活动的id查询所有加入信息
 		public Map queryJoinsByAppId(int id);
 		//修改加入活动的信息

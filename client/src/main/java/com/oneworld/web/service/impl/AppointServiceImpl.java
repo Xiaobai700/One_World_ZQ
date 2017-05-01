@@ -138,12 +138,32 @@ public class AppointServiceImpl implements AppointService {
                 requstMap.put("target_id",id);
                 requstMap.put("label",2);/*对回答的评论 label:1  约伴：2 分享：3*/
                 List<Comment> commentList = commentMapper.queryCommentsByTargetIdAndLabel(requstMap);
-                List<Join> joins = joinMapper.queryJoinsByAppId(id);
+                /*查找这个活动有多少人成功参加*/
+                Map requestMap = new HashMap();
+                requestMap.put("appointment_id",id);
+                requestMap.put("join_or_not",1);
+                List<Join> joins = joinMapper.queryJoinsByMap(requestMap);
                 List<UserInfo> join_userInfos = new ArrayList<UserInfo>();
                 for (Join j:joins) {
                     UserInfo joinUser = userinfoMapper.findUserInfoByAccount(j.getJoin_account());
                     join_userInfos.add(joinUser);
                 }
+                /*当活动的发起者查看自己发起的活动的时候 她可以看到想要加入单还未加入的用户的信息 并且可以审核他们加入活动*/
+                Map requestMap1 = new HashMap();
+                requestMap1.put("appointment_id",id);
+                requestMap1.put("join_or_not",0);
+                List<Join> joins1 = joinMapper.queryJoinsByMap(requestMap1);
+//                List<UserInfo> join_userInfos1 = new ArrayList<UserInfo>();
+                List<Map<String,Object>> join_userInfos1 = new ArrayList<Map<String,Object>>();
+                for (Join j:joins1) {
+                    Map joinMap = new HashMap();
+                    UserInfo joinUser = userinfoMapper.findUserInfoByAccount(j.getJoin_account());
+                    joinMap.put("joinUser",joinUser);
+                    joinMap.put("join",j);
+                    join_userInfos1.add(joinMap);
+//                    join_userInfos1.add(joinUser);
+                }
+
                 for (Comment c:commentList) {
                     Map<String,Object> comment = new HashedMap();
                     UserInfo comUser = userinfoMapper.findUserInfoByAccount(c.getCommenter_account());
@@ -152,6 +172,7 @@ public class AppointServiceImpl implements AppointService {
                     comments.add(comment);
                 }
                 app.put("join_userInfos",join_userInfos);
+                app.put("wantJoin_userInfos",join_userInfos1);
                 app.put("find_userInfo",findUser);
                 app.put("comment",comments);
                 app.put("commentNumber",commentList.size());

@@ -19,12 +19,16 @@
         values (#{id,jdbcType=VARCHAR},#{appointment_id,jdbcType=VARCHAR},#{join_account,jdbcType=VARCHAR}, #{want_join_time,jdbcType=TIMESTAMP},
         #{t_join_time,jdbcType=TIMESTAMP}, #{join_or_not,jdbcType=INTEGER})
     </insert>
-
-    <select id="queryJoinsByAppId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <delete id="deleteJoin" parameterType="java.lang.String">
+        DELETE
+        FROM t_join
+        WHERE id= #{id,jdbcType=VARCHAR}
+    </delete>
+    <select id="queryJoinsByMap" parameterType="java.util.Map" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         FROM t_join
-        WHERE appointment_id =#{appointment_id,jdbcType=VARCHAR}
+        WHERE appointment_id = #{appointment_id,jdbcType=VARCHAR} AND join_or_not = #{join_or_not,jdbcType=INTEGER}
     </select>
     <select id="queryJoinsByJoinAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -47,6 +51,13 @@
         WHERE appointment_id = #{appointment_id,jdbcType=VARCHAR}
     </select>
 
+    <select id="findJoinById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_join
+        WHERE id = #{id,jdbcType=VARCHAR}
+    </select>
+
     <select id="findJoinByUserAccountAndId" parameterType="java.util.Map" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -58,13 +69,13 @@
         UPDATE t_join
         <set>
             <if test="want_join_time != null">
-                want_join_time = #{want_join_time,jdbcType = TIMESTAMP}
+                want_join_time = #{want_join_time,jdbcType=TIMESTAMP},
             </if>
             <if test="t_join_time != null">
-                t_join_time = #{t_join_time,jdbcType = TIMESTAMP}
+                t_join_time = #{t_join_time,jdbcType=TIMESTAMP},
             </if>
             <if test="join_or_not != null">
-                join_or_not = #{join_or_not,jdbcType = INTEGER}
+                join_or_not = #{join_or_not,jdbcType=INTEGER},
             </if>
         </set>
         where id = #{id,jdbcType=VARCHAR}

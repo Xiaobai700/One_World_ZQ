@@ -89,7 +89,8 @@ public class WebSocketTest {
             Integer type =Integer.parseInt(msg.split(",")[1]);
             Session to_sesstion = this.messmapsession.get(objectUserAccount);
             Map requestMap = new HashMap();
-            requestMap.put("type",type);
+            /*type 0是系统消息 1是通知消息*/
+            requestMap.put("type",1);
             requestMap.put("sender",this.account);
             requestMap.put("receiver",objectUserAccount);
             String content = "";
@@ -99,8 +100,18 @@ public class WebSocketTest {
                     content = "<a>"+userInfo.getNickName()+"</a>关注了你！";
                     break;
                 case 2:
+                    content = "<a>"+userInfo.getNickName()+"</a>申请加入你的活动！";
                     break;
                 case 3:
+                    Integer agreeOrNot = Integer.parseInt(msg.split(",")[2]);
+                    switch (agreeOrNot){
+                        case 0:
+                            content ="<a>"+userInfo.getNickName()+"拒绝了你加入主题为的申请</a>";
+                            break;
+                        case 1:
+                            content ="<a>"+userInfo.getNickName()+"同意了你加入主题为的申请</a>";
+                            break;
+                    }
                     break;
                 case 4:
                     break;

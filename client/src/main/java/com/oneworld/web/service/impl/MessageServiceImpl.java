@@ -1,6 +1,7 @@
 package com.oneworld.web.service.impl;
 
 import com.oneworld.web.constant.ParameterConstant;
+import com.oneworld.web.constant.RequestConstant;
 import com.oneworld.web.dao.MessageMapper;
 import com.oneworld.web.model.Message;
 import com.oneworld.web.service.MessageService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -47,6 +49,77 @@ public class MessageServiceImpl implements MessageService {
         try{
             List<Message> messages = messageMapper.searchMessage(map);
             returnMap.put(ParameterConstant.RETURN_DATA,messages);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return returnMap;
+    }
+
+    public Map allMessages(String account) {
+        Map returnMap = new HashMap();
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try{
+//        未读消息
+            Map requestMap = new HashMap();
+            requestMap.put("receiver",account);
+            requestMap.put("isRead",0);
+            List<Message> unReadMessag= (List<Message>) getMessage(requestMap).get("data");
+            List<Map<String,Object>> unReadResult = new ArrayList<Map<String, Object>>();
+            for (Message m:unReadMessag) {
+                Map unReadMessageMap = new HashMap();
+                unReadMessageMap.put("message",m);
+                unReadMessageMap.put("unReadTime",fmt.format(m.getSendTime()));
+                unReadResult.add(unReadMessageMap);
+            }
+//        已读消息
+            Map requestMap1 = new HashMap();
+            requestMap1.put("receiver",account);
+            requestMap1.put("isRead",1);
+            List<Message> readMessages =(List<Message>) getMessage(requestMap1).get("data");
+            List<Map<String,Object>> readResult = new ArrayList<Map<String, Object>>();
+            for (Message m:readMessages) {
+                Map readMessageMap = new HashMap();
+                readMessageMap.put("message",m);
+                readMessageMap.put("readTime",fmt.format(m.getSendTime()));
+                readResult.add(readMessageMap);
+            }
+            returnMap.put("read",readResult);
+            returnMap.put("unRead",unReadResult);
+            returnMap.put("total",readMessages.size()+unReadMessag.size());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return  returnMap;
+    }
+
+    public Map deleteMessage(String id) {
+        Map returnMap = new HashMap();
+        try{
+            Message message = messageMapper.getMessageById(id);
+            if(message != null){
+                messageMapper.deleteMessageById(id);
+                returnMap.put(ParameterConstant.RETURN_MSG,"删除成功！");
+                returnMap.put(ParameterConstant.RETURN_CODE,0);
+            }else {
+                returnMap.put(ParameterConstant.RETURN_MSG,"该消息不存在！");
+                returnMap.put(ParameterConstant.RETURN_CODE,1008);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            returnMap = RequestConstant.getRequestDesCode(-1);
+        }
+        return returnMap;
+    }
+
+    public Map batchDeleteMessage(String idString) {
+        Map returnMap = new HashMap();
+        try{
+            String []ids = idString.split(",");
+            for(int i = 0;i<ids.length;i++){
+                messageMapper.deleteMessageById(ids[i]);
+            }
+            returnMap.put(ParameterConstant.RETURN_CODE,0);
+            returnMap.put(ParameterConstant.RETURN_MSG,"删除成功！");
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -3,6 +3,7 @@ package com.oneworld.web.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oneworld.web.constant.ParameterConstant;
 import com.oneworld.web.constant.RequestConstant;
+import com.oneworld.web.dao.JoinMapper;
 import com.oneworld.web.model.AppType;
 import com.oneworld.web.model.Appointment;
 import com.oneworld.web.model.Join;
@@ -42,6 +43,9 @@ public class AppController {
 
     @Autowired
     private AppTypeService appTypeService;
+
+    @Autowired
+    private JoinMapper joinMapper;
 
 /**查询所有约伴信息 按时间排序*/
     @RequestMapping("allyueban.do")
@@ -196,7 +200,7 @@ public class AppController {
             join.setId(UUID.randomUUID().toString());
             join.setAppointment_id(appointment_id);
             join.setJoin_account(user_account);//登陆者的账号
-            join.setJoin_or_not(0);
+            join.setJoin_or_not(0);/*是否成功加入*/
             join.setWant_join_time(new Timestamp(new Date().getTime()));
             returnMap = joinService.insertJoin(join);
         }
@@ -219,6 +223,41 @@ public class AppController {
         returnMap = (Map) appointService.appDetail(id).get("data");
         returnMap.put("isJoin",isJoin);
         modelAndView.addObject("index",returnMap);
+        modelAndView.addObject("account",user_account);
         return  modelAndView;
+    }
+    @RequestMapping("checkJoin.action")
+    @ResponseBody
+    public void checkJoin(HttpServletResponse response,HttpServletRequest request,String id) throws IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        PrintWriter outWriter = response.getWriter();
+        ObjectMapper mapper = new ObjectMapper();
+        Map returnMap = new HashMap();
+        try{
+            Join join = joinMapper.findJoinById(id);
+            join.setJoin_or_not(1);
+            join.setT_join_time(new Timestamp(new Date().getTime()));
+            returnMap = joinService.updateJoin(join);
+            outWriter.write(mapper.writeValueAsString(returnMap));
+        }catch (Exception e){
+            e.printStackTrace();
+            outWriter.write(mapper.writeValueAsString(returnMap));
+        }
+    }
+    @RequestMapping("rejectJoin.action")
+    @ResponseBody
+    public void rejectJoin(HttpServletResponse response,HttpServletRequest request,String id) throws IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        PrintWriter outWriter = response.getWriter();
+        ObjectMapper mapper = new ObjectMapper();
+        Map returnMap = new HashMap();
+        try{
+            returnMap = joinService.deleteJoin(id);
+            outWriter.write(mapper.writeValueAsString(returnMap));
+        }catch (Exception e){
+            e.printStackTrace();
+            outWriter.write(mapper.writeValueAsString(returnMap));
+        }
+
     }
 }
