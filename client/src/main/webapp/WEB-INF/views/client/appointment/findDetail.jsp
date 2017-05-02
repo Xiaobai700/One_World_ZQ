@@ -96,7 +96,7 @@
                             <i class="fa fa-bell"></i> <span class="label label-danger" id="size"
                                                              style="line-height: 12px;padding: 1px 5px;position: absolute;;top: -2px;"></span>
                         </a>
-                        <ul class="message">
+                        <ul class="myMessage">
                             <li class="a">
                                 <i class="fa fa-envelope fa-fw"></i><span id="underSize"></span>条未读消息
                             </li>

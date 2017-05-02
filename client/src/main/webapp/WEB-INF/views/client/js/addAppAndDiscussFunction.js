@@ -345,6 +345,28 @@ function likeInvitation(account,invitationId,type) {
 
 /**关于举报
  * */
+function report(account,targetId,targetType) {
+    if($("#account").val() == ""){
+        layer.msg("您还未登陆，先去登陆吧");
+    }else {
+        $.ajax({
+            url:"report.action",
+            type:"post",
+            data:{
+                targetType:targetType,
+                targetId:targetId
+            },
+            success:function(data){
+                if(data.code == 0){
+                    layer.msg("举报成功！");
+                    ws.send(account+','+6);
+                    /*此处如果也main更新的语句放置发送提示之前 则消息提示不了*/
+                    window.location.reload();
+                }
+            }
+        });
+    }
+}
 
 /**
  * 关于回复 对评论的回复*/

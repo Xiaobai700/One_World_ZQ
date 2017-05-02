@@ -64,8 +64,8 @@ public class AppController {
         resultMap = (Map) indexService.yuebanAll(requestMap).get("data");
 
         modelAndView.addObject("account",user_account);
-        modelAndView.addObject("color_1", "color_1");
-        modelAndView.addObject("color_2", "color_2");
+        modelAndView.addObject("color_2", "badge");
+        modelAndView.addObject("color_1", "badge badge-primary");
         modelAndView.addObject("index",resultMap);
         return modelAndView;
     }
@@ -87,8 +87,8 @@ public class AppController {
         resultMap = (Map) indexService.allYueban(requestMap).get("data");
 
         modelAndView.addObject("account",user_account);
-        modelAndView.addObject("color_1", "color_2");
-        modelAndView.addObject("color_2", "color_1");
+        modelAndView.addObject("color_1", "badge");
+        modelAndView.addObject("color_2", "badge badge-primary");
         modelAndView.addObject("index",resultMap);
         return modelAndView;
     }

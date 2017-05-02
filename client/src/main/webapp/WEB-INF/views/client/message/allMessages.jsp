@@ -20,6 +20,7 @@
     <script type="text/javascript" src="../../static/js/layer/2.1/layer.js"></script>
 </head>
 <body>
+<input type="hidden" value="${account}" id="account">
 <div class="col-sm-9 animated fadeInRight">
     <div class="mail-box-header">
         <h2>
@@ -83,21 +84,25 @@
 </div>
 <script type="text/javascript">
     function deleteMessage(id) {
-        layer.confirm("你确定要删除吗？",function () {
-            $.ajax({
-                url:"deleteMessage.action",
-                type:"post",
-                data:{
-                    id:id
-                },
-                success:function(data){
-                    layer.msg(data.msg,{time :2000});
-                    if(data.code == 0){
-                        window.location.reload();
+        if($("#account").val() == "") {
+            layer.msg("你还未登陆,请先登陆!");
+        }else {
+            layer.confirm("你确定要删除吗？",function () {
+                $.ajax({
+                    url:"deleteMessage.action",
+                    type:"post",
+                    data:{
+                        id:id
+                    },
+                    success:function(data){
+                        layer.msg(data.msg,{time :2000});
+                        if(data.code == 0){
+                            window.location.reload();
+                        }
                     }
-                }
+                });
             });
-        });
+        }
     }
     function batchDeleteMessage() {
         var ids = null;
@@ -110,24 +115,29 @@
                 }
             }
         });
-        if(ids == null){
-            layer.msg("至少选择一条数据！");
-        }
-        layer.confirm("你确定要全部删除吗？",function () {
-            $.ajax({
-                url:"batchDeleteMessage.action",
-                type:"post",
-                data:{
-                    idString:ids
-                },
-                success:function(data){
-                    layer.msg(data.msg,{time :2000});
-                    if(data.code == 0){
-                        window.location.reload();
+        if($("#account").val() == "") {
+            layer.msg("你还未登陆,请先登陆!");
+        }else {
+            if(ids == null){
+                layer.msg("至少选择一条数据！");
+            }
+            layer.confirm("你确定要全部删除吗？",function () {
+                $.ajax({
+                    url:"batchDeleteMessage.action",
+                    type:"post",
+                    data:{
+                        idString:ids
+                    },
+                    success:function(data){
+                        layer.msg(data.msg,{time :2000});
+                        if(data.code == 0){
+                            window.location.reload();
+                        }
                     }
-                }
+                });
             });
-        });
+        }
+
     }
 </script>
 </body>

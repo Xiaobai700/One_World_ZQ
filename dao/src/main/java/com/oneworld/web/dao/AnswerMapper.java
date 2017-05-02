@@ -27,5 +27,8 @@ public interface AnswerMapper {
 	
 	//根据用户的账号显示所有回答
 	public List<Answer> findAnswersByUser_account(String user_account);
+
+	//更新回答
+	public int updateAnswer(Answer answer);
 	
 }

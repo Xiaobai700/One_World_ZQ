@@ -34,6 +34,7 @@ public class MessageController {
         String account =(String) request.getSession().getAttribute("account");
         try {
             returnMap = messageService.allMessages(account);
+            modelAndView.addObject("account",account);
             modelAndView.addObject("index",returnMap);
         }catch (Exception e){
             e.printStackTrace();

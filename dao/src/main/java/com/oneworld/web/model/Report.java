@@ -6,46 +6,53 @@ import java.sql.Timestamp;
  * Created by Master ZQ on 2017/3/13.
  */
 public class Report {
-    private Integer pk_id;
-    private int id;
-    private int report_type;
-    private int target_id;
-    private int target_type;
-    private int current_state;
+    private Integer pkId;
+    private String id;
+    private int reportType;
+    private String targetId;
+    private int targetType;
+    private int currentState;
     private int status;
-    private Timestamp update_time;
+    private Timestamp updateTime;
 
-
-    public int getReport_type() {
-        return report_type;
+    public String getId() {
+        return id;
     }
 
-    public void setReport_type(int report_type) {
-        this.report_type = report_type;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public int getTarget_id() {
-        return target_id;
+    public int getReportType() {
+        return reportType;
     }
 
-    public void setTarget_id(int target_id) {
-        this.target_id = target_id;
+    public void setReportType(int reportType) {
+        this.reportType = reportType;
     }
 
-    public int getTarget_type() {
-        return target_type;
+    public String getTargetId() {
+        return targetId;
     }
 
-    public void setTarget_type(int target_type) {
-        this.target_type = target_type;
+    public void setTargetId(String targetId) {
+        this.targetId = targetId;
     }
 
-    public int getCurrent_state() {
-        return current_state;
+    public int getTargetType() {
+        return targetType;
     }
 
-    public void setCurrent_state(int current_state) {
-        this.current_state = current_state;
+    public void setTargetType(int targetType) {
+        this.targetType = targetType;
+    }
+
+    public int getCurrentState() {
+        return currentState;
+    }
+
+    public void setCurrentState(int currentState) {
+        this.currentState = currentState;
     }
 
     public int getStatus() {
@@ -56,23 +63,11 @@ public class Report {
         this.status = status;
     }
 
-    public Timestamp getUpdate_time() {
-        return update_time;
+    public Timestamp getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdate_time(Timestamp update_time) {
-        this.update_time = update_time;
-    }
-
-    @Override
-    public String toString() {
-        return "Report{" +
-                "report_type=" + report_type +
-                ", target_id=" + target_id +
-                ", target_type=" + target_type +
-                ", current_state=" + current_state +
-                ", status=" + status +
-                ", update_time=" + update_time +
-                '}';
+    public void setUpdateTime(Timestamp updateTime) {
+        this.updateTime = updateTime;
     }
 }

@@ -2,27 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.oneworld.web.dao.ReportMapper">
     <resultMap id="BaseResultMap" type="com.oneworld.web.model.Report">
-        <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="report_type" property="report_type" jdbcType="INTEGER"/>
-        <result column="target_id" property="target_id" jdbcType="INTEGER"/>
-        <result column="target_type" property="target_type" jdbcType="INTEGER"/>
-        <result column="current_state" property="current_state" jdbcType="INTEGER"/>
+        <id column="pk_id" property="pkId" jdbcType="INTEGER"/>
+        <result column="id" property="id" jdbcType="VARCHAR" />
+        <result column="report_type" property="reportType" jdbcType="INTEGER"/>
+        <result column="target_id" property="targetId" jdbcType="VARCHAR"/>
+        <result column="target_type" property="targetType" jdbcType="INTEGER"/>
+        <result column="current_state" property="currentState" jdbcType="INTEGER"/>
         <result column="status" property="status" jdbcType="INTEGER"/>
-        <result column="update_time" property="update_time" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
     </resultMap>
     <sql id="Base_Column_List">
-       id,report_type,target_id,target_type,current_state,status,update_time
+       pk_id,id,report_type,target_id,target_type,current_state,status,update_time
     </sql>
 
     <insert id="insertReport" parameterType="com.oneworld.web.model.Report">
-        insert into t_report (id,report_type,target_id,target_type,current_state,status,update_time )
-        values (#{id,jdbcType=INTEGER},#{report_type,jdbcType=INTEGER},#{target_id,jdbcType=INTEGER},#{target_type,jdbcType=INTEGER},#{current_state,jdbcType=INTEGER},
-        #{status,jdbcType=INTEGER}, #{update_time,jdbcType=TIMESTAMP})
+        insert into t_report (id,report_type,target_id,target_type,current_state,status,update_time)
+        values (#{id,jdbcType=VARCHAR},#{reportType,jdbcType=INTEGER},#{targetId,jdbcType=VARCHAR},#{targetType,jdbcType=INTEGER},#{currentState,jdbcType=INTEGER},
+        #{status,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP})
     </insert>
 
-    <delete id="deleteReport" parameterType="java.lang.Integer">
+    <delete id="deleteReport" parameterType="java.lang.String">
         delete from t_report
-        where id = #{id,jdbcType=INTEGER}
+        where id = #{id,jdbcType=VARCHAR}
     </delete>
 
     <select id="queryReportPage" parameterType="java.util.Map" resultMap="BaseResultMap">
@@ -30,11 +31,11 @@
         <include refid="Base_Column_List"/>
         FROM t_report
         <trim prefix="WHERE" prefixOverrides="AND|OR">
-            <if test="report_type!=null and report_type!='' ">
-                and report_type = #{report_type,jdbcType=VARCHAR} OR report_type LIKE CONCAT('%','${report_type}','%')
+            <if test="reportType!=null and reportType!='' ">
+                and report_type = #{reportType,jdbcType=VARCHAR} OR report_type LIKE CONCAT('%','${reportType}','%')
             </if>
-            <if test="current_state!=null and current_state!='' ">
-                and current_state = #{current_state,jdbcType=VARCHAR}
+            <if test="currentState!=null and currentState!='' ">
+                and current_state = #{currentState,jdbcType=INTEGER}
             </if>
             <if test="keys!=null and keys!='' ">
                 AND report_type LIKE '%${keys}%'

@@ -13,7 +13,7 @@ public interface ReportMapper {
     public int insertReport(Report report);
 
 //    删除举报
-    public int deleteReport(int id);
+    public int deleteReport(String id);
 
 //    查看所有举报
     public List<Report> queryReportPage(Map map);

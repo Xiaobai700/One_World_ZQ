@@ -114,4 +114,16 @@ public class AnswerServiceImpl implements AnswerService {
     public Map findAnswersByUser_account(String user_account) {
         return null;
     }
+
+    public Map updateAnswer(Answer answer) {
+        Map returnMap = new HashMap();
+        try{
+            answerMapper.updateAnswer(answer);
+            returnMap.put(ParameterConstant.RETURN_CODE,0);
+        }catch (Exception e){
+            e.printStackTrace();
+            returnMap = RequestConstant.getRequestDesCode(-1);
+        }
+        return  returnMap;
+    }
 }

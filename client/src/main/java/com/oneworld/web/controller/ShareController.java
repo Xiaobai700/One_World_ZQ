@@ -49,9 +49,12 @@ public class ShareController {
             }
             Map requestMap = new HashMap();
             returnMap = (Map) indexService.shareAll(requestMap).get("data");
+            modelAndView.addObject("account",user_account);
             modelAndView.addObject("index", returnMap);
-            modelAndView.addObject("color_1", "color_1");
-            modelAndView.addObject("color_2", "color_2");
+            /*modelAndView.addObject("color_1", "color_1");
+            modelAndView.addObject("color_2", "color_2");*/
+            modelAndView.addObject("color_2", "badge");
+            modelAndView.addObject("color_1", "badge badge-primary");
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -74,8 +77,10 @@ public class ShareController {
             returnMap = (Map) indexService.allShare(requestMap).get("data");
 //            modelAndView.addObject("userInfo", s_userInfo);
             modelAndView.addObject("index", returnMap);
-            modelAndView.addObject("color_1", "color_2");
-            modelAndView.addObject("color_2", "color_1");
+            /*modelAndView.addObject("color_1", "color_2");
+            modelAndView.addObject("color_2", "color_1");*/
+            modelAndView.addObject("color_1", "badge");
+            modelAndView.addObject("color_2", "badge badge-primary");
         }catch (Exception e){
             e.printStackTrace();
             returnMap = RequestConstant.getRequestDesCode(-1);

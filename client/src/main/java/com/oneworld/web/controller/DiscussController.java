@@ -119,6 +119,7 @@ public class DiscussController {
             returnMap = (Map)indexService.discussPageAll(requestMap).get("data");
 
             modelAndView.addObject("userInfo", s_userInfo);
+            modelAndView.addObject("account",user_account);
             modelAndView.addObject("color_1", "badge badge-primary");
             modelAndView.addObject("color_2", "badge");
             modelAndView.addObject("index",returnMap);

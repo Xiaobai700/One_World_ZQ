@@ -20,7 +20,7 @@
     <link href="../../static/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
     <link href="../../static/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
     <link href="../../static/css/animate.min.css" rel="stylesheet">
-    <%--<link href="../../static/css/style.min862f.css?v=4.1.0" rel="stylesheet">--%>
+    <link href="../../static/css/style.min862f.css?v=4.1.0" rel="stylesheet">
 
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <script type="text/javascript" src="../../static/js/jquery-1.8.3.min.js"></script>
@@ -90,7 +90,7 @@
                             <i class="fa fa-bell"></i> <span class="label label-danger" id="size"
                                                              style="line-height: 12px;padding: 1px 5px;position: absolute;;top: -2px;"></span>
                         </a>
-                        <ul class="message">
+                        <ul class="myMessage">
                             <li class="a">
                                 <i class="fa fa-envelope fa-fw"></i><span id="underSize"></span>条未读消息
                             </li>
@@ -172,7 +172,7 @@
                                 </c:if>
                                 <%--<a><i class="glyphicon glyphicon-thumbs-down"></i>踩</a>--%>
                                 <a data-toggle="modal" onclick="invitationCommentsPage('评论${answer.answerUser.nickName }','invitationComment.do','${answer.answer.id}',1,'${answer.answerUser.account }')" <%--data-target="#${answer.answer.id}"--%>><i class="glyphicon glyphicon-share reply"></i>评论</a>
-                                <a><i class="glyphicon glyphicon-flag"></i>举报</a>
+                                <a><i class="glyphicon glyphicon-flag" onclick="report('${answer.answerUser.account }','${answer.answer.id}',1)"></i>举报</a>
                             </div>
                             <div class="replyDiv"></div>
                         </div>
@@ -199,6 +199,7 @@
 <div>
 </div>
 </div>
+<div id="dv"></div>
 <footer>
     <div>
         <br />

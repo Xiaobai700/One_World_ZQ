@@ -94,7 +94,7 @@ public class WebSocketTest {
             requestMap.put("sender",this.account);
             requestMap.put("receiver",objectUserAccount);
             String content = "";
-            /*在这里对情况进行区分 1是关注  2是加入活动  3.是 是否同意加入活动  4.点赞 5.评论等*/
+            /*在这里对情况进行区分 1是关注  2是加入活动  3.是 是否同意加入活动  4.点赞 5.评论 6.举报等*/
             switch (type){
                 case 1:
                     content = "<a>"+userInfo.getNickName()+"</a>关注了你！";
@@ -140,6 +140,9 @@ public class WebSocketTest {
                             content = "<a>"+userInfo.getNickName()+"</a>回答了你标题为<a>"+discuss.getDiscuss_title()+"</a>的问题";
                             break;
                     }
+                    break;
+                case 6:
+                    content = "<a>"+userInfo.getNickName()+"举报了您的回答</a>";
                     break;
             }
             requestMap.put("content",content);

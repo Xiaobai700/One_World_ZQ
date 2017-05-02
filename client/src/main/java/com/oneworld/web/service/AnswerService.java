@@ -28,4 +28,7 @@ public interface AnswerService {
 		
 		//根据用户的账号显示所有回答
 		public Map findAnswersByUser_account(String user_account);
+
+		//更新讨论
+		public Map updateAnswer(Answer answer);
 }

@@ -35,6 +35,7 @@
     <title>所有讨论</title>
 </head>
 <body>
+<input type="hidden" value="${account}" id="account">
 <header>
     <!--通栏导航部分-->
     <nav>
@@ -168,6 +169,7 @@
         </div>
     </div>
 </div>
+<div id="dv"></div>
 <footer>
     <div>
         <br />
@@ -175,6 +177,11 @@
     </div>
 </footer>
 <script type="text/javascript" src="../../static/js/jquery.min.js?v=2.1.4"></script>
+<script type="text/javascript" src="../../static/js/bootstrap.min.js?v=3.3.6"></script>
+<script type="text/javascript" src="../../static/js/content.min.js?v=1.0.0"></script>
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+<script type="text/javascript" src="../../static/js/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>
 <script type="text/javascript">
     $(function(){
         /*点击页码 jquery文件的引入很重要 不要动不动就注释掉 代码要尽量规范 好好写*/
@@ -229,10 +236,5 @@
         });
     });
 </script>
-<script type="text/javascript" src="../../static/js/bootstrap.min.js?v=3.3.6"></script>
-<script type="text/javascript" src="../../static/js/content.min.js?v=1.0.0"></script>
-<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
-<script type="text/javascript" src="../../static/js/layer/2.1/layer.js"></script>
-<script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>
 </body>
 </html>

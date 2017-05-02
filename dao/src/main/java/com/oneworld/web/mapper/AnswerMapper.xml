@@ -58,5 +58,13 @@
         FROM t_answer
         WHERE answer_account = #{answer_account,jdbcType=VARCHAR}
     </select>
-
+    <update id="updateAnswer" parameterType="com.oneworld.web.model.Answer">
+        UPDATE t_answer
+        <set>
+            <if test="agree_times != null">
+                agree_times = #{agree_times,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
 </mapper>
