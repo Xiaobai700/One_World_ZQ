@@ -7,15 +7,16 @@ import com.oneworld.web.dao.CommentMapper;
 import com.oneworld.web.dao.JoinMapper;
 import com.oneworld.web.dao.UserinfoMapper;
 import com.oneworld.web.model.Appointment;
-import com.oneworld.web.model.Comment;
 import com.oneworld.web.model.Join;
 import com.oneworld.web.model.UserInfo;
 import com.oneworld.web.service.AppointService;
+import com.oneworld.web.service.CommentService;
 import com.oneworld.web.service.JoinService;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,6 +41,9 @@ public class AppointServiceImpl implements AppointService {
 
     @Autowired
     private JoinService joinService;
+
+    @Autowired
+    private CommentService commentService;
 
     public Map newestAppointment() {
         Map returnMap = new HashMap();
@@ -127,6 +131,7 @@ public class AppointServiceImpl implements AppointService {
 
     public Map appDetail(String id) {
         Map returnMap = new HashedMap();
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             Appointment appointment = appointmentMapper.findAppointmentById(id);
 
@@ -134,10 +139,11 @@ public class AppointServiceImpl implements AppointService {
             List<Map<String,Object>> comments = new ArrayList<Map<String, Object>>();
             if(appointment != null){
                 UserInfo findUser = userinfoMapper.findUserInfoByAccount(appointment.getOrganizer_account());
-                Map requstMap = new HashedMap();
+                /*Map requstMap = new HashedMap();
                 requstMap.put("target_id",id);
-                requstMap.put("label",2);/*对回答的评论 label:1  约伴：2 分享：3*/
-                List<Comment> commentList = commentMapper.queryCommentsByTargetIdAndLabel(requstMap);
+                requstMap.put("label",2);*//*对回答的评论 label:1  约伴：2 分享：3*/
+//                List<Comment> commentList = commentMapper.queryCommentsByTargetIdAndLabel(requstMap);
+                comments = (List<Map<String,Object>>) commentService.queryCommentsByTarget_id(id,2).get("data");
                 /*查找这个活动有多少人成功参加*/
                 Map requestMap = new HashMap();
                 requestMap.put("appointment_id",id);
@@ -164,18 +170,20 @@ public class AppointServiceImpl implements AppointService {
 //                    join_userInfos1.add(joinUser);
                 }
 
-                for (Comment c:commentList) {
+                /*for (Comment c:commentList) {
                     Map<String,Object> comment = new HashedMap();
                     UserInfo comUser = userinfoMapper.findUserInfoByAccount(c.getCommenter_account());
                     comment.put("comUser",comUser);
                     comment.put("comment",c);
+                    comment.put("time",fmt.format(c.getComment_time()));
                     comments.add(comment);
-                }
+                }*/
                 app.put("join_userInfos",join_userInfos);
                 app.put("wantJoin_userInfos",join_userInfos1);
                 app.put("find_userInfo",findUser);
                 app.put("comment",comments);
-                app.put("commentNumber",commentList.size());
+                app.put("commentNumber",comments.size());
+//                app.put("commentNumber",commentList.size());
                 app.put("appointment",appointment);
                 returnMap.put(ParameterConstant.RETURN_DATA,app);
             }else {

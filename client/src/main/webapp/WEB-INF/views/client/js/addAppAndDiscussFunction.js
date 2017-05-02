@@ -82,7 +82,7 @@ ws.onclose = function(){
 /**
  * 相关功能代码*/
 
-/*加入约伴活动*/
+/*发起一个约伴活动*/
 function add_app() {
     var sex_restrict = $("#sex_restrict").val();
     var theme = $("#theme").val();
@@ -125,7 +125,6 @@ function add_app() {
     }
 
 }
-
 /*发起一个讨论*/
 function add_discuss() {
     var industry_id = $("#industry").val();
@@ -154,7 +153,6 @@ function add_discuss() {
         });
     }
 }
-
 /*加入约伴活动*/
 function join_app(id,user_account) {
     layer.confirm("确定要加入吗？",function (index) {
@@ -220,19 +218,6 @@ function rejectJoin(id,user_account) {
         }
     });
 }
-/*var ws ;
-ws = new WebSocket("ws://localhost:8080/hello");
-ws.onopen = function(evn){
-    console.log("就是这个信息："+evn.toString());
-};
-ws.onmessage = function(evn){
-    console.log(evn.data);
-    var dv = document.getElementById("dv");
-    dv.innerHTML+=evn.data;
-};
-ws.onclose = function(){
-    console.log("关闭");
-};*/
 /*关注某用户*/
 function careUser(user_account) {
    /* var ws ;
@@ -293,26 +278,17 @@ var answerContent = $("#my_reply").val();
         })
     }
 }
-/**关于对问题的回复的评论1 对约伴活动的评论2 对分享的评论3
+
+
+/**关于评论 对问题的回复的评论1 对约伴活动的评论2 对分享的评论3
  * ******************************************************************/
-/*对约伴活动的评论*/
+/*对帖子的评论*/
 function commentAPP(account,targetId,label) {
-    var content = "";
-    switch(label){
-        case 1:
-            break;
-        case 2:
-            content = $("#commentContent").val();
-            break;
-        case 3:
-            content = $("#commentContent").val();
-            break;
-    }
+    /*account是目标用户的账号 为了给TA发送信息*/
+    var content = $("#commentContent").val();
     if($("#account").val() == "") {
         layer.msg("你还未登陆,请先登陆!");
     }else {
-        /*加这个判断之后 分享的详情的评论因为是弹出层所有 内容较多的时候 探矿不显示 于是去掉*/
-        // layer.confirm("确定评论？",function (index) {
             if(content.trim() == ""){
                 layer.msg("评论内容不可为空哦！");
             }else {
@@ -337,10 +313,41 @@ function commentAPP(account,targetId,label) {
                     }
                 });
             }
-        // });
     }
 
 }
+
+/**关于对帖子的点赞
+ * */
+function likeInvitation(account,invitationId,type) {
+    if($("#account").val() == ""){
+        layer.msg("您还未登陆，先去登陆吧");
+    }else {
+        $.ajax({
+            url:"likeInvitation.action",
+            type:"post",
+            data:{
+                invitationId:invitationId,
+                type:type
+            },
+            success:function(data){
+                if(data.code == 0){
+                    ws.send(account+','+4);
+                    /*此处如果也main更新的语句放置发送提示之前 则消息提示不了*/
+                    window.location.reload();
+                }else if(data.code == 1){
+                    window.location.reload();
+                }
+            }
+        });
+    }
+}
+
+/**关于举报
+ * */
+
+/**
+ * 关于回复 对评论的回复*/
 
 
 
@@ -392,6 +399,25 @@ function addDiscussPage(title,url) {
 /*所有消息的弹出层*/
 function allMessagePage(title,url) {
     var editor = url;
+    var w = 700;
+    var h = 500;
+    //layer_show(title,editor,w,h);
+    layer.open({
+        type: 2,
+        area: [w + 'px', h + 'px'],
+        fix: false, //不固定
+        maxmin: true,
+        shade: 0.4,
+        title: title,
+        content: editor,
+        end: function () {
+        }
+    });
+}
+
+/*回答的评论弹出层*/
+function invitationCommentsPage(title,url,id,label,objectAccount) {
+    var editor = url+'?targetId='+id+'&label='+label+'&objectAccount='+objectAccount;
     var w = 700;
     var h = 500;
     //layer_show(title,editor,w,h);

@@ -8,7 +8,9 @@ import com.oneworld.web.dao.UserinfoMapper;
 import com.oneworld.web.model.Answer;
 import com.oneworld.web.model.Discuss;
 import com.oneworld.web.model.UserInfo;
+import com.oneworld.web.service.CommentService;
 import com.oneworld.web.service.DiscussService;
+import com.oneworld.web.service.LikeService;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,12 @@ public class DisscussServiceImpl implements DiscussService {
 
     @Autowired
     private UserinfoMapper userinfoMapper;
+
+    @Autowired
+    private CommentService commentService;
+
+    @Autowired
+    private LikeService likeService;
 
     public Map insertDiscuss(Map map) {
         Map returnMap = new HashMap();
@@ -141,7 +149,7 @@ public class DisscussServiceImpl implements DiscussService {
         return returnMap;
     }
 
-    public Map discussDetail(String id) {
+    public Map discussDetail(String id,String account) {
         Map returnMap = new HashMap();
         try{
             Discuss discuss = discussMapper.findDiscussById(id);
@@ -153,16 +161,26 @@ public class DisscussServiceImpl implements DiscussService {
                 if(answerList.size()>0){
                     SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     for (Answer a:answerList) {
+                        boolean flag = false;
+                        Map requestMap = new HashMap();
+                        requestMap.put("invitationId",a.getId());
+                        requestMap.put("likerAccount",account);
+                        requestMap.put("type",1);
+                        flag = likeService.isLike(requestMap);
                         Map<String,Object> answer = new HashedMap();
+//                        /*该回答下所有的评论*/
+                        List<Map<String,Object>> comments = (List<Map<String,Object>>) commentService.queryCommentsByTarget_id(a.getId(),1).get("data");
                         UserInfo userInfo = userinfoMapper.findUserInfoByAccount(a.getAnswer_account());
                         answer.put("answer",a);
                         answer.put("answerTime",fmt.format(a.getAnswer_time()));
-                        answer.put("answeUser",userInfo);
+                        answer.put("answerUser",userInfo);
+                        answer.put("comment",comments);
+                        answer.put("isLike",flag);
                         answers.add(answer);
                     }
                     discussOne.put("answer",answers);
                 }
-                discussOne.put("answerNumber",answerList.size());
+                    discussOne.put("answerNumber",answerList.size());
                     SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     String time = fmt.format(discuss.getAsk_time());
                     discussOne.put("time",time);

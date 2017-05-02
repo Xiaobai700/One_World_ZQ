@@ -11,6 +11,7 @@ import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,25 +47,27 @@ public class CommentServiceImpl implements CommentService{
 
     public Map queryCommentsByTarget_id(String target_id, int label) {
         Map returnMap = new HashMap();
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try{
             Map requestMap= new HashMap();
             requestMap.put("target_id",target_id);
             requestMap.put("label",label);
             List<Comment> commentList = commentMapper.queryCommentsByTargetIdAndLabel(requestMap);
             List<Map<String,Object>> commentResult = new ArrayList<Map<String, Object>>();
-            if(commentList.size()>0){
+//            if(commentList.size()>0){
                 for (Comment comment:commentList) {
                     Map<String,Object> commentMap = new HashedMap();
                     /*评论者的信息*/
                     UserInfo userInfo = userinfoMapper.findUserInfoByAccount(comment.getCommenter_account());
                     commentMap.put("userInfo",userInfo);
                     commentMap.put("comment",comment);
+                    commentMap.put("time",fmt.format(comment.getComment_time()));
                     commentResult.add(commentMap);
                 }
                 returnMap.put(ParameterConstant.RETURN_DATA,commentResult);
-            }else {
-                returnMap.put(ParameterConstant.RETURN_MSG,"该帖子下没有任何评论");
-            }
+//            }else {
+//                returnMap.put(ParameterConstant.RETURN_MSG,"该帖子下没有任何评论");
+//            }
 
         }catch (Exception e){
 

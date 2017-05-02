@@ -66,15 +66,49 @@
             </div>
 
             <!--右边的菜单-->
-            <div class="dh_div_right">
+           <%-- <div class="dh_div_right">
                 <ul class="ul_first">
                     <li class="li_cai_dan"><a href="index.do"><div class="cai_dan">首页</div></a></li>
                     <li class="li_cai_dan"><a href="allShares.do"><div class="cai_dan">分享</div></a></li>
                     <li class="li_cai_dan"><a href="welcome.do"><div class="cai_dan">欢迎</div></a></li>
-                    <li class="li_cai_dan"><a href="allDiscuss.do"><div class="cai_dan">职业讨论</div></a></li>
+                    <li class="li_cai_dan"><a href="discussPageNew.do"><div class="cai_dan">职业讨论</div></a></li>
                     <li class="li_cai_dan"><a href="allyueban.do"><div class="cai_dan">约伴</div></a></li>
                     <!-- <li style="width: 30px;"><a  data-toggle="modal" data-target=".login">登陆</a></li>
                     <li style="width: 30px;" class="zhu_ce"><a data-toggle="modal" data-target=".sign">注册</a></li> -->
+                    <li style="width: 90px;"><a>发起活动</a>
+                        <ul class="hd">
+                            <li><a onclick="addAppPage('发布约伴活动','add-app.html')" >活动约伴</a></li>
+                            <li><a onclick="addDiscussPage('发布讨论活动','add-discuss.html')">行业交流</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>--%>
+            <div class="dh_div_right">
+                <ul class="ul_first">
+                    <li class="li_cai_dan"><a href="index.do"><div class="cai_dan" style="background-color:#F47A7A;">首页</div></a></li>
+                    <li class="li_cai_dan"><a href="allShares.do"><div class="cai_dan">分享</div></a></li>
+                    <li class="li_cai_dan"><a href="welcome.do"><div class="cai_dan">欢迎</div></a></li>
+                    <li class="li_cai_dan"><a href="discussPageNew.do"><div class="cai_dan">职业讨论</div></a></li>
+                    <li class="li_cai_dan"><a href="allyueban.do"><div class="cai_dan">约伴</div></a></li>
+                    <%--<li class="li_cai_dan"><a href="#">消息<span class="label label-danger" id="message">22</span></a></li>--%>
+                    <li class="dropdown li_cai_dan" style="width: 40px;">
+                        <a class="<%--dropdown-toggle count-info--%>" <%--data-toggle="dropdown"--%> href="#">
+                            <i class="fa fa-bell"></i> <span class="label label-danger" id="size"
+                                                             style="line-height: 12px;padding: 1px 5px;position: absolute;;top: -2px;"></span>
+                        </a>
+                        <ul class="message">
+                            <li class="a">
+                                <i class="fa fa-envelope fa-fw"></i><span id="underSize"></span>条未读消息
+                            </li>
+                            <li class="a">
+                                <div id="messageDetail" style="text-align: left">
+                                </div>
+                            </li>
+                            <li class="a" onclick="allMessagePage('与我相关','allMessage.do')">
+                                <i class="fa fa-envelope fa-fw"></i>查看更多消息
+                            </li>
+                        </ul>
+                    </li>
                     <li style="width: 90px;"><a>发起活动</a>
                         <ul class="hd">
                             <li><a onclick="addAppPage('发布约伴活动','add-app.html')" >活动约伴</a></li>
@@ -173,21 +207,21 @@
                             <div class="social-feed-box">
                                 <div class="social-avatar">
                                     <a href="#" class="pull-left">
-                                        <img alt="image" src="${comment.comUser.head }">
+                                        <img alt="image" src="head/${comment.userInfo.head }">
                                     </a>
                                     <div class="media-body">
                                         <a href="#">
-                                                ${comment.comUser.nickName }
+                                                ${comment.userInfo.nickName }
                                         </a>
                                         <small class="text-muted">软件工程师</small>
                                     </div>
                                 </div>
                                 <div class="social-body">
                                     <p>
-                                        ${comment.comment.comment_content}
+                                            ${comment.comment.comment_content }
                                     </p>
                                     <div class="under_answer">
-                                        <a class="time"><i class="fa fa-clock-o"></i> ${comment.comment.comment_time}</a>
+                                        <a class="time"><i class="fa fa-clock-o"></i> ${comment.time}</a>
                                         <a class="talk"><i class="fa fa-comments"></i>查看对话</a>
                                         <div class="other">
                                             <%--<a><i class="glyphicon glyphicon-thumbs-up"></i>点赞</a>--%>
@@ -197,7 +231,6 @@
                                         </div>
                                         <div class="replyDiv"></div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>

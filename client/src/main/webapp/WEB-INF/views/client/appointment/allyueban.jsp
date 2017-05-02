@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
 
-    <!--引入主页的css样式文件-->
+    <%--<!--引入主页的css样式文件-->
     <link href="static/css/index_style.css" rel="stylesheet">
     <!--引入导航的css样式文件-->
     <link href="static/css/dao_hang_style.css" rel="stylesheet">
@@ -21,21 +21,34 @@
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <script type="text/javascript" src="static/js/jquery.min.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
-    <%--H+--%>
-    <%--<link href="../../static/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">--%>
+    &lt;%&ndash;H+&ndash;%&gt;
+    &lt;%&ndash;<link href="../../static/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">&ndash;%&gt;
     <link href="../../static/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
     <link href="../../static/css/animate.min.css" rel="stylesheet">
     <link href="../../static/css/style.min862f.css?v=4.1.0" rel="stylesheet">
-	<!-- 钟 -->
-    <script type="text/javascript" src="static/js/bootstrap-clockpicker.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="static/css/bootstrap-clockpicker.min.css">
-	<!-- 日期 -->
-    <link rel="stylesheet" href="static/css/pikaday.css">
     <!--引入主页的js文件-->
    <script src="static/js/index_js.js"></script>
+    &lt;%&ndash;layer&ndash;%&gt;
+    <script type="text/javascript" src="../../static/js/layer/2.1/layer.js"></script>--%>
+    <!-- 重要！不在线引入就会出现各种各样奇葩的问题 -->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <script type="text/javascript" src="../static/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+
+    <!--引入主页的css样式文件-->
+    <link href="../../static/css/index_style.css" rel="stylesheet">
+    <!--引入导航的css样式文件-->
+    <link href="../../static/css/dao_hang_style.css" rel="stylesheet">
+    <link href="../../static/css/ionicons.css" rel="stylesheet">
+    <%--H+的相关样式--%>
+    <link href="../../static/css/font-awesome.min93e3.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link href="../../static/css/toastr.min.css" rel="stylesheet">
+    <link href="../../static/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <!--引入主页的js文件-->
+    <script src="../../static/js/index_js.js"></script>
     <%--layer--%>
     <script type="text/javascript" src="../../static/js/layer/2.1/layer.js"></script>
-
     <title>所有约伴</title>
 </head>
 <body>
@@ -59,15 +72,49 @@
             </div>
 
             <!--右边的菜单-->
-            <div class="dh_div_right">
+            <%--<div class="dh_div_right">
                 <ul class="ul_first">
                     <li class="li_cai_dan"><a href="index.do"><div class="cai_dan">首页</div></a></li>
                     <li class="li_cai_dan"><a href="allShares.do"><div class="cai_dan">分享</div></a></li>
                     <li class="li_cai_dan"><a href="welcome.do"><div class="cai_dan">欢迎</div></a></li>
-                    <li class="li_cai_dan"><a href="allDiscuss.do"><div class="cai_dan">职业讨论</div></a></li>
+                    <li class="li_cai_dan"><a href="discussPageNew.do"><div class="cai_dan">职业讨论</div></a></li>
                     <li class="li_cai_dan"><a href="allyueban.do"><div class="cai_dan" style="background-color:#F47A7A;">约伴</div></a></li>
                     <!-- <li style="width: 30px;"><a>登陆</a></li>
                     <li style="width: 30px;" class="zhu_ce"><a>注册</a></li> -->
+                    <li style="width: 90px;"><a>发起活动</a>
+                        <ul class="hd">
+                            <li><a onclick="addAppPage('发布约伴活动','add-app.html')" >活动约伴</a></li>
+                            <li><a onclick="addDiscussPage('发布讨论活动','add-discuss.html')">行业交流</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>--%>
+            <div class="dh_div_right">
+                <ul class="ul_first">
+                    <li class="li_cai_dan"><a href="index.do"><div class="cai_dan" style="background-color:#F47A7A;">首页</div></a></li>
+                    <li class="li_cai_dan"><a href="allShares.do"><div class="cai_dan">分享</div></a></li>
+                    <li class="li_cai_dan"><a href="welcome.do"><div class="cai_dan">欢迎</div></a></li>
+                    <li class="li_cai_dan"><a href="discussPageNew.do"><div class="cai_dan">职业讨论</div></a></li>
+                    <li class="li_cai_dan"><a href="allyueban.do"><div class="cai_dan">约伴</div></a></li>
+                    <li class="dropdown li_cai_dan" style="width: 40px;">
+                        <a href="#">
+                            <i class="fa fa-bell"></i> <span class="label label-danger" id="size"
+                                                             style="line-height: 12px;padding: 1px 5px;position: absolute;;top: -2px;"></span>
+                        </a>
+                        <ul class="myMessage">
+                            <li class="a">
+                                <i class="fa fa-envelope fa-fw"></i><span id="underSize"></span>条未读消息
+                            </li>
+                            <li class="a">
+                                <div id="messageDetail" style="text-align: left">
+                                </div>
+                            </li>
+                            <li class="a" onclick="allMessagePage('与我相关','allMessage.do')">
+                                <i class="fa fa-envelope fa-fw"></i>查看更多消息
+                            </li>
+                        </ul>
+                    </li>
+
                     <li style="width: 90px;"><a>发起活动</a>
                         <ul class="hd">
                             <li><a onclick="addAppPage('发布约伴活动','add-app.html')" >活动约伴</a></li>
@@ -161,53 +208,6 @@
         <h3> <p style="text-align: center;font-family: 微软雅黑;">南京工业职业技术学院计算机与软件学院</p></h3>
     </div>
 </footer>
-<!-- 日期 -->
-
-<script type="text/javascript">
-var lis=$("ul.ul_first>li");
-
-lis.hover(function(){
-
-    $(this).find("ul").show();
-
-},function(){
-
-    $(this).find("ul").hide();
-
-})
-
-    $('.form_datetime').datetimepicker({
-        //language:  'fr',
-        weekStart: 1,
-        todayBtn:  1,
-		autoclose: 1,
-		todayHighlight: 1,
-		startView: 2,
-		forceParse: 0,
-        showMeridian: 1
-    });
-	$('.form_date').datetimepicker({
-        language:  'fr',
-        weekStart: 1,
-        todayBtn:  1,
-		autoclose: 1,
-		todayHighlight: 1,
-		startView: 2,
-		minView: 2,
-		forceParse: 0
-    });
-	$('.form_time').datetimepicker({
-        language:  'fr',
-        weekStart: 1,
-        todayBtn:  1,
-		autoclose: 1,
-		todayHighlight: 1,
-		startView: 1,
-		minView: 0,
-		maxView: 1,
-		forceParse: 0
-    });
-</script>
 <script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>
 <script type="text/javascript">
 

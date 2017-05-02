@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oneworld.web.dao.LikeMapper">
+    <resultMap id="BaseResultMap" type="com.oneworld.web.model.Like">
+        <id column="pk_id" property="pkId" jdbcType="INTEGER"/>
+        <result column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="liker_account" property="likerAccount" jdbcType="VARCHAR"/>
+        <result column="invitation_id" property="invitationId" jdbcType="VARCHAR"/>
+        <result column="like_time" property="likeTime" jdbcType="TIMESTAMP"/>
+        <result column="type" property="type" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="Base_Column_List">
+       pk_id,id,liker_account,invitation_id,like_time,type
+    </sql>
+
+    <insert id="insertLike" parameterType="com.oneworld.web.model.Like">
+        insert into t_like(id,liker_account,invitation_id,like_time,type)
+        values (#{id,jdbcType=VARCHAR},#{likerAccount,jdbcType=VARCHAR},#{invitationId,jdbcType=VARCHAR},#{likeTime,jdbcType=TIMESTAMP},#{type,jdbcType=INTEGER})
+    </insert>
+
+    <delete id="deleteLike" parameterType="java.util.Map">
+        delete from t_like
+        where  liker_account = #{likerAccount,jdbcType=VARCHAR} and invitation_id = #{invitationId,jdbcType=VARCHAR}and type = #{type,jdbcType=INTEGER}
+    </delete>
+
+    <select id="selectLikeByAccountAndId" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_like
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="likerAccount!=null and likerAccount!='' ">
+                and liker_account = #{likerAccount,jdbcType=VARCHAR}
+            </if>
+            <if test="invitationId!=null and invitationId!=''">
+                and invitation_id = #{invitationId,jdbcType=VARCHAR}
+            </if>
+            <if test="type!=null and type!=''">
+                and type = #{type,jdbcType=INTEGER}
+            </if>
+        </trim>
+    </select>
+</mapper>

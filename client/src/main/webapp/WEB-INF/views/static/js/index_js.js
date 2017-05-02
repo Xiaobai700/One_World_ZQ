@@ -33,21 +33,6 @@
         {
             imgall.eq(i).css({'transform':'rotate('+(60*i+1)+'deg)'});
         }
-        /*职业详情页面*/
-        /*点击查看评论，出现评论内容（评论里包括回复）*/
-        /*var tld_ckpl = $('.zyd_ckpl');
-        var tld_ycpl = $('.zyd_gbpl');
-
-        var tld_plnr = $('.er_ji_pl');
-
-        tld_ckpl.click(function () {
-            tld_plnr.show();
-        });
-        tld_ycpl.click(function () {
-            tld_plnr.hide();
-        });*/
-        /*点击回复，显示当前评论下的回复和一个回复的文本框*/
-
 
         /*个人中心页面*/
         var zy = $('.personal_main_right_zy');

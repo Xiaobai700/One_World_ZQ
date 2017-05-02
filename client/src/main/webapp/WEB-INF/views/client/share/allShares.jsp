@@ -15,15 +15,14 @@
     <link href="static/css/dao_hang_style.css" rel="stylesheet">
     <link href="static/css/ionicons.css" rel="stylesheet">
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-
     <!--bootstrap-->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <script src="static/js/jquery-2.2.4.min.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
     <script src="static/js/index_js.js"></script>
+    <link href="../static/css/font-awesome.min93e3.css" rel="stylesheet">
     <%--layer--%>
     <script type="text/javascript" src="../../static/js/layer/2.1/layer.js"></script>
-    <script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>
     <style type="text/css">
     .share_contents img{
     margin-left:38px;
@@ -53,15 +52,49 @@
             </div>
 
             <!--右边的菜单-->
-            <div class="dh_div_right">
+            <%--<div class="dh_div_right">
                 <ul class="ul_first">
                     <li class="li_cai_dan"><a href="index.do"><div class="cai_dan">首页</div></a></li>
                     <li class="li_cai_dan"><a href="allShares.do"><div class="cai_dan" style="background-color:#F47A7A;">分享</div></a></li>
                     <li class="li_cai_dan"><a href="welcome.do"><div class="cai_dan">欢迎</div></a></li>
-                    <li class="li_cai_dan"><a href="allDiscuss.do"><div class="cai_dan">职业讨论</div></a></li>
+                    <li class="li_cai_dan"><a href="discussPageNew.do"><div class="cai_dan">职业讨论</div></a></li>
                     <li class="li_cai_dan"><a href="allyueban.do"><div class="cai_dan">约伴</div></a></li>
                    <!--  <li style="width: 30px;"><a>登陆</a></li>
                     <li style="width: 30px;" class="zhu_ce"><a>注册</a></li> -->
+                    <li style="width: 90px;"><a>发起活动</a>
+                        <ul class="hd">
+                            <li><a onclick="addAppPage('发布约伴活动','add-app.html')" >活动约伴</a></li>
+                            <li><a onclick="addDiscussPage('发布讨论活动','add-discuss.html')">行业交流</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>--%>
+            <div class="dh_div_right">
+                <ul class="ul_first">
+                    <li class="li_cai_dan"><a href="index.do"><div class="cai_dan" style="background-color:#F47A7A;">首页</div></a></li>
+                    <li class="li_cai_dan"><a href="allShares.do"><div class="cai_dan">分享</div></a></li>
+                    <li class="li_cai_dan"><a href="welcome.do"><div class="cai_dan">欢迎</div></a></li>
+                    <li class="li_cai_dan"><a href="discussPageNew.do"><div class="cai_dan">职业讨论</div></a></li>
+                    <li class="li_cai_dan"><a href="allyueban.do"><div class="cai_dan">约伴</div></a></li>
+                    <%--<li class="li_cai_dan"><a href="#">消息<span class="label label-danger" id="message">22</span></a></li>--%>
+                    <li class="dropdown li_cai_dan" style="width: 40px;">
+                        <a class="<%--dropdown-toggle count-info--%>" <%--data-toggle="dropdown"--%> href="#">
+                            <i class="fa fa-bell"></i> <span class="label label-danger" id="size"
+                                                             style="line-height: 12px;padding: 1px 5px;position: absolute;;top: -2px;"></span>
+                        </a>
+                        <ul class="myMessage">
+                            <li class="a">
+                                <i class="fa fa-envelope fa-fw"></i><span id="underSize"></span>条未读消息
+                            </li>
+                            <li class="a">
+                                <div id="messageDetail" style="text-align: left">
+                                </div>
+                            </li>
+                            <li class="a" onclick="allMessagePage('与我相关','allMessage.do')">
+                                <i class="fa fa-envelope fa-fw"></i>查看更多消息
+                            </li>
+                        </ul>
+                    </li>
                     <li style="width: 90px;"><a>发起活动</a>
                         <ul class="hd">
                             <li><a onclick="addAppPage('发布约伴活动','add-app.html')" >活动约伴</a></li>
@@ -146,6 +179,6 @@
         });
     }
 </script>
-
+<script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>
 </body>
 </html>

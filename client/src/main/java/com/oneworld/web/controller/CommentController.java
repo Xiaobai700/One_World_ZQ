@@ -7,16 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by Master ZQ on 2017/4/30.
@@ -50,5 +48,18 @@ public class CommentController {
             e.printStackTrace();
             outWriter.write(mapper.writeValueAsString(returnMap));
         }
+    }
+    @RequestMapping("invitationComment.do")
+    public ModelAndView invitationCommentsPage(HttpServletRequest request,HttpServletResponse response,
+                                               String targetId,Integer label,String objectAccount){
+        ModelAndView modelAndView = new ModelAndView("/client/comment/invitationComments");
+        String account = (String) request.getSession().getAttribute("account");
+        List<Map<String,Object>> comments = (List<Map<String,Object>>) commentService.queryCommentsByTarget_id(targetId,label).get("data");
+        modelAndView.addObject("comment",comments);
+        modelAndView.addObject("objectAccount",objectAccount);
+        modelAndView.addObject("account",account);
+        modelAndView.addObject("targetId",targetId);
+        modelAndView.addObject("commentSize",comments.size());
+        return modelAndView;
     }
 }

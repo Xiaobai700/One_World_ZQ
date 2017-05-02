@@ -114,6 +114,7 @@ public class WebSocketTest {
                     }
                     break;
                 case 4:
+                    content ="<a>"+userInfo.getNickName()+"赞了你</a>";
                     break;
                 case 5:
                     String invitaionId = msg.split(",")[3];
@@ -121,6 +122,7 @@ public class WebSocketTest {
                     switch (label){
                         /*对问题回答的评论*/
                         case 1:
+                            content ="<a>"+userInfo.getNickName()+"评论你的回答</a>";
                             break;
                         /*对约伴活动的评论*/
                         case 2:

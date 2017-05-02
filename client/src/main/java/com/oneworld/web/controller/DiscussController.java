@@ -199,7 +199,7 @@ public class DiscussController {
             UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(user_account).get("data");
             modelAndView.addObject("userHead",userInfo.getHead());
         }
-        returnMap =(Map)discussService.discussDetail(id).get("data");
+        returnMap =(Map)discussService.discussDetail(id,user_account).get("data");
         mapper.writeValueAsString(returnMap);
         modelAndView.addObject("index",returnMap);
         return  modelAndView;

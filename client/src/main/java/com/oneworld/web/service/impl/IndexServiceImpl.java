@@ -66,6 +66,7 @@ private AppTypeMapper appTypeMapper;
 private IndustryMapper industryMapper;
 /**首页*/
     public Map indexAll(Map map) {
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
         Map returnMap = new HashMap();
         Map retMap = new HashMap();
         try{
@@ -93,6 +94,7 @@ private IndustryMapper industryMapper;
 //                有可能还会有活动的主题信息
                 appResult.put("orgnizerInfo",userInfo);
                 appResult.put("appointment",app);
+                appResult.put("time",fmt.format(app.getPublish_time()));
                 apps.add(appResult);
             }
             appResultMap.put("app",apps);

@@ -16,22 +16,22 @@
     <link href="../../static/css/ionicons.css" rel="stylesheet">
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
-    <!--bootstrap-->
-    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-    <%--<script src="../../static/js/jquery-2.2.4.min.js"></script>--%>
-    <%--<script src="../../static/js/bootstrap.min.js"></script>--%>
-
     <%--H+--%>
     <link href="../../static/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
     <link href="../../static/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
     <link href="../../static/css/animate.min.css" rel="stylesheet">
-    <link href="../../static/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <%--<link href="../../static/css/style.min862f.css?v=4.1.0" rel="stylesheet">--%>
 
-    <script src="../../static/js/jquery-1.8.3.min.js"></script>
-    <%--<script src="../../static/js/jquery.min.js?v=2.1.4"></script>--%>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <script type="text/javascript" src="../../static/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="../../static/js/bootstrap.min.js"></script>
+    <%--<!--bootstrap-->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <script src="../../static/js/jquery-2.2.4.min.js"></script>
+    <script src="../../static/js/bootstrap.min.js"></script>--%>
 
-    <script src="../../static/js/bootstrap.min.js?v=3.3.6"></script>
-    <script src="../../static/js/content.min.js?v=1.0.0"></script>
+    <%--<script src="../../static/js/bootstrap.min.js?v=3.3.6"></script>--%>
+    <%--<script src="../../static/js/content.min.js?v=1.0.0"></script>--%>
     <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
     <!--引入主页的js文件-->
     <script src="../../static/js/index_js.js"></script>
@@ -60,15 +60,49 @@
             </div>
 
             <!--右边的菜单-->
-            <div class="dh_div_right">
+            <%--<div class="dh_div_right">
                 <ul class="ul_first">
                     <li class="li_cai_dan"><a href="index.do"><div class="cai_dan">首页</div></a></li>
                     <li class="li_cai_dan"><a href="allShares.do"><div class="cai_dan">分享</div></a></li>
                     <li class="li_cai_dan"><a href="welcome.do"><div class="cai_dan">欢迎</div></a></li>
-                    <li class="li_cai_dan"><a href="allDiscuss.do"><div class="cai_dan">职业讨论</div></a></li>
+                    <li class="li_cai_dan"><a href="discussPageNew.do"><div class="cai_dan">职业讨论</div></a></li>
                     <li class="li_cai_dan"><a href="allyueban.do"><div class="cai_dan">约伴</div></a></li>
                     <!-- <li style="width: 30px;"><a  data-toggle="modal" data-target=".login">登陆</a></li>
                     <li style="width: 30px;" class="zhu_ce"><a data-toggle="modal" data-target=".sign">注册</a></li> -->
+                    <li style="width: 90px;"><a>发起活动</a>
+                        <ul class="hd">
+                            <li><a onclick="addAppPage('发布约伴活动','add-app.html')" >活动约伴</a></li>
+                            <li><a onclick="addDiscussPage('发布讨论活动','add-discuss.html')">行业交流</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>--%>
+            <div class="dh_div_right">
+                <ul class="ul_first">
+                    <li class="li_cai_dan"><a href="index.do"><div class="cai_dan" style="background-color:#F47A7A;">首页</div></a></li>
+                    <li class="li_cai_dan"><a href="allShares.do"><div class="cai_dan">分享</div></a></li>
+                    <li class="li_cai_dan"><a href="welcome.do"><div class="cai_dan">欢迎</div></a></li>
+                    <li class="li_cai_dan"><a href="discussPageNew.do"><div class="cai_dan">职业讨论</div></a></li>
+                    <li class="li_cai_dan"><a href="allyueban.do"><div class="cai_dan">约伴</div></a></li>
+                    <%--<li class="li_cai_dan"><a href="#">消息<span class="label label-danger" id="message">22</span></a></li>--%>
+                    <li class="dropdown li_cai_dan" style="width: 40px;">
+                        <a class="<%--dropdown-toggle count-info--%>" <%--data-toggle="dropdown"--%> href="#">
+                            <i class="fa fa-bell"></i> <span class="label label-danger" id="size"
+                                                             style="line-height: 12px;padding: 1px 5px;position: absolute;;top: -2px;"></span>
+                        </a>
+                        <ul class="message">
+                            <li class="a">
+                                <i class="fa fa-envelope fa-fw"></i><span id="underSize"></span>条未读消息
+                            </li>
+                            <li class="a">
+                                <div id="messageDetail" style="text-align: left">
+                                </div>
+                            </li>
+                            <li class="a" onclick="allMessagePage('与我相关','allMessage.do')">
+                                <i class="fa fa-envelope fa-fw"></i>查看更多消息
+                            </li>
+                        </ul>
+                    </li>
                     <li style="width: 90px;"><a>发起活动</a>
                         <ul class="hd">
                             <li><a onclick="addAppPage('发布约伴活动','add-app.html')" >活动约伴</a></li>
@@ -130,9 +164,14 @@
                         <div class="under_answer">
                             <a class="time"><i class="fa fa-clock-o"></i>${answer.answerTime }</a>
                             <div class="other">
-                                <a><i class="glyphicon glyphicon-thumbs-up"></i>点赞</a>
-                                <a><i class="glyphicon glyphicon-thumbs-down"></i>踩</a>
-                                <a><i class="glyphicon glyphicon-share reply"></i>回复</a>
+                                <c:if test="${answer.isLike == true}">
+                                    <a style="color: deepskyblue;" onclick="likeInvitation('${answer.answerUser.account }','${answer.answer.id}',1)"><i class="glyphicon glyphicon-thumbs-up"></i>取消赞</a>
+                                </c:if>
+                                <c:if test="${answer.isLike == false}">
+                                    <a onclick="likeInvitation('${answer.answerUser.account }','${answer.answer.id}',1)"><i class="glyphicon glyphicon-thumbs-up"></i>点赞</a>
+                                </c:if>
+                                <%--<a><i class="glyphicon glyphicon-thumbs-down"></i>踩</a>--%>
+                                <a data-toggle="modal" onclick="invitationCommentsPage('评论${answer.answerUser.nickName }','invitationComment.do','${answer.answer.id}',1,'${answer.answerUser.account }')" <%--data-target="#${answer.answer.id}"--%>><i class="glyphicon glyphicon-share reply"></i>评论</a>
                                 <a><i class="glyphicon glyphicon-flag"></i>举报</a>
                             </div>
                             <div class="replyDiv"></div>
@@ -173,7 +212,7 @@
         $(this).find("div.other").hide();
     })
 </script>
-<script type="text/javascript" src="client/js/addAppAndDiscussFunction.js"></script>
+<script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>
 <script src="../../static/js/toastr.min.js"></script>
 <script src="../../static/js/toast.js"></script>
 </body>

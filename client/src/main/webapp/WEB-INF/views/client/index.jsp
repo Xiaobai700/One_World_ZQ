@@ -8,10 +8,6 @@ pageEncoding="utf-8"%>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--bootstrap-->
-    <%--<script type="text/javascript" src="static/js/jquery.min.js"></script>--%>
-    <%--<script type="text/javascript" src="static/js/bootstrap.min.js"></script>--%>
-    <!--bootstrap-->
     <!-- 重要！不在线引入就会出现各种各样奇葩的问题 -->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <script type="text/javascript" src="../static/js/jquery-1.8.3.min.js"></script>
@@ -85,7 +81,7 @@ pageEncoding="utf-8"%>
                                 <i class="fa fa-bell"></i> <span class="label label-danger" id="size"
                                                                  style="line-height: 12px;padding: 1px 5px;position: absolute;;top: -2px;"></span>
                             </a>
-                            <ul class="message">
+                            <ul class="myMessage">
                                 <li class="a">
                                     <i class="fa fa-envelope fa-fw"></i><span id="underSize"></span>条未读消息
                                 </li>
@@ -98,8 +94,6 @@ pageEncoding="utf-8"%>
                                 </li>
                             </ul>
                         </li>
-                        <!-- <li style="width: 30px;"><a  data-toggle="modal" data-target=".login">登陆</a></li>
-                        <li style="width: 30px;" class="zhu_ce"><a data-toggle="modal" data-target=".sign">注册</a></li> -->
                         <li style="width: 90px;"><a>发起活动</a>
                             <ul class="hd">
                                 <li><a onclick="addAppPage('发布约伴活动','add-app.html')" >活动约伴</a></li>
@@ -166,7 +160,7 @@ pageEncoding="utf-8"%>
 		    			  </c:forEach>
                                 <span style="float: right;margin-top: 10px;" class="glyphicon glyphicon-plus-sign joined join" onclick="join_app(${appointment.appointment.id},${appointment.orgnizerInfo.account})">申请加入</span><!--加入活动的小图标-->
                                 <input type="hidden" value="${appointment.appointment.id}">
-                                <span style="float: right; margin-top: 10px;">${appointment.appointment.publish_time}&nbsp;</span><!--活动发起时间-->
+                                <span style="float: right; margin-top: 10px;">${appointment.time}&nbsp;</span><!--活动发起时间-->
                             </div>
                             <!--约伴活动的其他具体信息-->
                             <a href="appDetails.do?id=${appointment.appointment.id}">

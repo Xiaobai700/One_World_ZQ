@@ -72,7 +72,7 @@ nav{
     list-style: none;
     margin-left:-39px;
 }
-.message{
+.myMessage{
     border-radius: 4px;
     display: none;
     width:180px;
@@ -83,7 +83,7 @@ nav{
     text-align: center;
 }
 
-.message li{
+.myMessage li{
     width: 180px;
     list-style: none;
     margin-left:-39px;
