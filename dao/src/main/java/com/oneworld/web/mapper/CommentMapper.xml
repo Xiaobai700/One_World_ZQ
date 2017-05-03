@@ -38,6 +38,6 @@
         select
         <include refid="Base_Column_List"/>
         FROM t_comment
-        WHERE id=#{id,idbcType=VARCHAR}
+        WHERE id=#{id,jdbcType=VARCHAR}
     </select>
 </mapper>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,4 +47,16 @@ public class ReportController {
             outWriter.write(mapper.writeValueAsString(returnMap));
         }
     }
+
+    @RequestMapping("reportPage.do")
+    public ModelAndView  reportPage(HttpServletRequest request,HttpServletResponse response,
+                                    String account,String targetId,Integer targetType){
+        Map returnMap = new HashMap();
+        returnMap.put("account",account);
+        returnMap.put("targetId",targetId);
+        returnMap.put("targetType",targetType);
+
+        return new ModelAndView("/client/reportPage",returnMap);
+    }
+
 }

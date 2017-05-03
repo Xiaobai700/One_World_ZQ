@@ -17,4 +17,10 @@ public interface ReportMapper {
 
 //    查看所有举报
     public List<Report> queryReportPage(Map map);
+
+//    根据举报对象的类型和id查找举报
+    public Report findReportByTargetTypeAndId(Map map);
+
+//    更新举报
+    public int updateReport(Report report);
 }

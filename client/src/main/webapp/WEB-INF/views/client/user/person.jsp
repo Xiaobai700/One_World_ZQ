@@ -12,9 +12,12 @@
 <head>
     <title>用户个人详情</title>
     <link href="../../static/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <script src="../../static/js/jquery.min.js?v=2.1.4"></script>
     <link href="../../static/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
     <link href="../../static/css/animate.min.css" rel="stylesheet">
     <link href="../../static/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <%--layer--%>
+    <script type="text/javascript" src="../../static/js/layer/2.1/layer.js"></script>
 
 </head>
 
@@ -77,7 +80,7 @@
                                     <button type="button" style="color: deeppink;" class="btn btn-primary btn-sm btn-block"><i class="fa fa-heart"></i> 关注</button>
                                 </div>
                                 <div class="col-sm-6">
-                                    <button type="button" class="btn btn-danger btn-sm btn-block"><i class="fa fa-flag"></i> 举报</button>
+                                    <button type="button" class="btn btn-danger btn-sm btn-block" onclick="reportPage('选择举报类型','reportPage.do','${index.userInfo.account }','${index.userInfo.account }',2)"><i class="fa fa-flag"></i> 举报</button>
                                 </div>
                             </div>
                         </div>
@@ -247,12 +250,13 @@
         </div>
     </div>
 </div>
-<script src="../../static/js/jquery.min.js?v=2.1.4"></script>
+
 <script src="../../static/js/bootstrap.min.js?v=3.3.6"></script>
 <script src="../../static/js/content.min.js?v=1.0.0"></script>
 <script src="../../static/js/jquery.peity.min.js"></script>
 <script src="../../static/js/peity-demo.min.js"></script>
 <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
 
+<script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>
 </body>
 </html>

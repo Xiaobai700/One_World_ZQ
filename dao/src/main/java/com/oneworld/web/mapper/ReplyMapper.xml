@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oneworld.web.dao.ReplyMapper">
+    <resultMap id="BaseResultMap" type="com.oneworld.web.model.Reply">
+        <id column="pk_id" property="pkId" jdbcType="INTEGER"/>
+        <result column="id" property="id" jdbcType="VARCHAR" />
+        <result column="comment_id" property="commentId" jdbcType="VARCHAR"/>
+        <result column="reply_content" property="replyContent" jdbcType="VARCHAR"/>
+        <result column="reply_time" property="replyTime" jdbcType="TIMESTAMP"/>
+        <result column="replyer_account" property="replyerAccount" jdbcType="VARCHAR"/>
+        <result column="replyed_account" property="replyedAccount" jdbcType="VARCHAR"/>
+        <result column="reply_type" property="replyType" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,comment_id,reply_content,reply_time,replyer_account,replyed_account,reply_type
+    </sql>
+    <insert id="insertReply" parameterType="com.oneworld.web.model.Reply">
+        INSERT  into t_reply(id,comment_id,reply_content,reply_time,replyer_account,replyed_account,reply_type)
+        VALUES (#{id,jdbcType=VARCHAR},#{commentId,jdbcType=VARCHAR},#{replyContent,jdbcType=VARCHAR},#{replyTime,jdbcType=TIMESTAMP},
+        #{replyerAccount,jdbcType=VARCHAR},#{replyedAccount,jdbcType=VARCHAR},#{replyType,jdbcType=INTEGER})
+    </insert>
+    <delete id="deleteReply" parameterType="java.lang.String">
+        DELETE
+        FROM t_reply
+        WHERE id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <select id="getReplyByreplyTypeAndCommentId" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_reply
+        WHERE reply_type = #{replyType,jdbcType=INTEGER} AND comment_id = #{commentId,jdbcType=VARCHAR}
+    </select>
+</mapper>

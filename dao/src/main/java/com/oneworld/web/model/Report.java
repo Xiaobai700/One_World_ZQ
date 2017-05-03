@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 public class Report {
     private Integer pkId;
     private String id;
-    private int reportType;
+    private String reportType;
     private String targetId;
     private int targetType;
     private int currentState;
@@ -23,11 +23,11 @@ public class Report {
         this.id = id;
     }
 
-    public int getReportType() {
+    public String getReportType() {
         return reportType;
     }
 
-    public void setReportType(int reportType) {
+    public void setReportType(String reportType) {
         this.reportType = reportType;
     }
 

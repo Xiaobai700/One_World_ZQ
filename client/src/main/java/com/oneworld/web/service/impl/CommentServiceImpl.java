@@ -7,6 +7,7 @@ import com.oneworld.web.dao.UserinfoMapper;
 import com.oneworld.web.model.Comment;
 import com.oneworld.web.model.UserInfo;
 import com.oneworld.web.service.CommentService;
+import com.oneworld.web.service.ReplyService;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,9 +25,10 @@ import java.util.Map;
 public class CommentServiceImpl implements CommentService{
     @Autowired
     private CommentMapper commentMapper;
-
     @Autowired
     private UserinfoMapper userinfoMapper;
+    @Autowired
+    private ReplyService replyService;
 
     public Map insertComment(Comment comment) {
         Map returnMap = new HashMap();
@@ -59,8 +61,28 @@ public class CommentServiceImpl implements CommentService{
                     Map<String,Object> commentMap = new HashedMap();
                     /*评论者的信息*/
                     UserInfo userInfo = userinfoMapper.findUserInfoByAccount(comment.getCommenter_account());
+                    /*评论下的回复*/
+                    Integer replyType = 0;
+                    switch (comment.getLabel()){
+                        case 1:
+                            replyType = 1;
+                            break;
+                        case 2:
+                            replyType = 3;
+                            break;
+                        case 3:
+                            replyType = 2;
+                            break;
+                    }
+                    Map replyMap = new HashMap();
+                    replyMap.put("replyType",replyType);
+                    replyMap.put("commentId",comment.getId());
+                    Map za = replyService.getReply(replyMap);
+                    Integer replyNumbers = Integer.parseInt(replyService.getReply(replyMap).get("replyNumbers").toString());
                     commentMap.put("userInfo",userInfo);
                     commentMap.put("comment",comment);
+                    commentMap.put("replyNumbers",replyNumbers);
+                    commentMap.put("commentNumbers",commentList.size());
                     commentMap.put("time",fmt.format(comment.getComment_time()));
                     commentResult.add(commentMap);
                 }
@@ -70,7 +92,7 @@ public class CommentServiceImpl implements CommentService{
 //            }
 
         }catch (Exception e){
-
+            e.printStackTrace();
         }
         return returnMap;
     }

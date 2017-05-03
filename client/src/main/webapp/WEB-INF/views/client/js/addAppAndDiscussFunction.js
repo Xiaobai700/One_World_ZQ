@@ -346,33 +346,77 @@ function likeInvitation(account,invitationId,type) {
 /**关于举报
  * */
 function report(account,targetId,targetType) {
+    var reportTypes = null;
+    $("input[name='reportType']:checkbox").each(function(){
+        if($(this).prop("checked")){
+            if (reportTypes == null){
+                reportTypes = $(this).val();
+            }else{
+                reportTypes += ','+ $(this).val();
+            }
+        }
+    });
     if($("#account").val() == ""){
         layer.msg("您还未登陆，先去登陆吧");
     }else {
-        $.ajax({
-            url:"report.action",
-            type:"post",
-            data:{
-                targetType:targetType,
-                targetId:targetId
-            },
-            success:function(data){
-                if(data.code == 0){
-                    layer.msg("举报成功！");
-                    ws.send(account+','+6);
-                    /*此处如果也main更新的语句放置发送提示之前 则消息提示不了*/
-                    window.location.reload();
+        if(reportTypes == null){
+            layer.msg("同学，举报总要有理由的！");
+        }else {
+            $.ajax({
+                url:"report.action",
+                type:"post",
+                data:{
+                    targetType:targetType,
+                    targetId:targetId,
+                    reportType:reportTypes
+                },
+                success:function(data){
+                    if(data.code == 0){
+                        layer.msg("举报成功！");
+                        ws.send(account+','+6);
+                        /*此处如果也main更新的语句放置发送提示之前 则消息提示不了*/
+                        parent.location.reload();
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 }
 
 /**
  * 关于回复 对评论的回复*/
-
-
-
+function replyComment(account,commentId,replyType) {
+    var reply = $(".replyDiv").find("input").val();
+    if ($("#account").val() == "") {
+        layer.msg("您还未登陆，先去登陆吧");
+    } else {
+        if (reply == null) {
+            layer.msg("同学，你没写内容！");
+        } else {
+            $.ajax({
+                url: "reply.action",
+                type: "post",
+                data: {
+                    replyedAccount:account,
+                    replyType:replyType,
+                    commentId:commentId,
+                    replyContent:reply
+                },
+                success: function (data) {
+                    if (data.code == 0) {
+                        layer.msg("回复成功！");
+                        ws.send(account + ',' + 6);
+                        /*此处如果也main更新的语句放置发送提示之前 则消息提示不了*/
+                        window.location.reload();
+                    }
+                }
+            });
+        }
+    }
+}
+function cancelReply() {
+    $(".replyDiv").html("");
+}
 
 
 
@@ -442,6 +486,43 @@ function invitationCommentsPage(title,url,id,label,objectAccount) {
     var editor = url+'?targetId='+id+'&label='+label+'&objectAccount='+objectAccount;
     var w = 700;
     var h = 500;
+    //layer_show(title,editor,w,h);
+    layer.open({
+        type: 2,
+        area: [w + 'px', h + 'px'],
+        fix: false, //不固定
+        maxmin: true,
+        shade: 0.4,
+        title: title,
+        content: editor,
+        end: function () {
+        }
+    });
+}
+/*举报类型弹出层*/
+function reportPage(title,url,account,targetId,targetType) {
+    var editor = url+'?account='+account+'&targetId='+targetId+'&targetType='+targetType;
+    var w = 400;
+    var h = 300;
+    //layer_show(title,editor,w,h);
+    layer.open({
+        type: 2,
+        area: [w + 'px', h + 'px'],
+        fix: false, //不固定
+        maxmin: true,
+        shade: 0.4,
+        title: title,
+        content: editor,
+        end: function () {
+        }
+    });
+}
+
+/*查看回复*/
+function getReply(title,url,commentId,replyType) {
+    var editor = url+'?commentId='+commentId+'&replyType='+replyType;
+    var w = 600;
+    var h = 400;
     //layer_show(title,editor,w,h);
     layer.open({
         type: 2,

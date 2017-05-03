@@ -172,8 +172,8 @@
                                 </c:if>
                                 <%--<a><i class="glyphicon glyphicon-thumbs-down"></i>踩</a>--%>
                                 <a data-toggle="modal" onclick="invitationCommentsPage('评论${answer.answerUser.nickName }','invitationComment.do','${answer.answer.id}',1,'${answer.answerUser.account }')" <%--data-target="#${answer.answer.id}"--%>><i class="glyphicon glyphicon-share reply"></i>评论</a>
-                                <a><i class="glyphicon glyphicon-flag" onclick="report('${answer.answerUser.account }','${answer.answer.id}',1)"></i>举报</a>
-                            </div>
+                                <a onclick="reportPage('选择举报类型','reportPage.do','${answer.answerUser.account }','${answer.answer.id}',1)"><i class="glyphicon glyphicon-flag"></i>举报</a>
+                            </div><%--report('${answer.answerUser.account }','${answer.answer.id}',1)--%>
                             <div class="replyDiv"></div>
                         </div>
                     </div>

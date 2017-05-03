@@ -10,4 +10,8 @@ import java.util.Map;
 public interface ReportService {
 
     Map insertReport(Report report);
+
+    Map isReport(Map map);
+
+    Map updateReport(Report report);
 }

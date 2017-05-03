@@ -46,7 +46,6 @@
 </head>
 <body>
 <input type="hidden" value="${account}" id="account">
-<%--回复的模态框--%>
             <div>
                 <c:if test="${commentSize == 0}">
                     <h3><p style="font-family: 微软雅黑;color: lightgray;padding-left: 20px;">当前回答没有任何评论！</p></h3>
@@ -71,9 +70,11 @@
                                 </p>
                                 <div class="under_answer">
                                     <a class="time"><i class="fa fa-clock-o"></i> ${comment.time}</a>
-                                    <a class="talk"><i class="fa fa-comments"></i>查看对话</a>
+                                    <c:if test="${comment.replyNumbers > 0}">
+                                        <a class="talk" onclick="getReply('查看对话','replyPage.do','${comment.comment.id}',1)"><i class="fa fa-comments"></i>查看对话</a>
+                                    </c:if>
                                     <div class="other">
-                                        <a><i class="glyphicon glyphicon-share reply"></i>回复</a>
+                                        <a class="reply" account="${comment.userInfo.account }" commentId="${comment.comment.id}"><i class="glyphicon glyphicon-share"></i>回复</a>
                                     </div>
                                     <div class="replyDiv"></div>
                                 </div>
@@ -96,5 +97,26 @@
 <script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>
 <script src="../../static/js/toastr.min.js"></script>
 <script src="../../static/js/toast.js"></script>
+<script type="text/javascript">
+    $(".reply").toggle(function () {
+        var account = $(this).attr("account");
+        var commentId = $(this).attr("commentId");
+        var replyInput =' <input type="text" class="form-control">'+
+            '<button class="btn btn-primary aa" onclick="replyComment('+account+','+commentId+',1)">回复</button>'+
+            '<button class="btn btn-default cancel">取消</button>';
+        $(this).parent().next().append(replyInput);
+
+        $(".aa").live('click',function () {
+            replyComment(account,commentId,1);
+        });
+
+        $(".cancel").live('click',function () {
+            cancelReply();
+        });
+    },function () {
+        cancelReply();
+    });
+
+</script>
 </body>
 </html>
