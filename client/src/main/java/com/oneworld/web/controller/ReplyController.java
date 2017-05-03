@@ -50,12 +50,17 @@ public class ReplyController {
     @RequestMapping("replyPage.do")
     public ModelAndView replyPage(HttpServletRequest request, HttpServletResponse response,
                                   String commentId,Integer replyType){
+        String account = (String) request.getSession().getAttribute("account");
         Map returnMap = new HashMap();
         Map requestMap = new HashMap();
         /**/
         requestMap.put("commentId",commentId);
         requestMap.put("replyType",replyType);
+
         returnMap = replyService.getReply(requestMap);
+        returnMap.put("account",account);
+        returnMap.put("commentId",commentId);
+        returnMap.put("replyType",replyType);
 
         return new ModelAndView("/client/comment/commentReplys",returnMap);
     }

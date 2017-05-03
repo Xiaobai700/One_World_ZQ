@@ -9,6 +9,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <!--引入主页的css样式文件-->
     <link href="../../static/css/index_style.css" rel="stylesheet">
     <!--引入导航的css样式文件-->
@@ -23,16 +27,8 @@
     <link href="../../static/css/style.min862f.css?v=4.1.0" rel="stylesheet">
 
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-    <%--<script type="text/javascript" src="../../static/js/jquery-1.8.3.min.js"></script>--%>
+    <script type="text/javascript" src="../../static/js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="../../static/js/bootstrap.min.js"></script>
-    <script src="../../static/js/jquery-2.2.4.min.js"></script>
-    <%--<!--bootstrap-->
-    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-    <script src="../../static/js/jquery-2.2.4.min.js"></script>
-    <script src="../../static/js/bootstrap.min.js"></script>--%>
-
-    <%--<script src="../../static/js/bootstrap.min.js?v=3.3.6"></script>--%>
-    <%--<script src="../../static/js/content.min.js?v=1.0.0"></script>--%>
     <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
     <!--引入主页的js文件-->
     <script src="../../static/js/index_js.js"></script>
@@ -41,6 +37,7 @@
     <title>查看对话</title>
 </head>
 <body>
+<input type="hidden" value="${account}" id="account">
 <c:forEach var="reply" items="${reply}" >
     <div class="col-lg-12">
         <div class="social-feed-box">
@@ -61,13 +58,11 @@
                 </p>
                 <div class="under_answer">
                     <a class="time"><i class="fa fa-clock-o"></i> ${reply.time}</a>
-                    <a class="talk"><i class="fa fa-comments"></i>查看对话</a>
+                    <%--<a class="talk"><i class="fa fa-comments"></i>查看对话</a>--%>
                     <div class="other">
-                        <a class="reply"><i class="glyphicon glyphicon-share"></i>回复</a>
+                        <a class="reply" account="${reply.replyerUser.account}" commentId="${commentId}"><i class="glyphicon glyphicon-share"></i>回复</a>
                     </div>
-                    <div class="replyDiv">
-
-                    </div>
+                    <div class="replyDiv"></div>
                 </div>
             </div>
         </div>
@@ -85,18 +80,24 @@
 <script src="../../static/js/toastr.min.js"></script>
 <script src="../../static/js/toast.js"></script>
 <script type="text/javascript">
-    $(".reply").click(function () {
+    $(".reply").toggle(function () {
+        var account = $(this).attr("account");
+        var commentId = $(this).attr("commentId");
         var replyInput =' <input type="text" class="form-control">'+
-            '<button class="btn btn-primary">回复</button>'+
-            '<button class="btn btn-default" onclick="cancelReply()">取消</button>';
+            '<button class="btn btn-primary aa">回复</button>'+
+            '<button class="btn btn-default cancel">取消</button>';
         $(this).parent().next().append(replyInput);
+
+        $(".aa").live('click',function () {
+            replyComment(account,commentId,${replyType});
+        });
+
+        $(".cancel").live('click',function () {
+            cancelReply();
+        });
+    },function () {
+        cancelReply();
     });
-    function addReplyInput() {
-        var replyInput =' <input type="text" class="form-control">'+
-            '<button class="btn btn-primary" onclick="">回复</button>'+
-            '<button class="btn btn-default" onclick="cancelReply()">取消</button>';
-        $(this).parent().next().append(replyInput);
-    }
 </script>
 </body>
 </html>

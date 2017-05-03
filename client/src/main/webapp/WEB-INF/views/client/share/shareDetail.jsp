@@ -10,22 +10,29 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <!--引入主页的css样式文件-->
-    <link href="static/css/index_style.css" rel="stylesheet">
+    <link href="../../static/css/index_style.css" rel="stylesheet">
     <!--引入导航的css样式文件-->
-    <link href="static/css/dao_hang_style.css" rel="stylesheet">
-    <link href="static/css/ionicons.css" rel="stylesheet">
+    <link href="../../static/css/dao_hang_style.css" rel="stylesheet">
+    <link href="../../static/css/ionicons.css" rel="stylesheet">
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
     <%--H+--%>
     <link href="../../static/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
     <link href="../../static/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
     <link href="../../static/css/animate.min.css" rel="stylesheet">
     <link href="../../static/css/style.min862f.css?v=4.1.0" rel="stylesheet">
-    <!--bootstrap-->
+
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-    <script src="static/js/jquery-2.2.4.min.js"></script>
-    <script src="static/js/bootstrap.min.js"></script>
-    <script src="static/js/index_js.js"></script>
+    <script type="text/javascript" src="../../static/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="../../static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+    <!--引入主页的js文件-->
+    <script src="../../static/js/index_js.js"></script>
     <%--layer--%>
     <script type="text/javascript" src="../../static/js/layer/2.1/layer.js"></script>
 
@@ -86,29 +93,18 @@
                     </p>
                     <div class="under_answer">
                         <a class="time"><i class="fa fa-clock-o"></i> ${comment.time}</a>
-                        <a class="talk"><i class="fa fa-comments"></i>查看对话</a>
+                        <c:if test="${comment.replyNumbers > 0}">
+                            <a class="talk" onclick="getReply('查看对话','replyPage.do','${comment.comment.id}',2)"><i class="fa fa-comments"></i>查看对话</a>
+                        </c:if>
+                        <%--<a class="talk"><i class="fa fa-comments"></i>查看对话</a>--%>
                         <div class="other">
-                            <a><i class="glyphicon glyphicon-share reply"></i>回复</a>
+                            <a class="reply" account="${comment.userInfo.account}" commentId="${comment.comment.id}"><i class="glyphicon glyphicon-share reply"></i>回复</a>
                         </div>
                         <div class="replyDiv"></div>
                     </div>
                 </div>
             </div>
         </div>
-        <%--<div class="pin_lun_xian_shi">
-            <ul class="media-list">
-                <li class="media">
-                    <a class="media-left" href="#">
-                        <img src="head/${comment.userInfo.head }" style="width: 30px;height: 30px;border-radius: 25px;">
-                    </a>
-                    <div class="media-body">
-                        <Strong class="media-heading">${comment.userInfo.nickName }</strong><br />
-                        <h6>${comment.comment.comment_content }</h6>
-                        <i class="fa fa-clock-o"></i> ${comment.comment.comment_time}
-                    </div>
-                </li>
-            </ul>
-        </div>--%>
     </c:forEach>
     <div style="margin-top: 20px;margin-bottom: 30px;">
         <div style="margin-bottom: 20px;">
@@ -134,5 +130,25 @@
 <script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>
 <script src="../../static/js/toastr.min.js"></script>
 <script src="../../static/js/toast.js"></script>
+<script type="text/javascript">
+    $(".reply").toggle(function () {
+        var account = $(this).attr("account");
+        var commentId = $(this).attr("commentId");
+        var replyInput =' <input type="text" class="form-control">'+
+            '<button class="btn btn-primary aa">回复</button>'+
+            '<button class="btn btn-default cancel">取消</button>';
+        $(this).parent().next().append(replyInput);
+
+        $(".aa").live('click',function () {
+            replyComment(account,commentId,2);
+        });
+
+        $(".cancel").live('click',function () {
+            cancelReply();
+        });
+    },function () {
+        cancelReply();
+    });
+</script>
 </body>
 </html>

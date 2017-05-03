@@ -30,13 +30,6 @@
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <script type="text/javascript" src="../../static/js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="../../static/js/bootstrap.min.js"></script>
-    <%--<!--bootstrap-->
-    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-    <script src="../../static/js/jquery-2.2.4.min.js"></script>
-    <script src="../../static/js/bootstrap.min.js"></script>--%>
-
-    <%--<script src="../../static/js/bootstrap.min.js?v=3.3.6"></script>--%>
-    <%--<script src="../../static/js/content.min.js?v=1.0.0"></script>--%>
     <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
     <!--引入主页的js文件-->
     <script src="../../static/js/index_js.js"></script>

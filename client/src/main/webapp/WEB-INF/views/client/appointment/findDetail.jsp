@@ -6,8 +6,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!--引入主页的css样式文件-->
@@ -19,9 +19,7 @@
 
     <!--bootstrap-->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-    <%--<script src="static/js/jquery-2.2.4.min.js"></script>--%>
-    <%--<script src="static/js/index_js.js"></script>--%>
-    <%--<script src="static/js/bootstrap.min.js"></script>--%>
+
     <%--light box--%>
     <link type="text/css" rel="stylesheet" href="../../static/lightbox2/2.8.1/css/lightbox.css">
     <%--H+--%>
@@ -29,11 +27,12 @@
     <link href="../../static/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
     <link href="../../static/css/animate.min.css" rel="stylesheet">
     <link href="../../static/css/style.min862f.css?v=4.1.0" rel="stylesheet">
-    <%--<script src="../../static/js/jquery-1.8.3.min.js"></script>--%>
 
-    <script type="text/javascript" src="../../static/js/jquery.min.js?v=2.1.4"></script>
-    <script type="text/javascript" src="../../static/js/bootstrap.min.js?v=3.3.6"></script>
-    <script type="text/javascript" src="../../static/js/content.min.js?v=1.0.0"></script>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <script type="text/javascript" src="../../static/js/jquery-1.8.3.min.js"></script>
+    <%--<script type="text/javascript" src="../../static/js/jquery.min.js?v=2.1.4"></script>--%>
+    <script type="text/javascript" src="../../static/js/bootstrap.min.js"></script>
+    <%--<script type="text/javascript" src="../../static/js/content.min.js?v=1.0.0"></script>--%>
     <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
     <!--引入主页的js文件-->
     <script src="../../static/js/index_js.js"></script>
@@ -226,8 +225,8 @@
                                         <div class="other">
                                             <%--<a><i class="glyphicon glyphicon-thumbs-up"></i>点赞</a>--%>
                                             <%--<a><i class="glyphicon glyphicon-thumbs-down"></i>踩</a>--%>
-                                            <a><i class="glyphicon glyphicon-share reply"></i>回复</a>
-                                            <a><i class="glyphicon glyphicon-flag"></i>举报</a>
+                                            <a class="reply" account="${comment.userInfo.account}" commentId="${comment.comment.id}"><i class="glyphicon glyphicon-share"></i>回复</a>
+                                            <%--<a><i class="glyphicon glyphicon-flag"></i>举报</a>--%>
                                         </div>
                                         <div class="replyDiv"></div>
                                     </div>
@@ -254,7 +253,7 @@
         <p style="text-align: center;">南京工业职业技术学院计算机与软件学院</p>
     </div>
 </footer>
-<script type="text/javascript" src="../../static/lightbox2/2.8.1/js/lightbox-plus-jquery.js"></script>
+<%--<script type="text/javascript" src="../../static/lightbox2/2.8.1/js/lightbox-plus-jquery.js"></script>--%>
 <script type="text/javascript">
     $(function(){
         //把从文本编辑器中的图片放到和文本内容不一样的位置，让图片处于文本的下方
@@ -291,9 +290,31 @@
             /*拒绝就把join表中这条数据删除*/
         });
     });
+
+
 </script>
 <script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>
 <script src="../../static/js/toastr.min.js"></script>
 <script src="../../static/js/toast.js"></script>
+<script type="text/javascript">
+    $(".reply").toggle(function () {
+        var account = $(this).attr("account");
+        var commentId = $(this).attr("commentId");
+        var replyInput =' <input type="text" class="form-control">'+
+            '<button class="btn btn-primary aa" onclick="replyComment('+account+','+commentId+',1)">回复</button>'+
+            '<button class="btn btn-default cancel">取消</button>';
+        $(this).parent().next().append(replyInput);
+
+        $(".aa").live('click',function () {
+            replyComment(account,commentId,3);
+        });
+
+        $(".cancel").live('click',function () {
+            cancelReply();
+        });
+    },function () {
+        cancelReply();
+    });
+</script>
 </body>
 </html>
