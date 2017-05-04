@@ -94,8 +94,8 @@
                     <div class="under_answer">
                         <a class="time"><i class="fa fa-clock-o"></i> ${comment.time}</a>
                         <c:if test="${comment.replyNumbers > 0}">
-                            <a class="talk" onclick="getReply('查看对话','replyPage.do','${comment.comment.id}',2)"><i class="fa fa-comments"></i>查看对话</a>
-                        </c:if>
+                        <a class="talk" onclick="getReply('查看对话','replyPage.do','${comment.comment.id}',2)"><i class="fa fa-comments"></i>查看对话</a>
+                    </c:if>
                         <%--<a class="talk"><i class="fa fa-comments"></i>查看对话</a>--%>
                         <div class="other">
                             <a class="reply" account="${comment.userInfo.account}" commentId="${comment.comment.id}"><i class="glyphicon glyphicon-share reply"></i>回复</a>

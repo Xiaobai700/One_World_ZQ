@@ -221,7 +221,10 @@
                                     </p>
                                     <div class="under_answer">
                                         <a class="time"><i class="fa fa-clock-o"></i> ${comment.time}</a>
-                                        <a class="talk"><i class="fa fa-comments"></i>查看对话</a>
+                                        <c:if test="${comment.replyNumbers > 0}">
+                                            <a class="talk" onclick="getReply('查看对话','replyPage.do','${comment.comment.id}',3)"><i class="fa fa-comments"></i>查看对话</a>
+                                        </c:if>
+                                        <%--<a class="talk"><i class="fa fa-comments"></i>查看对话</a>--%>
                                         <div class="other">
                                             <%--<a><i class="glyphicon glyphicon-thumbs-up"></i>点赞</a>--%>
                                             <%--<a><i class="glyphicon glyphicon-thumbs-down"></i>踩</a>--%>
