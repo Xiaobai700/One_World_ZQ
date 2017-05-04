@@ -78,6 +78,7 @@
 <script type="text/javascript" src="../../static/js/plugins/dataTables/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../../static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
 <script type="text/javascript" src="../../static/js/content.min.js?v=1.0.0"></script>
+<script type="text/javascript" src="../../static/js/plugins/layer/layer/2.1/layer.js"></script>
 <script type="text/javascript" src="../function/user-function.js"></script>
 <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
 

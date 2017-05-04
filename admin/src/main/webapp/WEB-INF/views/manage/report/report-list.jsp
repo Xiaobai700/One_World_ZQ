@@ -32,7 +32,7 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <select class="form-control" id="reportType" style="width: 450px;">
+                    <select class="form-control" id="reportType" style="width: 350px;float: left;">
                         <option value="-1">请选择</option>
                         <option value="1">色情低俗</option>
                         <option value="2">政治敏感</option>
@@ -41,7 +41,7 @@
                         <option value="5">病毒木马</option>
                         <option value="6">其他</option>
                     </select>
-                    <select class="form-control" id="currentState" style="width: 200px;">
+                    <select class="form-control" id="currentState" style="width: 200px;margin-left:7px;float: left;">
                         <option value="-1">请选择</option>
                         <option value="0">未处理</option>
                         <option value="1">已处理</option>
@@ -79,14 +79,14 @@
 </div>
 <script type="text/javascript" src="../../static/js/plugins/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="../../static/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../../static/js/plugins/jeditable/jquery.jeditable.js"></script>
+<%--<script type="text/javascript" src="../../static/js/plugins/jeditable/jquery.jeditable.js"></script>--%>
 <script type="text/javascript" src="../../static/js/plugins/dataTables/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../../static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
-<script type="text/javascript" src="../../static/js/content.min.js?v=1.0.0"></script>
+<%--<script type="text/javascript" src="../../static/js/content.min.js?v=1.0.0"></script>--%>
 <script type="text/javascript" src="../../static/js/plugins/layer/layer/2.1/layer.js"></script>
-<script src="../function/report-function.js"></script>
+<script type="text/javascript" src="../function/report-function.js"></script>
 <script>
-    $(document).ready(function(){$(".dataTables-example").dataTable();var oTable=$("#editable").dataTable();oTable.$("td").editable("http://www.zi-han.net/theme/example_ajax.php",{"callback":function(sValue,y){var aPos=oTable.fnGetPosition(this);oTable.fnUpdate(sValue,aPos[0],aPos[1])},"submitdata":function(value,settings){return{"row_id":this.parentNode.getAttribute("id"),"column":oTable.fnGetPosition(this)[2]}},"width":"90%","height":"100%"})});function fnClickAddRow(){$("#editable").dataTable().fnAddData(["Custom row","New row","New row","New row","New row"])};
+//    $(document).ready(function(){$(".dataTables-example").dataTable();var oTable=$("#editable").dataTable();oTable.$("td").editable("http://www.zi-han.net/theme/example_ajax.php",{"callback":function(sValue,y){var aPos=oTable.fnGetPosition(this);oTable.fnUpdate(sValue,aPos[0],aPos[1])},"submitdata":function(value,settings){return{"row_id":this.parentNode.getAttribute("id"),"column":oTable.fnGetPosition(this)[2]}},"width":"90%","height":"100%"})});function fnClickAddRow(){$("#editable").dataTable().fnAddData(["Custom row","New row","New row","New row","New row"])};
 </script>
 <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
 

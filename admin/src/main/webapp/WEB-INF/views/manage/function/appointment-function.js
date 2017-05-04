@@ -70,7 +70,7 @@ jQuery(function () {
         });
         $("#isChecked").change(function () {
             var isChecked = $('#isChecked option:selected').val();
-            if (isChecked != null && isChecked != "") {
+            if (isChecked != null && isChecked !="") {
                 table.fnDraw();
             }
         });

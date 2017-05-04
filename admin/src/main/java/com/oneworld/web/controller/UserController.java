@@ -52,4 +52,20 @@ public class UserController {
             outWriter.write(mapper.writeValueAsString(returnMap));
         }
     }
+    @RequestMapping("disableUserOrNot.action")
+    @ResponseBody
+    public void disableUserOrNot(HttpServletResponse response,HttpServletRequest request,
+                                 String account) throws IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        PrintWriter outWriter = response.getWriter();
+        ObjectMapper mapper = new ObjectMapper();
+        Map returnMap = new HashMap();
+        try{
+            returnMap = userService.changeUserStatus(account);
+            outWriter.write(mapper.writeValueAsString(returnMap));
+        }catch (Exception e){
+            e.printStackTrace();
+            outWriter.write(mapper.writeValueAsString(returnMap));
+        }
+    }
 }

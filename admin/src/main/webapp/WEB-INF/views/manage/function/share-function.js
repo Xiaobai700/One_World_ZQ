@@ -38,7 +38,7 @@ jQuery(function () {
                 {"mData": "share_title", 'sClass': 'center'},
                 {"mData": "sharer_account", 'sClass': 'center'},
                 {"mData": "share_time", 'sClass': 'center'},
-                {"mData": "share_thumbnail", 'sClass': 'center'},
+                // {"mData": "share_thumbnail", 'sClass': 'center'},
                 {"mData": "like_times", 'sClass': 'center'},
                 {"mData": "id", 'sClass': 'center'}
             ]

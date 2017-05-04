@@ -46,6 +46,7 @@
             OR sender LIKE '%${keys}%'
             OR content LIKE '%${keys}%'
         </if>
+        and type =0
     </trim>
     ORDER BY send_time DESC
     <if test="index != null and length != null">

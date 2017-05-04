@@ -40,17 +40,17 @@ public class DateTableUtil {
                     }
                 }
                 else if (jsonObject.get("name").equals("is_checked")) {
-                    if (!jsonObject.get("value").toString().equals("0")) {
+                    if (!jsonObject.get("value").toString().equals("-1")) {
                         requestMap.put("is_checked", jsonObject.get("value").toString());
                     }
                 }
                 else if (jsonObject.get("name").equals("currentState")) {
-                    if (!jsonObject.get("value").toString().equals("0")) {
+                    if (!jsonObject.get("value").toString().equals("-1")) {
                         requestMap.put("currentState", jsonObject.get("value").toString());
                     }
                 }
                 else if (jsonObject.get("name").equals("reportType")) {
-                    if (!jsonObject.get("value").toString().equals("0")) {
+                    if (!jsonObject.get("value").toString().equals("-1")) {
                         requestMap.put("reportType", jsonObject.get("value").toString());
                     }
                 }

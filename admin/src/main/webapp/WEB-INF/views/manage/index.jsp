@@ -163,6 +163,20 @@
                         </li>
                     </ul>
                 </li>
+
+                <li>
+                    <a href="#">
+                        <i class="glyphicon glyphicon-alert"></i>
+                        <span class="nav-label">公告管理</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="message-list.html" data-index="0">增加公告</a>
+                        </li>
+                    </ul>
+                </li>
+
             </ul>
         </div>
     </nav>

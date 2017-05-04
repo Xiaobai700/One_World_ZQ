@@ -1,5 +1,5 @@
 /**
- * Created by Master ZQ on 2017/3/11.
+ * Created by Master ZQ on 2017/5/4.
  */
 var table=""
 jQuery(function () {
@@ -29,38 +29,22 @@ jQuery(function () {
             "bStateSave": true,
             "bProcessing": false, // 是否显示取数据时的那个等待提示
             "bServerSide": true,//这个用来指明是通过服务端来取数据
-            "sAjaxSource": "user-list.json",//这个是请求的地址
+            "sAjaxSource": "message-list.json",//这个是请求的地址
             "fnServerData": retrieveData, // 获取数据的处理函数
             "fnServerParams": function (aoData) {
             },
 
             "aoColumns": [
-                {"mData": "nickName", 'sClass': 'center'},
-                {"mData": "account", 'sClass': 'center'},
-                {"mData": "sex", 'sClass': 'center',"mRender":function (data,type,full) {
+                {"mData": "content", 'sClass': 'center'},
+                {"mData": "sendTime", 'sClass': 'center'},
+                {"mData": "id", 'sClass': 'center',"mRender": function(data, type, full) {
                     var returnStr = "";
-                    if(full["sex"] == 'gender ion-male'){
-                        returnStr += '<span>男</span>';
-                    }else if(full["sex"] == 'gender ion-female'){
-                        returnStr += '<span>女</span>';
-                    }
-                    return returnStr;
-                }},
-                {"mData": "age", 'sClass': 'center'},
-                {"mData": "location", 'sClass': 'center'},
-                {"mData": "job", 'sClass': 'center'},
-                {"mData": "account", 'sClass': 'center',"mRender":function (data,type,full) {
-                    var returnStr = "";
-                    if(full["disabled"] == 0){
-                        returnStr +='<span style="color: red;" onclick="disableUserOrNot(\'' + full["account"] + '\')">禁用</span>';
-                    }else {
-                        returnStr +='<span style="color: #00b7ee;" onclick="disableUserOrNot(\'' + full["account"] + '\')">解禁</span>';
-                    }
+                    returnStr += '<i class="glyphicon glyphicon-trash" title="删除" onClick="deleteInform(\''+full["id"]+'\')"></i>';
                     return returnStr;
                 }}
             ]
         });
-    });
+});
 });
 function retrieveData(sSource111, aoData111, fnCallback111) {
     $.ajax({
@@ -76,25 +60,28 @@ function retrieveData(sSource111, aoData111, fnCallback111) {
         }
     });
 }
-/*禁用用户*/
-function disableUserOrNot(account) {
-    $.ajax({
-        url : "disableUserOrNot.action",
-        data : {
-            account:account
-        },//这个是把datatable的一些基本数据传给后台,比如起始位置,每页显示的行数
-        type : 'post',
-        dataType : 'json',
-        async : false,
-        success : function(data) {
-            if(data.code == 0){
-                layer.msg(data.msg,{time:2000});
-                table.fnDraw(true);
-            }else {
-                layer.msg(data.msg, {icon: 5, time: 1000});
+
+function deleteInform(id) {
+    layer.confirm("确定要删除吗？",function () {
+        $.ajax({
+            url : "delete-message.action",
+            data : {
+                id:id
+            },//这个是把datatable的一些基本数据传给后台,比如起始位置,每页显示的行数
+            type : 'post',
+            dataType : 'json',
+            async : false,
+            success : function(data) {
+                if(data.code == 0){
+                    layer.msg(data.msg,{time:2000});
+                    table.fnDraw(true);
+//                 window.location.reload();
+                }else {
+                    layer.msg(data.msg, {icon: 5, time: 1000});
+                }
+            },
+            error : function(msg) {
             }
-        },
-        error : function(msg) {
-        }
+        });
     });
 }

@@ -16,6 +16,16 @@ public class UserInfo {
 	private int care_count;//关注的人数
 	private int fans_count;//被关注的次数，即粉丝数
 	private Timestamp regist_time;//注册时间
+	private Integer disabled;
+
+	public Integer getDisabled() {
+		return disabled;
+	}
+
+	public void setDisabled(Integer disabled) {
+		this.disabled = disabled;
+	}
+
 	public String getAccount() {
 		return account;
 	}

@@ -41,5 +41,6 @@
                 disabled = #{disabled,jdbcType=INTEGER},
             </if>
         </set>
+        WHERE account = #{account,jdbcType=VARCHAR}
     </update>
 </mapper>

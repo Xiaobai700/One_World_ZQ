@@ -118,13 +118,13 @@ jQuery(function () {
         });
         $("#reportType").change(function () {
             var reportType = $('#reportType option:selected').val();
-            if (reportType != null && reportType != "") {
+            if (reportType != null && reportType !="") {
                 table.fnDraw();
             }
         });
         $("#currentState").change(function () {
             var currentState = $('#currentState option:selected').val();
-            if (currentState != null && currentState != "") {
+            if (currentState != null && currentState !="") {
                 table.fnDraw();
             }
         });

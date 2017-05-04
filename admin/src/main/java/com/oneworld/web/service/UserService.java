@@ -14,7 +14,7 @@ public interface UserService {
 	public Map findUserByAccount(String account);
 
 	//修改用户状态
-	public Map changeUserStatus(String account,String reportId,Integer processType);
+	public Map changeUserStatus(String account);
 
 /****以下******admin*******admin*********admin*********admin***********admin*****相关***********************/
 	public Map getUserPage(Map map);
