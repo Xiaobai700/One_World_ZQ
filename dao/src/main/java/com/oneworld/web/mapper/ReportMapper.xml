@@ -64,10 +64,29 @@
         UPDATE t_report
         <set>
             <if test="reportType != null">
-                report_type = #{reportType,jdbcType=VARCHAR},
+                report_type = #{reportType,jdbcType=VARCHAR} ORDER report_type LIKE CONCAT('%','${reportType}','%'),
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete,jdbcType=INTEGER},
+            </if>
+            <if test="currentState != null">
+                current_state = #{currentState,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
             </if>
         </set>
         WHERE id = #{id,jdbcType=VARCHAR}
     </update>
+
+    <select id="findReportById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_report
+        where id =#{id,jdbcType=VARCHAR}
+    </select>
 
 </mapper>

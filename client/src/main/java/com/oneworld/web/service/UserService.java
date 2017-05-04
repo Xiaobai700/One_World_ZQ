@@ -1,5 +1,7 @@
 package com.oneworld.web.service;
 
+import com.oneworld.web.model.User;
+
 import java.util.Map;
 
 public interface UserService {
@@ -12,5 +14,8 @@ public interface UserService {
 	
 	//根据账号查找用户
 	public Map findUserByAccount(String account);
+
+	//更新用户
+	public Map changeUserStatus(User user);
 
 }

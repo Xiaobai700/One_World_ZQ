@@ -12,7 +12,7 @@ public interface AppTypeMapper {
 //   增加一种类型
     public int insertAppTye(AppType appType);
 //    删除
-    public  int deleteById(int id);
+    public  int deleteById(String id);
 //    查看所有类型
     public List<AppType> queryAllAppType();
 //    分页
@@ -22,5 +22,5 @@ public interface AppTypeMapper {
 //    根据名称查找
     public AppType findAppTypeByName(String type_name);
 //    根据id查找
-    public AppType findAppTypeById(int id);
+    public AppType findAppTypeById(String id);
 }

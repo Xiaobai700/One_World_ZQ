@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Master ZQ
@@ -34,8 +35,11 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>基本 <small>分类，查找</small></h5>
-
+                    <select class="form-control" id="isChecked" style="width: 300px;">
+                        <option value="-1">请选择</option>
+                        <option value="1">已审核</option>
+                        <option value="0">未审核</option>
+                    </select>
                 </div>
                 <div class="ibox-content">
 

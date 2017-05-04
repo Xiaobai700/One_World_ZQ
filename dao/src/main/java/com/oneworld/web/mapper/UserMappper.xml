@@ -5,14 +5,15 @@
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="account" property="account" jdbcType="VARCHAR"/>
         <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="disabled" property="disabled" jdbcType="INTEGER" />
     </resultMap>
     <sql id="Base_Column_List">
-        id,account,password
+        id,account,password,disabled
     </sql>
 
     <insert id="insertUser" parameterType="com.oneworld.web.model.User">
-        insert into t_user(id,account,password)
-        values (#{id,jdbcType=INTEGER},#{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
+        insert into t_user(id,account,password,disabled)
+        values (#{id,jdbcType=INTEGER},#{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},#{disabled,jdbcType=INTEGER})
     </insert>
 
     <select id="findUserByAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -31,5 +32,14 @@
             </if>
         </set>
         where account = #{account,jdbcType=VARCHAR}
+    </update>
+
+    <update id="changeStatus" parameterType="com.oneworld.web.model.User">
+        UPDATE t_user
+        <set>
+            <if test="disabled!= null">
+                disabled = #{disabled,jdbcType=INTEGER},
+            </if>
+        </set>
     </update>
 </mapper>

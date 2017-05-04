@@ -8,19 +8,18 @@ import java.sql.Timestamp;
  */
 public class Industry {
     private Integer pk_id;
-    private int id;
+    private String id;
     private String industry_name;
     private int industry_userNum;
     private Timestamp create_time;
     private Timestamp update_time;
 
 
-
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

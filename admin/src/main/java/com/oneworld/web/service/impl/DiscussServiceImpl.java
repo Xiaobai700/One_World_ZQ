@@ -19,7 +19,7 @@ import java.util.Map;
 public class DiscussServiceImpl implements DiscussService {
 @Autowired
 private DiscussMapper discussMapper;
-    public Map findDiscussById(int id) {
+    public Map findDiscussById(String id) {
         return null;
     }
 

@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by Master ZQ on 2017/3/17.
@@ -29,6 +30,7 @@ public class IndustryServiceImpl implements IndustryService{
             if(industry1 != null){
                 returnMap.put(ParameterConstant.RETURN_MSG,"该行业已经存在");
             }else {
+                industry.setId(UUID.randomUUID().toString());
                 industry.setCreate_time(new Timestamp(new Date().getTime()));
                 industry.setUpdate_time(new Timestamp(new Date().getTime()));
                 industryMapper.insertIndustry(industry);
@@ -41,7 +43,7 @@ public class IndustryServiceImpl implements IndustryService{
         return returnMap;
     }
 
-    public Map deleteIndustry(int id) {
+    public Map deleteIndustry(String id) {
         Map returnMap = new HashedMap();
         try{
             Industry industry = industryMapper.findIndustryById(id);

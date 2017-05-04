@@ -48,7 +48,7 @@
                             <li><a class="J_menuItem" href="profile.html">修改密码</a>
                             </li>
                             <li class="divider"></li>
-                            <li><a href="login.html">安全退出</a>
+                            <li><a href="logout.html">安全退出</a>
                             </li>
                         </ul>
                     </div>

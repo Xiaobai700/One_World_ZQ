@@ -23,4 +23,6 @@ public interface ReportMapper {
 
 //    更新举报
     public int updateReport(Report report);
+
+    public Report findReportById(String id);
 }

@@ -78,7 +78,7 @@ public class IndustryController {
     @ResponseBody
     public void deleteIndustry(HttpServletRequest request,
                             HttpServletResponse response,
-                            int id
+                            String id
     ) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter outWriter = response.getWriter();

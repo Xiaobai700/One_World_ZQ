@@ -10,9 +10,10 @@ public class Report {
     private String id;
     private String reportType;
     private String targetId;
-    private int targetType;
-    private int currentState;
-    private int status;
+    private Integer targetType;
+    private Integer currentState;
+    private Integer status;
+    private Integer isDelete;
     private Timestamp updateTime;
 
     public String getId() {
@@ -39,28 +40,36 @@ public class Report {
         this.targetId = targetId;
     }
 
-    public int getTargetType() {
+    public Integer getTargetType() {
         return targetType;
     }
 
-    public void setTargetType(int targetType) {
+    public void setTargetType(Integer targetType) {
         this.targetType = targetType;
     }
 
-    public int getCurrentState() {
+    public Integer getCurrentState() {
         return currentState;
     }
 
-    public void setCurrentState(int currentState) {
+    public void setCurrentState(Integer currentState) {
         this.currentState = currentState;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
     public Timestamp getUpdateTime() {

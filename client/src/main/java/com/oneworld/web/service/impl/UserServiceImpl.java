@@ -101,4 +101,15 @@ public class UserServiceImpl implements UserService {
         }
         return returnMap;
     }
+
+    public Map changeUserStatus(User user) {
+        Map returnMap = new HashMap();
+        try {
+            userMapper.changeStatus(user);
+            returnMap.put(ParameterConstant.RETURN_CODE,0);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return returnMap;
+    }
 }

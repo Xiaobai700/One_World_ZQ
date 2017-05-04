@@ -15,4 +15,6 @@ public interface UserMapper {
     /**用户修改密码*/
     public int changePassword(User user);
 
+    /**修改用户状态*/
+    public int changeStatus(User user);
 }

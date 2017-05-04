@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by Master ZQ on 2017/3/20.
@@ -25,10 +26,11 @@ public class AppTypeServiceImpl implements AppTypeService {
     public Map insertAppType(AppType appType) {
         Map returnMap = new HashedMap();
         try {
-            AppType appType1 = appTypeMapper.findAppTypeByName(appType.getType_name());
+            AppType appType1 = appTypeMapper.findAppTypeByName(appType.getTypeName());
             if(appType1 != null){
                 returnMap.put(ParameterConstant.RETURN_MSG,"该活动类型名称已存在！");
             }else {
+                appType.setId(UUID.randomUUID().toString());
                 appType.setAttention_num(0);
                 appType.setCreate_time(new Timestamp(new Date().getTime()));
                 appType.setUpdate_time(new Timestamp(new Date().getTime()));
@@ -59,7 +61,7 @@ public class AppTypeServiceImpl implements AppTypeService {
         return returnMap;
     }
 
-    public Map deleteAppType(int id) {
+    public Map deleteAppType(String id) {
         Map returnMap = new HashedMap();
         try{
             AppType appType = appTypeMapper.findAppTypeById(id);

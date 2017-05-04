@@ -10,7 +10,7 @@ import java.util.Map;
 public interface IndustryService {
     public Map insertIndustry(Industry industry);
 
-    public Map deleteIndustry(int id);
+    public Map deleteIndustry(String id);
 
     public Map updateIndustry(Industry industry);
 

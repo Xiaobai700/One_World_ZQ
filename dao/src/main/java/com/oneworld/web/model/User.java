@@ -4,6 +4,7 @@ public class User {
 	private Integer id;
 	private String account;
 	private String password;
+	private Integer disabled;
 
 	public Integer getId() {
 		return id;
@@ -23,6 +24,15 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public Integer getDisabled() {
+		return disabled;
+	}
+
+	public void setDisabled(Integer disabled) {
+		this.disabled = disabled;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", account=" + account + ", password=" + password + "]";

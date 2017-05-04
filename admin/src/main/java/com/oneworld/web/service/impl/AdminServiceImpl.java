@@ -87,4 +87,24 @@ public class AdminServiceImpl implements AdminService {
         }
         return returnMap;
     }
+
+    public Map login(String account, String password) {
+        Map returnMap = new HashMap();
+        try{
+            Admin admin = adminMapper.findAdminByAccount(account);
+            if(admin != null){
+                if(admin.getPassword().equals(password)){
+                    returnMap.put(ParameterConstant.RETURN_CODE,0);
+                    returnMap.put(ParameterConstant.RETURN_MSG,"登陆成功！");
+                }else {
+                    returnMap.put(ParameterConstant.RETURN_MSG,"密码有误");
+                }
+            }else {
+                returnMap.put(ParameterConstant.RETURN_MSG,"账号不存在！");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return returnMap;
+    }
 }

@@ -12,7 +12,7 @@ public interface AppTypeService {
 
     Map queryAppTypePage(Map map);
 
-    Map deleteAppType(int id);
+    Map deleteAppType(String id);
 
     Map updateAppType(AppType appType);
 

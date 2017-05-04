@@ -32,6 +32,9 @@ jQuery(function () {
             "sAjaxSource": "appointment-list.json",//这个是请求的地址
             "fnServerData": retrieveData, // 获取数据的处理函数
             "fnServerParams": function (aoData) {
+                aoData.push(
+                    {"name": "is_checked", "value": $('#isChecked option:selected').val()}
+                )
             },
 
             "aoColumns": [
@@ -64,6 +67,12 @@ jQuery(function () {
                     return returnStr;
                 }}
             ]
+        });
+        $("#isChecked").change(function () {
+            var isChecked = $('#isChecked option:selected').val();
+            if (isChecked != null && isChecked != "") {
+                table.fnDraw();
+            }
         });
     });
 });
@@ -105,6 +114,8 @@ function checkApp(id) {
         });
     });
 }
+
+
 
 function deleteApp(id) {
     layer.confirm("你确定要删除这个活动？",function (index) {

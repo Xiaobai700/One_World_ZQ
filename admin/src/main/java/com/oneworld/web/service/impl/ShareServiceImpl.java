@@ -20,7 +20,7 @@ public class ShareServiceImpl implements ShareService {
     @Autowired
     private ShareMapper shareMapper;
 
-    public Map findShareById(int id) {
+    public Map findShareById(String id) {
         return null;
     }
 

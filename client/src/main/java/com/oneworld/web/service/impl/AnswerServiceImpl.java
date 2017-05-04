@@ -59,7 +59,21 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     public Map deleteAnswer(String id) {
-        return null;
+        Map returnMap = new HashMap();
+        try{
+            Answer answer = answerMapper.findAnswerById(id);
+            if(answer != null){
+                answerMapper.deleteAnswer(id);
+                returnMap.put(ParameterConstant.RETURN_CODE,0);
+                returnMap.put(ParameterConstant.RETURN_MSG,"删除成功！");
+            }else {
+                returnMap.put(ParameterConstant.RETURN_CODE,1008);
+                returnMap.put(ParameterConstant.RETURN_MSG,"该回答不存在！");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return returnMap;
     }
 
     public Map findAnswerById(String id) {

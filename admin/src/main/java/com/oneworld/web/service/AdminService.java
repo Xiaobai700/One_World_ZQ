@@ -15,4 +15,6 @@ public interface AdminService {
     public Map queryAdminPage(Map map);
 
     public Map findAdminByAccount(String account);
+
+    public Map login(String account,String password);
 }

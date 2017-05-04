@@ -7,27 +7,26 @@ import java.sql.Timestamp;
  */
 public class AppType {
     private Integer pk_id;
-    private Integer id;
+    private String id;
     private String typeName;
     private Integer attention_num;
     private Timestamp create_time;
     private Timestamp update_time;
 
 
-
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String gettypeName() {
+    public String getTypeName() {
         return typeName;
     }
 
-    public void settypeName(String typeName) {
+    public void setTypeName(String typeName) {
         this.typeName = typeName;
     }
 

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by Master ZQ on 2017/3/10.
@@ -21,5 +22,11 @@ public class indexController {
     public ModelAndView staticPage(HttpServletRequest request){
         ModelAndView modelAndView = new ModelAndView("/manage/static");
         return modelAndView;
+    }
+
+    @RequestMapping("login.do")
+    public ModelAndView loginPage(HttpServletResponse response,HttpServletRequest request){
+        ModelAndView modelAndView = new ModelAndView("/manage/login");
+        return  modelAndView;
     }
 }

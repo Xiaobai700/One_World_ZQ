@@ -103,4 +103,30 @@ public class AdminController {
             outWriter.write(mapper.writeValueAsString(returnMap));
         }
     }
+
+    @RequestMapping("login.action")
+    @ResponseBody
+    public void login(HttpServletRequest request,HttpServletResponse response,
+                      String account,String password) throws IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        PrintWriter outWriter = response.getWriter();
+        ObjectMapper mapper = new ObjectMapper();
+        Map returnMap = new HashMap();
+        try{
+            returnMap = adminService.login(account,password);
+            if(returnMap.get("code").equals(0)){
+                request.getSession().setAttribute("account",account);
+            }
+            outWriter.write(mapper.writeValueAsString(returnMap));
+        }catch (Exception e){
+            e.printStackTrace();
+            outWriter.write(mapper.writeValueAsString(returnMap));
+        }
+    }
+
+    @RequestMapping(value = "logout.html")
+    public ModelAndView logout(HttpServletResponse response, HttpServletRequest request){
+        request.getSession().invalidate();
+        return new ModelAndView("/manage/login");
+    }
 }

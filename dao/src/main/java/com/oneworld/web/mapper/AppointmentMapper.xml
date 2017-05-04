@@ -73,6 +73,9 @@
             <if test="app_type!=null and app_type!=''">
                 and app_type = #{app_type,jdbcType=INTEGER}
             </if>
+            <if test="is_checked!=null and is_checked!=''">
+                and is_checked = #{is_checked,jdbcType=INTEGER}
+            </if>
             <if test="keys!=null and keys!='' ">
                 AND theme LIKE '%${keys}%'
                 OR content LIKE '%${keys}%'

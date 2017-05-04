@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.oneworld.web.dao.AppTypeMapper">
     <resultMap id="BaseResultMap" type="com.oneworld.web.model.AppType">
-        <id column="id" property="id" jdbcType="INTEGER"/>
+        <id column="pk_id" property="pk_id" jdbcType="INTEGER"/>
+        <result column="id" property="id" jdbcType="VARCHAR" />
         <result column="type_name" property="typeName" jdbcType="VARCHAR"/>
         <result column="attention_num" property="attention_num" jdbcType="INTEGER"/>
         <result column="create_time" property="create_time" jdbcType="TIMESTAMP"/>
@@ -14,12 +15,12 @@
 
     <insert id="insertAppTye" parameterType="com.oneworld.web.model.AppType">
         insert into t_apptype (id,type_name,attention_num,create_time,update_time)
-        values (#{id,jdbcType=INTEGER},#{typeName,jdbcType=VARCHAR},#{attention_num,jdbcType=INTEGER},#{create_time,jdbcType=TIMESTAMP},#{update_time,jdbcType=TIMESTAMP})
+        values (#{id,jdbcType=VARCHAR},#{typeName,jdbcType=VARCHAR},#{attention_num,jdbcType=INTEGER},#{create_time,jdbcType=TIMESTAMP},#{update_time,jdbcType=TIMESTAMP})
     </insert>
 
-    <delete id="deleteById" parameterType="java.lang.Integer">
+    <delete id="deleteById" parameterType="java.lang.String">
         delete from t_apptype
-        where id = #{id,jdbcType=INTEGER}
+        where id = #{id,jdbcType=VARCHAR}
     </delete>
 
     <select id="queryAllAppType" resultMap="BaseResultMap">
@@ -60,7 +61,7 @@
                 update_time = #{update_time,jdbcType=TIMESTAMP},
             </if>
         </set>
-        where id = #{id,jdbcType=INTEGER}
+        where id = #{id,jdbcType=VARCHAR}
     </update>
     <select id="findAppTypeByName" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
@@ -69,10 +70,10 @@
         WHERE type_name = #{typeName,jdbcType=VARCHAR}
     </select>
 
-    <select id="findAppTypeById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="findAppTypeById" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         FROM t_apptype
-        WHERE id = #{id,jdbcType=INTEGER}
+        WHERE id = #{id,jdbcType=VARCHAR}
     </select>
 </mapper>

@@ -69,7 +69,7 @@ public class AppTypeController {
         Map returnMap = new HashedMap();
         try {
             AppType appType = new AppType();
-            appType.settypeName(type_name);
+            appType.setTypeName(type_name);
             returnMap = appTypeService.insertAppType(appType);
             outWriter.write(mapper.writeValueAsString(returnMap));
         }catch (Exception e){
@@ -83,7 +83,7 @@ public class AppTypeController {
     @ResponseBody
     public void deleteAppType(HttpServletRequest request,
                             HttpServletResponse response,
-                            int id
+                            String id
     ) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter outWriter = response.getWriter();
