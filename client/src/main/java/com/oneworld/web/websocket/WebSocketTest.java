@@ -60,18 +60,23 @@ public class WebSocketTest {
             /*获得当前登陆者【通道】的信息*/
 //            session.getBasicRemote().sendText("连接成功！系统消息...");
             userInfo =(UserInfo)userInfoService.findUserInfoByAccount(account).get("data");
-            /**然后再查看数据库是否存在未读的消息，如果有就发送过去*/
+            /**然后再查看数据库是否存在未读的通知类消息，如果有就发送过去*/
             Map requestMap = new HashMap();
             requestMap.put("receiver",account);
             requestMap.put("isRead",0);
-            List<Message> messages =(List<Message>) messageService.getMessage(requestMap).get("data");
+            List<Message> messages =(List<Message>) messageService.allMessages(account).get("unRead");
             Map returnMap = new HashMap();
+
+            /**查看有没有未读的系统消息 广播给用户*/
+            Map systermMap = new HashMap();
+            systermMap.put("isRead",0);
+            systermMap.put("type",0);
+            List<Message> systemMessages =(List<Message>) messageService.getMessage(systermMap).get("data");
+            returnMap.put("systemMessage",systemMessages);
+            returnMap.put("systemSize",systemMessages.size());
             returnMap.put("message",messages);
             returnMap.put("messageSize",messages.size());
             sendOne(session,returnMap);
-            /*for (Message m:messages) {
-                sendOne(session,gson.toJson(m));
-            }*/
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -94,27 +99,32 @@ public class WebSocketTest {
             requestMap.put("sender",this.account);
             requestMap.put("receiver",objectUserAccount);
             String content = "";
-            /*在这里对情况进行区分 1是关注  2是加入活动  3.是 是否同意加入活动  4.点赞 5.评论 6.举报等*/
+            /*在这里对情况进行区分 1是关注  2是申请加入活动  3.是否同意加入活动  4.点赞 5.评论 6.举报等*/
             switch (type){
                 case 1:
-                    content = "<a>"+userInfo.getNickName()+"</a>关注了你！";
+                    content = "<a href=personal.do?account="+this.account+">"+userInfo.getNickName()+"</a>关注了你！";
                     break;
                 case 2:
-                    content = "<a>"+userInfo.getNickName()+"</a>申请加入你的活动！";
+                    String id = msg.split(",")[2];
+                    Appointment app = appointmentMapper.findAppointmentById(id);
+                    content = "<a href=personal.do?account="+this.account+">"+userInfo.getNickName()+"</a>申请加入你发布主题为<a href=appDetails.do?id="+id+">"+app.getTheme()+"</a>的活动！";
                     break;
                 case 3:
                     Integer agreeOrNot = Integer.parseInt(msg.split(",")[2]);
+                    String appId = msg.split(",")[3];
+                    Appointment appointmentJoin = appointmentMapper.findAppointmentById(appId);
                     switch (agreeOrNot){
                         case 0:
-                            content ="<a>"+userInfo.getNickName()+"拒绝了你加入主题为的申请</a>";
+                            content ="<a>"+userInfo.getNickName()+"拒绝了你加入主题为<a href=appDetails.do?id="+appId+">"+appointmentJoin.getTheme()+"<a/>活动的申请</a>";
                             break;
                         case 1:
-                            content ="<a>"+userInfo.getNickName()+"同意了你加入主题为的申请</a>";
+                            content ="<a>"+userInfo.getNickName()+"同意了你加入主题为<a href=appDetails.do?id="+appId+">"+appointmentJoin.getTheme()+"<a/>活动的申请</a>";
                             break;
                     }
                     break;
                 case 4:
-                    content ="<a>"+userInfo.getNickName()+"赞了你</a>";
+                    /*对回答的点赞 对分享的点赞*/
+                    content ="<a>"+userInfo.getNickName()+"赞了你对<a></a>问题的回答</a>";
                     break;
                 case 5:
                     String invitaionId = msg.split(",")[3];
@@ -122,22 +132,22 @@ public class WebSocketTest {
                     switch (label){
                         /*对问题回答的评论*/
                         case 1:
-                            content ="<a>"+userInfo.getNickName()+"评论你的回答</a>";
+                            content ="<a>"+userInfo.getNickName()+"评论了你对<a href=discussDetail.do?id="+invitaionId+"></a>问题的回答</a>";
                             break;
                         /*对约伴活动的评论*/
                         case 2:
                             Appointment appointment = appointmentMapper.findAppointmentById(invitaionId);
-                            content ="<a>"+userInfo.getNickName()+"</a>评论了你发布的主题为<a>"+appointment.getTheme()+"</a>的活动";
+                            content ="<a>"+userInfo.getNickName()+"</a>评论了你发布的主题为<a href=appDetails.do?id="+invitaionId+">"+appointment.getTheme()+"</a>的活动";
                             break;
                         /*对分享的评论*/
                         case 3:
                             Share share = shareMapper.findShareById(invitaionId);
-                            content = "<a>"+userInfo.getNickName()+"</a>评论了你标题为<a>"+share.getShare_title()+"</a>的分享";
+                            content = "<a>"+userInfo.getNickName()+"</a>评论了你标题为<a href=shareDetail.do?id="+invitaionId+">"+share.getShare_title()+"</a>的分享";
                             break;
                         /*对讨论的回答*/
                         case 4:
                             Discuss discuss = discussMapper.findDiscussById(invitaionId);
-                            content = "<a>"+userInfo.getNickName()+"</a>回答了你标题为<a>"+discuss.getDiscuss_title()+"</a>的问题";
+                            content = "<a>"+userInfo.getNickName()+"</a>回答了你标题为<a href=discussDetail.do?id="+invitaionId+">"+discuss.getDiscuss_title()+"</a>的问题";
                             break;
                     }
                     break;
@@ -176,15 +186,10 @@ public class WebSocketTest {
     }
 
     /*广播*/
-    public void broadcast(Map<String, Session> mapsession, String msg) {
+    public void broadcast(Map<String, Session> mapsession, Map map) {
         for (Map.Entry<String, Session> entry : mapsession.entrySet()) {
             Session session=entry.getValue();
-            try {
-                    session.getBasicRemote().sendText(msg);
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            sendOne(session,map);
         }
     }
 

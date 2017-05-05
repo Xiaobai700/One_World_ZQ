@@ -29,12 +29,6 @@
     <include refid="Base_Column_List"/>
     FROM t_message
     <trim prefix="WHERE" prefixOverrides="AND|OR">
-        <if test="sender!=null and sender!='' ">
-            and sender = #{sender,jdbcType=VARCHAR}
-        </if>
-        <if test="receiver!=null and receiver!='' ">
-            and receiver = #{receiver,jdbcType=VARCHAR}
-        </if>
         <if test="isRead!=null and isRead!='' ">
             and is_read = #{isRead,jdbcType=INTEGER}
         </if>
@@ -53,6 +47,29 @@
         LIMIT #{index},#{length}
     </if>
 </select>
+    <select id="searchUserMessage" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_message
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="sender!=null and sender!='' ">
+                and sender = #{sender,jdbcType=VARCHAR}
+            </if>
+            <if test="receiver!=null and receiver!='' ">
+                and receiver = #{receiver,jdbcType=VARCHAR}
+            </if>
+            <if test="isRead!=null and isRead!='' ">
+                and is_read = #{isRead,jdbcType=INTEGER}
+            </if>
+            <if test="content!=null and content!='' ">
+                and content = #{content,jdbcType=VARCHAR}
+            </if>
+        </trim>
+        ORDER BY send_time DESC
+        <if test="index != null and length != null">
+            LIMIT #{index},#{length}
+        </if>
+    </select>
     <select id="getMessageByMap" parameterType="java.util.Map" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>

@@ -63,7 +63,7 @@ public class MessageServiceImpl implements MessageService {
             Map requestMap = new HashMap();
             requestMap.put("receiver",account);
             requestMap.put("isRead",0);
-            List<Message> unReadMessag= (List<Message>) getMessage(requestMap).get("data");
+            List<Message> unReadMessag= messageMapper.searchUserMessage(requestMap);
             List<Map<String,Object>> unReadResult = new ArrayList<Map<String, Object>>();
             for (Message m:unReadMessag) {
                 Map unReadMessageMap = new HashMap();
@@ -75,7 +75,7 @@ public class MessageServiceImpl implements MessageService {
             Map requestMap1 = new HashMap();
             requestMap1.put("receiver",account);
             requestMap1.put("isRead",1);
-            List<Message> readMessages =(List<Message>) getMessage(requestMap1).get("data");
+            List<Message> readMessages =messageMapper.searchUserMessage(requestMap1);
             List<Map<String,Object>> readResult = new ArrayList<Map<String, Object>>();
             for (Message m:readMessages) {
                 Map readMessageMap = new HashMap();
@@ -90,6 +90,12 @@ public class MessageServiceImpl implements MessageService {
             e.printStackTrace();
         }
         return  returnMap;
+    }
+
+    public Map userMessage(Map map) {
+        Map returnMap = new HashMap();
+
+        return returnMap;
     }
 
     public Map deleteMessage(String id) {

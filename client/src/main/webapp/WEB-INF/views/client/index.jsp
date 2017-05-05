@@ -19,6 +19,7 @@ pageEncoding="utf-8"%>
     <link href="../static/css/dao_hang_style.css" rel="stylesheet">
     <link href="../static/css/ionicons.css" rel="stylesheet">
     <%--H+的相关样式--%>
+    <%--<link href="../static/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">--%>
     <link href="../static/css/font-awesome.min93e3.css" rel="stylesheet">
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link href="../static/css/toastr.min.css" rel="stylesheet">
@@ -70,30 +71,50 @@ pageEncoding="utf-8"%>
                 <!--右边的菜单-->
                 <div class="dh_div_right">
                     <ul class="ul_first">
+                        <li class="li_cai_dan" style="width: 40px;">
+                            <a class="myInfo" href="#">
+                                <i class="fa fa-bell"></i> <span class="<%--label label-danger--%>" id="size"
+                                                                 style="font-size: 10px;font-weight: 600;background-color: #ed5565;color: #FFF;line-height: 12px;padding: 1px 5px;position: absolute;/*top: -2px;*/"></span>
+                            </a>
+                            <div class="upUp" style="position: absolute;">
+                                <span class="glyphicon glyphicon-chevron-up"></span>
+                            </div>
+                            <div class="myMessage">
+                                <div class="messageTop" style="line-height: 1.7;">
+                                    <button class="inform" id="inform" style="">通知消息</button>
+                                    <button class="inform" id="system" style="width: 50%;float: left;text-align: center;font-size: 17px;">系统消息</button>
+                                </div>
+                                <div class="messageDetail" id="messageDetail">
+                                    <div id="systemMessage" style="display: none;">
+                                    </div>
+                                    <div id="informMessage">
+
+                                    </div>
+                                </div>
+                                <div class="messageBottom" onclick="allMessagePage('与我相关','allMessage.do')">
+                                    <i class="fa fa-envelope fa-fw"></i>查看更多消息
+                                </div>
+                            </div>
+                            <%-- <ul class="myMessage">
+                                 <li class="a">
+                                     <i class="fa fa-envelope fa-fw"></i><span id="underSize"></span>条未读消息
+                                 </li>
+                                 <li class="a">
+                                         <div id="messageDetail" style="text-align: left">
+                                         </div>
+                                 </li>
+                                 <li class="a" onclick="allMessagePage('与我相关','allMessage.do')">
+                                     <i class="fa fa-envelope fa-fw"></i>查看更多消息
+                                 </li>
+                             </ul>--%>
+                        </li>
                         <li class="li_cai_dan"><a href="index.do"><div class="cai_dan" style="background-color:#F47A7A;">首页</div></a></li>
                         <li class="li_cai_dan"><a href="allShares.do"><div class="cai_dan">分享</div></a></li>
                         <li class="li_cai_dan"><a href="welcome.do"><div class="cai_dan">欢迎</div></a></li>
                         <li class="li_cai_dan"><a href="discussPageNew.do"><div class="cai_dan">职业讨论</div></a></li>
                         <li class="li_cai_dan"><a href="allyueban.do"><div class="cai_dan">约伴</div></a></li>
                         <%--<li class="li_cai_dan"><a href="#">消息<span class="label label-danger" id="message">22</span></a></li>--%>
-                        <li class="dropdown li_cai_dan" style="width: 40px;">
-                            <a class="<%--dropdown-toggle count-info--%>" <%--data-toggle="dropdown"--%> href="#">
-                                <i class="fa fa-bell"></i> <span class="label label-danger" id="size"
-                                                                 style="line-height: 12px;padding: 1px 5px;position: absolute;;top: -2px;"></span>
-                            </a>
-                            <ul class="myMessage">
-                                <li class="a">
-                                    <i class="fa fa-envelope fa-fw"></i><span id="underSize"></span>条未读消息
-                                </li>
-                                <li class="a">
-                                        <div id="messageDetail" style="text-align: left">
-                                        </div>
-                                </li>
-                                <li class="a" onclick="allMessagePage('与我相关','allMessage.do')">
-                                    <i class="fa fa-envelope fa-fw"></i>查看更多消息
-                                </li>
-                            </ul>
-                        </li>
+
                         <li style="width: 90px;"><a>发起活动</a>
                             <ul class="hd">
                                 <li><a onclick="addAppPage('发布约伴活动','add-app.html')" >活动约伴</a></li>

@@ -21,6 +21,7 @@ $(function () {
 
 /**关于websocket*/
 var account = $("#account").val();
+if(account !=""){
     var ws ;
     var url = "ws://localhost:8080/hello?"+account;
 // ws = new WebSocket("ws://localhost:8080/hello?"+account);
@@ -40,22 +41,30 @@ var account = $("#account").val();
         var size = document.getElementById("size");
         var underSize = document.getElementById("underSize");
         var messageDetail = document.getElementById("messageDetail");
+        var informMessage = document.getElementById("informMessage");
+        var systemMessage = document.getElementById("systemMessage");
 
         // if(evn.data != undefined){
         //         dv.innerHTML+=evn.data;
         //     }else {
         var message = JSON.parse(evn.data);
-        console.log(message);
-        console.log(message.message);
+        console.log("这是全部信息message"+message);
+        console.log("这是message.message"+message.message);
+        console.log("这是message.systemMessage"+message.systemMessage);
         if(Array.isArray(message.message)){
             messageNumber = message.messageSize;
             // messageDetail.innerHTML = '<i class="fa fa-envelope fa-fw"></i>'+messageNumber+'条未读消息';
             $.each(message.message,function () {
-                dv.innerHTML+=this.content;
-                messageDetail.innerHTML+= "<span class='small' style='color: #5BC4C8;;'>"+this.sendTime+"</span><br />"+this.content+"<br />";
+                dv.innerHTML+=this.message.content;
+               informMessage.innerHTML +="<div class='oneMessage'>"+this.message.content+"</div>";
+                // messageDetail.innerHTML+= "<span class='small' style='color: #5BC4C8;;'>"+this.message.sendTime+"</span><br />"+this.message.content+"<br />";
             });
             size.innerHTML = message.messageSize;
-            underSize.innerHTML = messageNumber;
+            // underSize.innerHTML = messageNumber;
+            $.each(message.systemMessage,function () {
+                systemMessage.innerHTML +="<div class='oneMessage'>"+this.content+"</div>";
+            });
+
             // messageDetail.innerHTML = '<i class="fa fa-envelope fa-fw"></i>'+messageNumber+'条未读消息 <span class="pull-right text-muted small">4分钟前</span>';
         }else {
             dv.innerHTML+=message.message.content;
@@ -70,15 +79,16 @@ var account = $("#account").val();
 
         }
 
-    // }
-    /*统一的接收格式*/
-    /*var message = JSON.parse(evn.data);
-     dv.innerHTML+=message.content;*/
+        // }
+        /*统一的接收格式*/
+        /*var message = JSON.parse(evn.data);
+         dv.innerHTML+=message.content;*/
 
-};
-ws.onclose = function(){
-    console.log("关闭");
-};
+    };
+    ws.onclose = function(){
+        console.log("关闭");
+    };
+}
 /**
  * 相关功能代码*/
 
@@ -170,7 +180,7 @@ function join_app(id,user_account) {
                     var dataObj=eval("("+data+")");
                     if(dataObj.code == 0){
                         layer.msg("加入成功！");
-                        ws.send(user_account+','+2);
+                        ws.send(user_account+','+2+','+id);
                         window.location.reload();
                     }
                 }
@@ -180,7 +190,7 @@ function join_app(id,user_account) {
     });
 }
 /*活动发起者同意对方加入活动*/
-function checkJoin(id,user_account) {
+function checkJoin(id,user_account,appId) {
     $.ajax({
         url:"checkJoin.action",
         type:"post",
@@ -191,7 +201,7 @@ function checkJoin(id,user_account) {
             if(data.code == 0){
                 layer.msg('对方加入成功！', {icon: 1});
                 /*把关注的目标用户的账号发给服务器*/
-                ws.send(user_account+','+3+','+1);
+                ws.send(user_account+','+3+','+1+','+appId);
                 /*在发送消息之后刷新页面*/
                 window.location.reload();
             }
@@ -199,7 +209,7 @@ function checkJoin(id,user_account) {
     });
 }
 /*活动发起者拒绝对方加入活动 即把这条加入信息从表中删除*/
-function rejectJoin(id,user_account) {
+function rejectJoin(id,user_account,appId) {
     $.ajax({
         url:"rejectJoin.action",
         type:"post",
@@ -211,7 +221,7 @@ function rejectJoin(id,user_account) {
             if(data.code == 0){
                 layer.msg('成功拒绝！', {icon: 1});
                 /*把关注的目标用户的账号发给服务器*/
-                ws.send(user_account+','+3+','+1);
+                ws.send(user_account+','+3+','+0+','+appId);
                 /*在发送消息之后刷新页面*/
                 window.location.reload();
             }

@@ -46,6 +46,7 @@
 </head>
 <body>
 <input type="hidden" value="${account}" id="account">
+<input type="hidden" value="${appId}" id="appId">
 <header>
     <!--通栏导航部分-->
     <nav>
@@ -283,13 +284,14 @@
     $(".chenckJoin").dblclick(function () {
         var joinId = $(this).next().val();
         var wantJoinerAccount = $(this).next().next().val();
+        var appId = $("#appId").val();
         layer.confirm('您同意此加入吗？', {
             btn: ['欣然同意','残忍拒绝','我再想想'] //按钮
         }, function(){
-            checkJoin(joinId,wantJoinerAccount);
+            checkJoin(joinId,wantJoinerAccount,appId);
             /*是否加入字段值改成1*/
         }, function(){
-            rejectJoin(joinId,wantJoinerAccount);
+            rejectJoin(joinId,wantJoinerAccount,appId);
             /*拒绝就把join表中这条数据删除*/
         });
     });

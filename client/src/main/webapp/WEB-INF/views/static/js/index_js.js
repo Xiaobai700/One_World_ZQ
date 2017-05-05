@@ -96,4 +96,21 @@
         $('.y_c_p_l').click(function () {
             pin_lun.hide();
         });
+/*消息的显示与隐藏*/
+        $(".myInfo").toggle(function () {
+            $(".upUp").show();
+            $(".myMessage").show();
+        },function () {
+            $(".upUp").hide();
+            $(".myMessage").hide();
+        });
+/*系统消息和通知消息的显示与隐藏*/
+$("#system").click(function () {
+    $("#systemMessage").show();
+    $("#informMessage").hide();
+});
+$("#inform").click(function () {
+    $("#systemMessage").hide();
+    $("#informMessage").show();
+});
     });

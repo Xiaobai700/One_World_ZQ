@@ -224,6 +224,7 @@ public class AppController {
         returnMap.put("isJoin",isJoin);
         modelAndView.addObject("index",returnMap);
         modelAndView.addObject("account",user_account);
+        modelAndView.addObject("appId",id);
         return  modelAndView;
     }
     @RequestMapping("checkJoin.action")

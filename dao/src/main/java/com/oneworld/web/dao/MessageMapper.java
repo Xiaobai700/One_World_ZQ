@@ -15,8 +15,11 @@ public interface MessageMapper {
 
     Message getMessageById(String id);
 
-    /*根据条件查找消息*/
+    /*根据查找系统消息 type=0*/
     List<Message> searchMessage(Map map);
+
+    /*条件查找通知类消息*/
+    List<Message> searchUserMessage(Map map);
 
     List<Message> getMessageByMap(Map map);
 }

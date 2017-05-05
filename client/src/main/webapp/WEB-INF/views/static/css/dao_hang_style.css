@@ -72,21 +72,47 @@ nav{
     list-style: none;
     margin-left:-39px;
 }
+.upUp{
+    display: none;
+}
 .myMessage{
     border-radius: 4px;
     display: none;
-    width:180px;
-    background-color: whitesmoke;
+    /*width:180px;*/
+    width:310px;
+    /*height: 350px;*/
+    /*background-color: whitesmoke;*/
+    background-color: #FFFFFF;
     position: absolute;
     z-index: 8000;
-    margin-left: -53px;
-    text-align: center;
+    margin-left: -146px;
+    margin-top: 10px;
+    /*text-align: center;*/
+    box-shadow: 0 1px 4px rgba(0,0,0,.3);
 }
-
+.messageDetail{
+    min-height: 350px;
+}
 .myMessage li{
     width: 180px;
     list-style: none;
     margin-left:-39px;
+}
+.oneMessage{
+    border-bottom: 1px solid #eee;
+    min-height: 60px;
+}
+.messageBottom{
+    text-align: center;
+    font-size: 17px;
+}
+.messageTop{
+    height:30px;
+}
+.inform{
+    width: 50%;float: left;
+    text-align: center;
+    font-size: 17px;
 }
 /*主页的底部*/
 footer{
