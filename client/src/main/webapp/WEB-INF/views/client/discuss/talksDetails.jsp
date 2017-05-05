@@ -41,6 +41,7 @@
 </head>
 <body style=" background-color: #FFFFFF;">
 <input type="hidden" value="${account}" id="account">
+<input type="hidden" value="${id}" id="discussId">
 <header>
     <!--通栏导航部分-->
     <nav>
@@ -165,7 +166,7 @@
                             <a class="time"><i class="fa fa-clock-o"></i>${answer.answerTime }</a>
                             <div class="other">
                                 <c:if test="${answer.isLike == true}">
-                                    <a style="color: deepskyblue;" onclick="likeInvitation('${answer.answerUser.account }','${answer.answer.id}',1)"><i class="glyphicon glyphicon-thumbs-up"></i>取消赞</a>
+                                    <a style="color: deepskyblue;" onclick="likeInvitation('${answer.answerUser.account }','${answer.answer.id}',1,'${id}')"><i class="glyphicon glyphicon-thumbs-up"></i>取消赞</a>
                                 </c:if>
                                 <c:if test="${answer.isLike == false}">
                                     <a onclick="likeInvitation('${answer.answerUser.account }','${answer.answer.id}',1)"><i class="glyphicon glyphicon-thumbs-up"></i>点赞</a>

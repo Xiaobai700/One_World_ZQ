@@ -78,7 +78,7 @@
             </div>
             <div style="padding-left: 15px;padding-right: 15px;">
                 <textarea class="form-control" id="commentContent"></textarea>
-                <button type="button" class="btn btn-primary" style="float: right;margin-top: 10px;" onclick="commentAPP(${objectAccount},${targetId},1)">发送</button>
+                <button type="button" class="btn btn-primary" style="float: right;margin-top: 10px;" onclick="commentAPP(${objectAccount},'${targetId}',1)">发送</button>
             </div>
 <script type="text/javascript">
     $(".social-body").hover(function () {

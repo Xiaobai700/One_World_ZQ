@@ -30,8 +30,61 @@
     <!--引入主页的js文件-->
     <script src="static/js/index_js.js"></script>
     <%--layer--%>
-    <%--jquery 文件要在此脚本之前引入--%>
-
+    <%--jquery 文件要在此脚本之前引入 此脚本置于尾部不可用--%>
+    <script type="text/javascript">
+        $(function(){
+            /*点击页码 jquery文件的引入很重要 不要动不动就注释掉 代码要尽量规范 好好写*/
+            $(".zqPage").click(function(){
+                var page = $(this).html();
+                $.ajax({
+                    url : "page.do",
+                    type : "post",
+                    data : {
+                        page : page
+                    },
+                    dataType : "json",
+                    success : function(data) {//回调函数
+                        $(".blog .content").empty();//清楚原有记录
+                        $.each(data,function(index,value){
+                            var discussZQ = '<div class="col-lg-12">'+
+                                '<div class="ibox">'+
+                                '<div class="ibox-content">'+
+                                '<a href="discussDetail.do?id='+value.id+'" class="btn-link">'+
+                                '<h2>'+
+                                value.title+
+                                '</h2>'+
+                                '</a>'+
+                                ' <div class="small m-b-xs">'+
+                                '<strong>'+value.nickName+'</strong> <span class="text-muted"><i class="fa fa-clock-o"></i>'+value.time+'</span>'+
+                                '</div>'+
+                                '<p>'+
+                                value.describe+
+                                '</p>'+
+                                '<div class="row">'+
+                                '<div class="col-md-6">'+
+                                '<h5>标签：</h5>'+
+                                '<button class="btn btn-primary btn-xs" type="button">Apple Watch</button>'+
+                                '<button class="btn btn-white btn-xs" type="button">速比涛</button>'+
+                                ' </div>'+
+                                ' <div class="col-md-6">'+
+                                '<div class="small text-right">'+
+                                '<h5>状态：</h5>'+
+                                '<div> <i class="fa fa-comments-o"> </i> '+value.times+'回复 </div>'+
+                                    /*  '<i class="fa fa-eye"> </i> 144 浏览'+*/
+                                '</div>'+
+                                '</div>'+
+                                '</div>'+
+                                '</div>'+
+                                '</div>'+
+                                '</div>';
+                            $(".blog .content").append(discussZQ);
+                        })
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
     <title>所有讨论</title>
 </head>
 <body>
@@ -176,65 +229,12 @@
         <p style="text-align: center;">南京工业职业技术学院计算机与软件学院</p>
     </div>
 </footer>
-<script type="text/javascript" src="../../static/js/jquery.min.js?v=2.1.4"></script>
+<%--<script type="text/javascript" src="../../static/js/jquery.min.js?v=2.1.4"></script>--%>
 <script type="text/javascript" src="../../static/js/bootstrap.min.js?v=3.3.6"></script>
 <script type="text/javascript" src="../../static/js/content.min.js?v=1.0.0"></script>
-<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+<%--<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>--%>
 <script type="text/javascript" src="../../static/js/layer/2.1/layer.js"></script>
 <script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>
-<script type="text/javascript">
-    $(function(){
-        /*点击页码 jquery文件的引入很重要 不要动不动就注释掉 代码要尽量规范 好好写*/
-        $(".zqPage").click(function(){
-            var page = $(this).html();
-            $.ajax({
-                url : "page.do",
-                type : "post",
-                data : {
-                    page : page
-                },
-                dataType : "json",
-                success : function(data) {//回调函数
-                    $(".blog .content").empty();//清楚原有记录
-                    $.each(data,function(index,value){
-                        var discussZQ = '<div class="col-lg-12">'+
-                            '<div class="ibox">'+
-                            '<div class="ibox-content">'+
-                            '<a href="discussDetail.do?id='+value.id+'" class="btn-link">'+
-                            '<h2>'+
-                            value.title+
-                            '</h2>'+
-                            '</a>'+
-                            ' <div class="small m-b-xs">'+
-                            '<strong>'+value.nickName+'</strong> <span class="text-muted"><i class="fa fa-clock-o"></i>'+value.time+'</span>'+
-                            '</div>'+
-                            '<p>'+
-                            value.describe+
-                            '</p>'+
-                            '<div class="row">'+
-                            '<div class="col-md-6">'+
-                            '<h5>标签：</h5>'+
-                            '<button class="btn btn-primary btn-xs" type="button">Apple Watch</button>'+
-                            '<button class="btn btn-white btn-xs" type="button">速比涛</button>'+
-                            ' </div>'+
-                            ' <div class="col-md-6">'+
-                            '<div class="small text-right">'+
-                            '<h5>状态：</h5>'+
-                            '<div> <i class="fa fa-comments-o"> </i> '+value.times+'回复 </div>'+
-                                /*  '<i class="fa fa-eye"> </i> 144 浏览'+*/
-                            '</div>'+
-                            '</div>'+
-                            '</div>'+
-                            '</div>'+
-                            '</div>'+
-                            '</div>';
-                        $(".blog .content").append(discussZQ);
-                    })
-                }
-            });
-            return false;
-        });
-    });
-</script>
+
 </body>
 </html>

@@ -329,7 +329,7 @@ function commentAPP(account,targetId,label) {
 
 /**关于对帖子的点赞
  * */
-function likeInvitation(account,invitationId,type) {
+function likeInvitation(account,invitationId,type,discussId) {
     if($("#account").val() == ""){
         layer.msg("您还未登陆，先去登陆吧");
     }else {
@@ -342,7 +342,7 @@ function likeInvitation(account,invitationId,type) {
             },
             success:function(data){
                 if(data.code == 0){
-                    ws.send(account+','+4);
+                    ws.send(account+','+4+','+discussId+','+type);
                     /*此处如果也main更新的语句放置发送提示之前 则消息提示不了*/
                     window.location.reload();
                 }else if(data.code == 1){

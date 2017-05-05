@@ -203,6 +203,7 @@ public class DiscussController {
         returnMap =(Map)discussService.discussDetail(id,user_account).get("data");
         mapper.writeValueAsString(returnMap);
         modelAndView.addObject("index",returnMap);
+        modelAndView.addObject("id",id);
         return  modelAndView;
     }
 

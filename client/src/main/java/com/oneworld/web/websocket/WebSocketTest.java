@@ -115,44 +115,48 @@ public class WebSocketTest {
                     Appointment appointmentJoin = appointmentMapper.findAppointmentById(appId);
                     switch (agreeOrNot){
                         case 0:
-                            content ="<a>"+userInfo.getNickName()+"拒绝了你加入主题为<a href=appDetails.do?id="+appId+">"+appointmentJoin.getTheme()+"<a/>活动的申请</a>";
+                            content ="<a href=personal.do?account="+this.account+">"+userInfo.getNickName()+"拒绝了你加入主题为<a href=appDetails.do?id="+appId+">"+appointmentJoin.getTheme()+"<a/>活动的申请</a>";
                             break;
                         case 1:
-                            content ="<a>"+userInfo.getNickName()+"同意了你加入主题为<a href=appDetails.do?id="+appId+">"+appointmentJoin.getTheme()+"<a/>活动的申请</a>";
+                            content ="<a href=personal.do?account="+this.account+">"+userInfo.getNickName()+"同意了你加入主题为<a href=appDetails.do?id="+appId+">"+appointmentJoin.getTheme()+"<a/>活动的申请</a>";
                             break;
                     }
                     break;
                 case 4:
-                    /*对回答的点赞 对分享的点赞*/
-                    content ="<a>"+userInfo.getNickName()+"赞了你对<a></a>问题的回答</a>";
+                    /*对回答的点赞1 对分享的点赞2*/
+                    Integer likeType = Integer.parseInt(msg.split(",")[3]);
+                    String discussId = msg.split(",")[2];
+                    Discuss d = discussMapper.findDiscussById(discussId);
+                    content ="<a a href=personal.do?account="+this.account+">"+userInfo.getNickName()+"赞了你对<a href=discussDetail.do?id="+discussId+">"+d.getDiscuss_title()+"</a>问题的回答</a>";
                     break;
                 case 5:
                     String invitaionId = msg.split(",")[3];
                     Integer label = Integer.parseInt(msg.split(",")[2]);
+                    Discuss discuss = discussMapper.findDiscussById(invitaionId);
                     switch (label){
                         /*对问题回答的评论*/
                         case 1:
-                            content ="<a>"+userInfo.getNickName()+"评论了你对<a href=discussDetail.do?id="+invitaionId+"></a>问题的回答</a>";
+                            content ="<a href=personal.do?account="+this.account+">"+userInfo.getNickName()+"评论了你对<a href=discussDetail.do?id="+invitaionId+">"+discuss.getDiscuss_title()+"</a>问题的回答</a>";
                             break;
                         /*对约伴活动的评论*/
                         case 2:
                             Appointment appointment = appointmentMapper.findAppointmentById(invitaionId);
-                            content ="<a>"+userInfo.getNickName()+"</a>评论了你发布的主题为<a href=appDetails.do?id="+invitaionId+">"+appointment.getTheme()+"</a>的活动";
+                            content ="<a href=personal.do?account="+this.account+">"+userInfo.getNickName()+"</a>评论了你发布的主题为<a href=appDetails.do?id="+invitaionId+">"+appointment.getTheme()+"</a>的活动";
                             break;
                         /*对分享的评论*/
                         case 3:
                             Share share = shareMapper.findShareById(invitaionId);
-                            content = "<a>"+userInfo.getNickName()+"</a>评论了你标题为<a href=shareDetail.do?id="+invitaionId+">"+share.getShare_title()+"</a>的分享";
+                            content = "<a href=personal.do?account="+this.account+">"+userInfo.getNickName()+"</a>评论了你标题为<a href=shareDetail.do?id="+invitaionId+">"+share.getShare_title()+"</a>的分享";
                             break;
                         /*对讨论的回答*/
                         case 4:
-                            Discuss discuss = discussMapper.findDiscussById(invitaionId);
-                            content = "<a>"+userInfo.getNickName()+"</a>回答了你标题为<a href=discussDetail.do?id="+invitaionId+">"+discuss.getDiscuss_title()+"</a>的问题";
+                            Discuss discuss1 = discussMapper.findDiscussById(invitaionId);
+                            content = "<a href=personal.do?account="+this.account+">"+userInfo.getNickName()+"</a>回答了你标题为<a href=discussDetail.do?id="+invitaionId+">"+discuss1.getDiscuss_title()+"</a>的问题";
                             break;
                     }
                     break;
                 case 6:
-                    content = "<a>"+userInfo.getNickName()+"举报了您的回答</a>";
+                    content = "<a href=personal.do?account="+this.account+">"+userInfo.getNickName()+"举报了您的回答</a>";
                     break;
             }
             requestMap.put("content",content);
