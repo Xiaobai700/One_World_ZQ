@@ -51,7 +51,7 @@ public class CommentController {
     }
     @RequestMapping("invitationComment.do")
     public ModelAndView invitationCommentsPage(HttpServletRequest request,HttpServletResponse response,
-                                               String targetId,Integer label,String objectAccount){
+                                               String targetId,Integer label,String objectAccount,String discussId){
         ModelAndView modelAndView = new ModelAndView("/client/comment/invitationComments");
         String account = (String) request.getSession().getAttribute("account");
         List<Map<String,Object>> comments = (List<Map<String,Object>>) commentService.queryCommentsByTarget_id(targetId,label).get("data");
@@ -60,6 +60,7 @@ public class CommentController {
         modelAndView.addObject("account",account);
         modelAndView.addObject("targetId",targetId);
         modelAndView.addObject("commentSize",comments.size());
+        modelAndView.addObject("discussId",discussId);
         return modelAndView;
     }
 }

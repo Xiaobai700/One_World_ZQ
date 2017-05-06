@@ -292,6 +292,39 @@ var answerContent = $("#my_reply").val();
 
 /**关于评论 对问题的回复的评论1 对约伴活动的评论2 对分享的评论3
  * ******************************************************************/
+/*对回答的评论*/
+function commentAnswer(account,targetId,label,discussId) {
+    /*account是目标用户的账号 为了给TA发送信息*/
+    var content = $("#commentContent").val();
+    if($("#account").val() == "") {
+        layer.msg("你还未登陆,请先登陆!");
+    }else {
+        if(content.trim() == ""){
+            layer.msg("评论内容不可为空哦！");
+        }else {
+            $.ajax({
+                url:"commentInvitation.action",
+                type:"post",
+                data:{
+                    targetId:targetId,
+                    label:label,
+                    content:content
+                },
+                success:function(data){
+                    // var dataObj=eval("("+data+")");
+                    layer.msg(data.msg);
+                    if(data.code == 0){
+                        $("#commentContent").val("");
+                        /*把 目标用户的账号 消息的类型  评论的类型 帖子的id 发给服务器*/
+                        ws.send(account+','+5+','+label+','+discussId);
+                        /*此处如果也main更新的语句放置发送提示之前 则消息提示不了*/
+                        window.location.reload();
+                    }
+                }
+            });
+        }
+    }
+}
 /*对帖子的评论*/
 function commentAPP(account,targetId,label) {
     /*account是目标用户的账号 为了给TA发送信息*/
@@ -329,7 +362,7 @@ function commentAPP(account,targetId,label) {
 
 /**关于对帖子的点赞
  * */
-function likeInvitation(account,invitationId,type,discussId) {
+function likeInvitation(account,invitationId,type,targetLikeId) {
     if($("#account").val() == ""){
         layer.msg("您还未登陆，先去登陆吧");
     }else {
@@ -342,7 +375,7 @@ function likeInvitation(account,invitationId,type,discussId) {
             },
             success:function(data){
                 if(data.code == 0){
-                    ws.send(account+','+4+','+discussId+','+type);
+                    ws.send(account+','+4+','+targetLikeId+','+type);
                     /*此处如果也main更新的语句放置发送提示之前 则消息提示不了*/
                     window.location.reload();
                 }else if(data.code == 1){
@@ -355,7 +388,7 @@ function likeInvitation(account,invitationId,type,discussId) {
 
 /**关于举报
  * */
-function report(account,targetId,targetType) {
+function report(account,targetId,targetType,discussId) {
     var reportTypes = null;
     $("input[name='reportType']:checkbox").each(function(){
         if($(this).prop("checked")){
@@ -383,7 +416,7 @@ function report(account,targetId,targetType) {
                 success:function(data){
                     if(data.code == 0){
                         layer.msg("举报成功！");
-                        ws.send(account+','+6);
+                        ws.send(account+','+6+','+discussId+','+targetType);
                         /*此处如果也main更新的语句放置发送提示之前 则消息提示不了*/
                         parent.location.reload();
                     }
@@ -395,7 +428,7 @@ function report(account,targetId,targetType) {
 
 /**
  * 关于回复 对评论的回复*/
-function replyComment(account,commentId,replyType) {
+function replyComment(account,commentId,replyType,parentId) {
     var reply = $(".replyDiv").find("input").val();
     if ($("#account").val() == "") {
         layer.msg("您还未登陆，先去登陆吧");
@@ -415,7 +448,7 @@ function replyComment(account,commentId,replyType) {
                 success: function (data) {
                     if (data.code == 0) {
                         layer.msg("回复成功！");
-                        ws.send(account + ',' + 6);
+                        ws.send(account + ',' +7+','+replyType+','+commentId+','+parentId);
                         /*此处如果也main更新的语句放置发送提示之前 则消息提示不了*/
                         window.location.reload();
                     }
@@ -492,8 +525,8 @@ function allMessagePage(title,url) {
 }
 
 /*回答的评论弹出层*/
-function invitationCommentsPage(title,url,id,label,objectAccount) {
-    var editor = url+'?targetId='+id+'&label='+label+'&objectAccount='+objectAccount;
+function invitationCommentsPage(title,url,id,label,objectAccount,discussId) {
+    var editor = url+'?targetId='+id+'&label='+label+'&objectAccount='+objectAccount+'&discussId='+discussId;
     var w = 700;
     var h = 500;
     //layer_show(title,editor,w,h);
@@ -510,8 +543,8 @@ function invitationCommentsPage(title,url,id,label,objectAccount) {
     });
 }
 /*举报类型弹出层*/
-function reportPage(title,url,account,targetId,targetType) {
-    var editor = url+'?account='+account+'&targetId='+targetId+'&targetType='+targetType;
+function reportPage(title,url,account,targetId,targetType,discussId) {
+    var editor = url+'?account='+account+'&targetId='+targetId+'&targetType='+targetType+'&discussId='+discussId;
     var w = 400;
     var h = 300;
     //layer_show(title,editor,w,h);
@@ -529,8 +562,8 @@ function reportPage(title,url,account,targetId,targetType) {
 }
 
 /*查看回复*/
-function getReply(title,url,commentId,replyType) {
-    var editor = url+'?commentId='+commentId+'&replyType='+replyType;
+function getReply(title,url,commentId,replyType,patentId) {
+    var editor = url+'?commentId='+commentId+'&replyType='+replyType+'&parentId='+patentId;
     var w = 600;
     var h = 400;
     //layer_show(title,editor,w,h);
@@ -545,4 +578,15 @@ function getReply(title,url,commentId,replyType) {
         end: function () {
         }
     });
+}
+
+/*搜索框 搜索*/
+//1:对讨论的搜索
+//2:对约伴活动的搜索
+//3:对分享的搜索
+function searchForm(searchType) {
+    var searchText = $("#searchText").val();
+    window.location.href='search.do?searchType='+searchType+'&keys='+searchText;
+
+
 }

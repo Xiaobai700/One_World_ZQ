@@ -5,8 +5,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!--引入主页的css样式文件-->
@@ -14,17 +14,16 @@
     <!--引入导航的css样式文件-->
     <link href="../../static/css/dao_hang_style.css" rel="stylesheet">
     <link href="../../static/css/ionicons.css" rel="stylesheet">
-    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-
     <!--bootstrap-->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-    <script src="../../static/js/jquery-2.2.4.min.js"></script>
+    <%--<script src="../../static/js/jquery-2.2.4.min.js"></script>--%>
+    <script type="text/javascript" src="../../static/js/jquery-1.8.3.min.js"></script>
     <%--<script src="../../static/js/bootstrap.min.js"></script>--%>
-
+    <%--<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">--%>
     <%--H+--%>
     <link href="../../static/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
     <link href="../../static/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
-    <link href="../../static/css/animate.min.css" rel="stylesheet">
+    <%--<link href="../../static/css/animate.min.css" rel="stylesheet">--%>
     <link href="../../static/css/style.min862f.css?v=4.1.0" rel="stylesheet">
 
     <!--引入主页的js文件-->
@@ -40,7 +39,8 @@
                     url : "page.do",
                     type : "post",
                     data : {
-                        page : page
+                        page : page,
+                        keys:$("#searchText").val()
                     },
                     dataType : "json",
                     success : function(data) {//回调函数
@@ -63,8 +63,7 @@
                                 '<div class="row">'+
                                 '<div class="col-md-6">'+
                                 '<h5>标签：</h5>'+
-                                '<button class="btn btn-primary btn-xs" type="button">Apple Watch</button>'+
-                                '<button class="btn btn-white btn-xs" type="button">速比涛</button>'+
+                                '<button class="btn btn-primary btn-xs" type="button">'+value.industryName+'</button>'+
                                 ' </div>'+
                                 ' <div class="col-md-6">'+
                                 '<div class="small text-right">'+
@@ -106,49 +105,76 @@
                     </div>
                 </div>
             </div>
-
-            <!--右边的菜单-->
-            <%--<div class="dh_div_right">
-                <ul class="ul_first">
-                    <li class="li_cai_dan"><a href="index.do"><div class="cai_dan">首页</div></a></li>
-                    <li class="li_cai_dan"><a href="allShares.do"><div class="cai_dan">分享</div></a></li>
-                    <li class="li_cai_dan"><a href="welcome.do"><div class="cai_dan">欢迎</div></a></li>
-                    <li class="li_cai_dan"><a href="allDiscuss.do"><div class="cai_dan" style="background-color:#F47A7A;">职业讨论</div></a></li>
-                    <li class="li_cai_dan"><a href="allyueban.do"><div class="cai_dan">约伴</div></a></li>
-                    <li style="width: 90px;"><a>发起活动</a>
-                        <ul class="hd">
-                            <li><a onclick="addAppPage('发布约伴活动','add-app.html')" >活动约伴</a></li>
-                            <li><a onclick="addDiscussPage('发布讨论活动','add-discuss.html')">行业交流</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>--%>
+            <%--搜索框--%>
+            <div class="search">
+                <div class="input-group">
+                    <input type="text" class="form-control searchText" id="searchText" value="${keys}" style="width:290px;height: 40px;border-radius: 6px;"> <span class="input-group-btn"> <button type="button" onclick="searchForm(1)" class="btn btn-primary">搜索
+                                        </button> </span>
+                </div>
+            </div>
             <div class="dh_div_right">
                 <ul class="ul_first">
+                    <li class="li_cai_dan" style="width: 40px;">
+                        <a class="myInfo" href="#" style="display: block;">
+                            <i class="fa fa-bell"></i> <span class="<%--label label-danger--%>" id="size"
+                                                             style="font-size: 10px;font-weight: 600;background-color: #ed5565;color: #FFF;line-height: 12px;padding: 1px 5px;position: absolute;/*top: -2px;*/"></span>
+                        </a>
+                        <div class="upUp" style="position: absolute;">
+                            <span class="glyphicon glyphicon-chevron-up"></span>
+                        </div>
+                        <div class="myMessage">
+                            <div class="messageTop" style="line-height: 1.7;">
+                                <button class="inform" id="inform" style="">通知消息</button>
+                                <button class="inform" id="system" style="width: 50%;float: left;text-align: center;font-size: 17px;">系统消息</button>
+                            </div>
+                            <div class="messageDetail" id="messageDetail">
+                                <div id="systemMessage" style="display: none;">
+                                </div>
+                                <div id="informMessage">
+
+                                </div>
+                            </div>
+                            <div class="messageBottom" onclick="allMessagePage('与我相关','allMessage.do')">
+                                <i class="fa fa-envelope fa-fw"></i>查看更多消息
+                            </div>
+                        </div>
+                        <%-- <ul class="myMessage">
+                             <li class="a">
+                                 <i class="fa fa-envelope fa-fw"></i><span id="underSize"></span>条未读消息
+                             </li>
+                             <li class="a">
+                                     <div id="messageDetail" style="text-align: left">
+                                     </div>
+                             </li>
+                             <li class="a" onclick="allMessagePage('与我相关','allMessage.do')">
+                                 <i class="fa fa-envelope fa-fw"></i>查看更多消息
+                             </li>
+                         </ul>--%>
+                    </li>
                     <li class="li_cai_dan"><a href="index.do"><div class="cai_dan" style="background-color:#F47A7A;">首页</div></a></li>
                     <li class="li_cai_dan"><a href="allShares.do"><div class="cai_dan">分享</div></a></li>
                     <li class="li_cai_dan"><a href="welcome.do"><div class="cai_dan">欢迎</div></a></li>
                     <li class="li_cai_dan"><a href="discussPageNew.do"><div class="cai_dan">职业讨论</div></a></li>
                     <li class="li_cai_dan"><a href="allyueban.do"><div class="cai_dan">约伴</div></a></li>
                     <%--<li class="li_cai_dan"><a href="#">消息<span class="label label-danger" id="message">22</span></a></li>--%>
-                    <li class="dropdown li_cai_dan" style="width: 40px;">
-                        <a class="<%--dropdown-toggle count-info--%>" <%--data-toggle="dropdown"--%> href="#">
-                            <i class="fa fa-bell"></i> <span class="label label-danger" id="size"
-                                                             style="line-height: 12px;padding: 1px 5px;position: absolute;;top: -2px;"></span>
-                        </a>
-                        <ul class="myMessage">
-                            <li class="a">
-                                <i class="fa fa-envelope fa-fw"></i><span id="underSize"></span>条未读消息
-                            </li>
-                            <li class="a">
-                                <div id="messageDetail" style="text-align: left">
-                                </div>
-                            </li>
-                            <li class="a" onclick="allMessagePage('与我相关','allMessage.do')">
-                                <i class="fa fa-envelope fa-fw"></i>查看更多消息
-                            </li>
-                        </ul>
-                    </li>
+                    <%--<li class="dropdown li_cai_dan" style="width: 40px;">--%>
+                        <%--<a class="&lt;%&ndash;dropdown-toggle count-info&ndash;%&gt;" &lt;%&ndash;data-toggle="dropdown"&ndash;%&gt; href="#">--%>
+                            <%--<i class="fa fa-bell"></i> <span class="label label-danger" id="size"--%>
+                                                             <%--style="line-height: 12px;padding: 1px 5px;position: absolute;;top: -2px;"></span>--%>
+                        <%--</a>--%>
+                        <%--<ul class="myMessage">--%>
+                            <%--<li class="a">--%>
+                                <%--<i class="fa fa-envelope fa-fw"></i><span id="underSize"></span>条未读消息--%>
+                            <%--</li>--%>
+                            <%--<li class="a">--%>
+                                <%--<div id="messageDetail" style="text-align: left">--%>
+                                <%--</div>--%>
+                            <%--</li>--%>
+                            <%--<li class="a" onclick="allMessagePage('与我相关','allMessage.do')">--%>
+                                <%--<i class="fa fa-envelope fa-fw"></i>查看更多消息--%>
+                            <%--</li>--%>
+                        <%--</ul>--%>
+                    <%--</li>--%>
                     <li style="width: 90px;"><a>发起活动</a>
                         <ul class="hd">
                             <li><a onclick="addAppPage('发布约伴活动','add-app.html')" >活动约伴</a></li>
@@ -167,7 +193,7 @@
         <a href="discussPageTimes.do"><span id="an_redu" class="${color_2}">按热度</span></a>
     </div>
     <div class="zy_tl_main_1_you">
-        <div class="wrapper wrapper-content  animated fadeInRight blog">
+        <div class="wrapper wrapper-content blog">
             <div class="row content">
                 <c:forEach var="discuss" items="${index.dis}">
                 <div class="col-lg-12">
@@ -179,7 +205,7 @@
                                 </h2>
                             </a>
                             <div class="small m-b-xs">
-                                <strong>${discuss.discussUser.nickName}</strong> <span class="text-muted"><i class="fa fa-clock-o"></i> ${discuss.time}</span>
+                                <strong>${discuss.userInfo.nickName}</strong> <span class="text-muted"><i class="fa fa-clock-o"></i> ${discuss.time}</span>
                             </div>
                             <p>
                                 ${discuss.discuss.question_describe}
@@ -230,7 +256,7 @@
     </div>
 </footer>
 <%--<script type="text/javascript" src="../../static/js/jquery.min.js?v=2.1.4"></script>--%>
-<script type="text/javascript" src="../../static/js/bootstrap.min.js?v=3.3.6"></script>
+<%--<script type="text/javascript" src="../../static/js/bootstrap.min.js?v=3.3.6"></script>--%>
 <script type="text/javascript" src="../../static/js/content.min.js?v=1.0.0"></script>
 <%--<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>--%>
 <script type="text/javascript" src="../../static/js/layer/2.1/layer.js"></script>

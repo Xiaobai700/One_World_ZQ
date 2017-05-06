@@ -99,7 +99,7 @@ public class WebSocketTest {
             requestMap.put("sender",this.account);
             requestMap.put("receiver",objectUserAccount);
             String content = "";
-            /*在这里对情况进行区分 1是关注  2是申请加入活动  3.是否同意加入活动  4.点赞 5.评论 6.举报等*/
+            /*在这里对情况进行区分 1是关注  2是申请加入活动  3.是否同意加入活动  4.点赞 5.评论 6.举报 7.回复等*/
             switch (type){
                 case 1:
                     content = "<a href=personal.do?account="+this.account+">"+userInfo.getNickName()+"</a>关注了你！";
@@ -125,9 +125,17 @@ public class WebSocketTest {
                 case 4:
                     /*对回答的点赞1 对分享的点赞2*/
                     Integer likeType = Integer.parseInt(msg.split(",")[3]);
-                    String discussId = msg.split(",")[2];
-                    Discuss d = discussMapper.findDiscussById(discussId);
-                    content ="<a a href=personal.do?account="+this.account+">"+userInfo.getNickName()+"赞了你对<a href=discussDetail.do?id="+discussId+">"+d.getDiscuss_title()+"</a>问题的回答</a>";
+                    String targetLikeId = msg.split(",")[2];
+                    switch (likeType){
+                        case 1:
+                            Discuss d = discussMapper.findDiscussById(targetLikeId);
+                            content ="<a href=personal.do?account="+this.account+">"+userInfo.getNickName()+"</a>赞了你对<a href=discussDetail.do?id="+targetLikeId+">"+d.getDiscuss_title()+"</a>问题的回答</a>";
+                            break;
+                        case 2:
+                            Share share = shareMapper.findShareById(targetLikeId);
+                            content ="<a href=personal.do?account="+this.account+">"+userInfo.getNickName()+"</a>赞了你标题为<a href=shareDetail.do?id="+targetLikeId+">"+share.getShare_title()+"</a>的分享</a>";
+                            break;
+                    }
                     break;
                 case 5:
                     String invitaionId = msg.split(",")[3];
@@ -156,7 +164,36 @@ public class WebSocketTest {
                     }
                     break;
                 case 6:
-                    content = "<a href=personal.do?account="+this.account+">"+userInfo.getNickName()+"举报了您的回答</a>";
+                    Integer reportType = Integer.parseInt(msg.split(",")[3]);
+                    String targetId = msg.split(",")[2];
+                    switch (reportType){
+                        case 1:/*对问题的回答的举报*/
+                            Discuss discuss2 = discussMapper.findDiscussById(targetId);
+                            content = "您对<a discussDetail.do?id="+targetId+">"+discuss2.getDiscuss_title()+"</a>问题的回答被举报";
+                            break;
+                        case 2:/*对用户的举报*/
+                            content = "您被其他用户举报！";
+                            break;
+                    }
+                    break;
+                case 7:
+                    Integer replyType = Integer.parseInt(msg.split(",")[2]);
+                    String commentId = msg.split(",")[3];
+                    String parentId = msg.split(",")[4];
+                    switch (replyType){
+                        case 1:/*对回答评论的回复*/
+                            Discuss discuss1 = discussMapper.findDiscussById(parentId);
+                            content = "<a href=personal.do?account="+this.account+">"+userInfo.getNickName()+"</a>回复了您对<a href=discussDetail.do?id="+parentId+">"+discuss1.getDiscuss_title()+"</a>的回答的评论";
+                            break;
+                        case 3:/*对约伴评论的回复*/
+                            Appointment appointment = appointmentMapper.findAppointmentById(parentId);
+                            content ="<a href=personal.do?account="+this.account+">"+userInfo.getNickName()+"</a>回复了您对主题为<a href=appDetails.do?id="+parentId+">"+appointment.getTheme()+"</a>活动的评论";
+                            break;
+                        case 2:/*对分享评论的回复*/
+                            Share share = shareMapper.findShareById(parentId);
+                            content = "<a href=personal.do?account="+this.account+">"+userInfo.getNickName()+"</a>回复了您对标题为<a href=shareDetail.do?id="+parentId+">"+share.getShare_title()+"</a>分享的评论";
+                            break;
+                    }
                     break;
             }
             requestMap.put("content",content);

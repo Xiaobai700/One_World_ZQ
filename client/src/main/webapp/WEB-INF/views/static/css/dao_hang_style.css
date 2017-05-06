@@ -28,6 +28,12 @@ nav{
     height: 50px;
     border-radius:25px;
 }
+.search{
+    float: left;
+    margin-top: 25px;
+    margin-left: 40px;
+
+}
 /*右边菜单*/
 .dh_div_right{
     float: right;

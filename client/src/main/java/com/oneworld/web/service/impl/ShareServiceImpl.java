@@ -8,6 +8,7 @@ import com.oneworld.web.dao.UserinfoMapper;
 import com.oneworld.web.model.Share;
 import com.oneworld.web.model.UserInfo;
 import com.oneworld.web.service.CommentService;
+import com.oneworld.web.service.LikeService;
 import com.oneworld.web.service.ShareService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,9 @@ public class ShareServiceImpl implements ShareService{
     @Autowired
     private CommentService commentService;
 
+    @Autowired
+    private LikeService likeService;
+
     public Map insertShare(Share share) {
         Map returnMap = new HashMap();
         try{
@@ -53,18 +57,26 @@ public class ShareServiceImpl implements ShareService{
         return null;
     }
 
-    public Map findShareById(String id) {
+    public Map findShareById(String id,String account) {
         Map returnMap = new HashMap();
         try{
             Share share = shareMapper.findShareById(id);
             if(share != null){
                 /*作者信息*/
                 UserInfo userInfo = userinfoMapper.findUserInfoByAccount(share.getSharer_account());
+
+                boolean flag = false;
+                Map requestMap = new HashMap();
+                requestMap.put("invitationId",id);
+                requestMap.put("likerAccount",account);
+                requestMap.put("type",2);
+                flag = likeService.isLike(requestMap);
                 /*评论的相关信息*/
                 List<Map<String,Object>> commentList = (List<Map<String,Object>>) commentService.queryCommentsByTarget_id(id,3).get("data");
                 returnMap.put("editor",userInfo);
                 returnMap.put("comment",commentList);
                 returnMap.put("share",share);
+                returnMap.put("isLike",flag);
             }else {
                 returnMap.put(ParameterConstant.RETURN_MSG,"该分享不存在！");
             }

@@ -78,6 +78,15 @@
         select
         <include refid="Base_Column_List"/>
         FROM t_discuss
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="discuss_title!=null and discuss_title!='' ">
+                and discuss_title = #{discuss_title,jdbcType=VARCHAR}
+            </if>
+            <if test="keys!=null and keys!='' ">
+                AND discuss_title LIKE '%${keys}%'
+                OR question_describe LIKE '%${keys}%'
+            </if>
+        </trim>
         ORDER BY ask_time DESC
         <if test="pageBegin != null and pageSize != null">
             LIMIT #{pageBegin},#{pageSize}

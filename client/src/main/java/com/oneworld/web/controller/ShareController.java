@@ -1,6 +1,5 @@
 package com.oneworld.web.controller;
 
-import com.oneworld.web.constant.RequestConstant;
 import com.oneworld.web.model.Share;
 import com.oneworld.web.model.UserInfo;
 import com.oneworld.web.service.IndexService;
@@ -51,8 +50,6 @@ public class ShareController {
             returnMap = (Map) indexService.shareAll(requestMap).get("data");
             modelAndView.addObject("account",user_account);
             modelAndView.addObject("index", returnMap);
-            /*modelAndView.addObject("color_1", "color_1");
-            modelAndView.addObject("color_2", "color_2");*/
             modelAndView.addObject("color_2", "badge");
             modelAndView.addObject("color_1", "badge badge-primary");
         }catch (Exception e){
@@ -66,7 +63,6 @@ public class ShareController {
         Map returnMap = new HashMap();
         try{
             String user_account = (String) request.getSession().getAttribute("account");
-//            UserInfo s_userInfo = (UserInfo) userInfoService.findUserInfoByAccount(user_account).get("data");
             if(user_account == null){
                 modelAndView.addObject("userHead","img/person.jpg");
             }else {
@@ -75,15 +71,11 @@ public class ShareController {
             }
             Map requestMap = new HashMap();
             returnMap = (Map) indexService.allShare(requestMap).get("data");
-//            modelAndView.addObject("userInfo", s_userInfo);
             modelAndView.addObject("index", returnMap);
-            /*modelAndView.addObject("color_1", "color_2");
-            modelAndView.addObject("color_2", "color_1");*/
             modelAndView.addObject("color_1", "badge");
             modelAndView.addObject("color_2", "badge badge-primary");
         }catch (Exception e){
             e.printStackTrace();
-            returnMap = RequestConstant.getRequestDesCode(-1);
         }
         return modelAndView;
     }
@@ -93,9 +85,10 @@ public class ShareController {
         ModelAndView modelAndView = new ModelAndView("/client/share/shareDetail");
         String account = (String)request.getSession().getAttribute("account");
         Map returnMap = new HashMap();
-        returnMap = shareService.findShareById(id);
+        returnMap = shareService.findShareById(id,account);
         modelAndView.addObject("index",returnMap);
         modelAndView.addObject("account",account);
+        modelAndView.addObject("id",id);
         return modelAndView;
     }
 

@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../../static/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
     <!--引入主页的js文件-->
-    <script src="../../static/js/index_js.js"></script>
+    <%--<script src="../../static/js/index_js.js"></script>--%>
     <%--layer--%>
     <script type="text/javascript" src="../../static/js/layer/2.1/layer.js"></script>
 
@@ -47,6 +47,7 @@
 </head>
 <body>
 <input type="hidden" value="${account}" id="account">
+<input type="hidden" value="${id}" id="id">
 <!--  -->
 <div style="padding-left: 10px;padding-right: 10px;">
     <div style="margin-top: 10px;">
@@ -69,7 +70,13 @@
     <div class="share_img"></div>
     <div style="margin-top: 20px;">
         <span class="x_s_p_l">评论</span>
-        <span style="color:purple;" class="glyphicon glyphicon-thumbs-up">赞</span>
+        <c:if test="${index.isLike == true}">
+            <span style="color:purple;" onclick="likeInvitation('${index.editor.account}','${id}',2,'${id}')" class="glyphicon glyphicon-thumbs-up">取消赞</span>
+        </c:if>
+        <c:if test="${index.isLike == false}">
+            <span onclick="likeInvitation('${index.editor.account}','${id}',2,'${id}')" class="glyphicon glyphicon-thumbs-up">赞</span>
+        </c:if>
+
         <!--  -->
     </div>
     <!--显示评论-->
@@ -94,7 +101,7 @@
                     <div class="under_answer">
                         <a class="time"><i class="fa fa-clock-o"></i> ${comment.time}</a>
                         <c:if test="${comment.replyNumbers > 0}">
-                        <a class="talk" onclick="getReply('查看对话','replyPage.do','${comment.comment.id}',2)"><i class="fa fa-comments"></i>查看对话</a>
+                        <a class="talk" onclick="getReply('查看对话','replyPage.do','${comment.comment.id}',2,'${id}')"><i class="fa fa-comments"></i>查看对话</a>
                     </c:if>
                         <%--<a class="talk"><i class="fa fa-comments"></i>查看对话</a>--%>
                         <div class="other">
@@ -140,7 +147,7 @@
         $(this).parent().next().append(replyInput);
 
         $(".aa").live('click',function () {
-            replyComment(account,commentId,2);
+            replyComment(account,commentId,2,'${id}');
         });
 
         $(".cancel").live('click',function () {

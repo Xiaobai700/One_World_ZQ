@@ -60,7 +60,7 @@
                     <a class="time"><i class="fa fa-clock-o"></i> ${reply.time}</a>
                     <%--<a class="talk"><i class="fa fa-comments"></i>查看对话</a>--%>
                     <div class="other">
-                        <a class="reply" account="${reply.replyerUser.account}" commentId="${commentId}"><i class="glyphicon glyphicon-share"></i>回复</a>
+                        <a class="reply" account="${reply.replyerUser.account}" commentId="${commentId}" parentId="${patentId}"><i class="glyphicon glyphicon-share"></i>回复</a>
                     </div>
                     <div class="replyDiv"></div>
                 </div>
@@ -83,13 +83,14 @@
     $(".reply").toggle(function () {
         var account = $(this).attr("account");
         var commentId = $(this).attr("commentId");
+        var parentId = $(this).attr("parentId");
         var replyInput =' <input type="text" class="form-control">'+
             '<button class="btn btn-primary aa">回复</button>'+
             '<button class="btn btn-default cancel">取消</button>';
         $(this).parent().next().append(replyInput);
 
         $(".aa").live('click',function () {
-            replyComment(account,commentId,${replyType});
+            replyComment(account,commentId,${replyType},'${parentId}');
         });
 
         $(".cancel").live('click',function () {

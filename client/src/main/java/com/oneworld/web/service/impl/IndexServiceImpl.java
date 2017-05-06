@@ -134,8 +134,8 @@ private IndustryMapper industryMapper;
        Map returnMap = new HashMap();
        try{
            String user_account = (String) map.get("user_account");
-           List<Appointment> appointments = (List<Appointment>) appointService.findAllAppointment().get("data");
-
+//           List<Appointment> appointments = (List<Appointment>) appointService.findAllAppointment().get("data");
+            List<Appointment> appointments = appointmentMapper.queryAppsPage(map);
            Map<String,Object> appResultMap = new HashMap<String,Object>();
            List<Map<String,Object>> apps = new ArrayList<Map<String, Object>>();
            for (Appointment appointment : appointments) {
@@ -243,9 +243,10 @@ private IndustryMapper industryMapper;
     public Map discussPageAll(Map map) {
         Map returnMap = new HashMap();
         try{
-            int pageSize =Integer.parseInt(map.get("pageSize").toString());
-            List<Discuss> discusses = (List<Discuss>) discussService.queryDisscussPageNew(0,pageSize).get("data");
-
+//            int pageSize =Integer.parseInt(map.get("pageSize").toString());
+            map.put("pageBegin",0);
+//            List<Discuss> discusses = (List<Discuss>) discussService.queryDisscussPageNew(0,pageSize).get("data");
+            List<Discuss> discusses = (List<Discuss>) discussService.searchDiscuss(map).get("data");
             Map<String,Object> discussResultMap = new HashMap<String,Object>();
             List<Map<String,Object>> discuss = new ArrayList<Map<String, Object>>();
 
@@ -304,7 +305,7 @@ private IndustryMapper industryMapper;
     public Map shareAll(Map map) {
         Map returnMap = new HashMap();
         try{
-            List<Share> shares = shareMapper.queryAllByTime();
+            List<Share> shares = shareMapper.querySharePage(map);
             Map<String,Object> shareRsultMap = new HashedMap();
             List<Map<String,Object>> share = new ArrayList<Map<String, Object>>();
 

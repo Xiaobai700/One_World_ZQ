@@ -35,7 +35,7 @@
     <script src="../../static/js/index_js.js"></script>
     <%--layer--%>
     <script type="text/javascript" src="../../static/js/layer/2.1/layer.js"></script>
-    <title>讨论的评论</title>
+    <title>讨论回复的评论</title>
 </head>
 <body>
 <input type="hidden" value="${account}" id="account">
@@ -78,7 +78,7 @@
             </div>
             <div style="padding-left: 15px;padding-right: 15px;">
                 <textarea class="form-control" id="commentContent"></textarea>
-                <button type="button" class="btn btn-primary" style="float: right;margin-top: 10px;" onclick="commentAPP(${objectAccount},'${targetId}',1)">发送</button>
+                <button type="button" class="btn btn-primary" style="float: right;margin-top: 10px;" onclick="commentAnswer(${objectAccount},'${targetId}',1,'${discussId}')">发送</button>
             </div>
 <script type="text/javascript">
     $(".social-body").hover(function () {
@@ -95,12 +95,12 @@
         var account = $(this).attr("account");
         var commentId = $(this).attr("commentId");
         var replyInput =' <input type="text" class="form-control">'+
-            '<button class="btn btn-primary aa" onclick="replyComment('+account+','+commentId+',1)">回复</button>'+
+            '<button class="btn btn-primary aa" >回复</button>'+
             '<button class="btn btn-default cancel">取消</button>';
         $(this).parent().next().append(replyInput);
 
         $(".aa").live('click',function () {
-            replyComment(account,commentId,1);
+            replyComment(account,commentId,1,'${discussId}');
         });
 
         $(".cancel").live('click',function () {
@@ -109,7 +109,6 @@
     },function () {
         cancelReply();
     });
-
 </script>
 </body>
 </html>

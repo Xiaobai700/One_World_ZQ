@@ -49,7 +49,7 @@ public class ReplyController {
 
     @RequestMapping("replyPage.do")
     public ModelAndView replyPage(HttpServletRequest request, HttpServletResponse response,
-                                  String commentId,Integer replyType){
+                                  String commentId,Integer replyType,String parentId){
         String account = (String) request.getSession().getAttribute("account");
         Map returnMap = new HashMap();
         Map requestMap = new HashMap();
@@ -61,6 +61,7 @@ public class ReplyController {
         returnMap.put("account",account);
         returnMap.put("commentId",commentId);
         returnMap.put("replyType",replyType);
+        returnMap.put("parentId",parentId);
 
         return new ModelAndView("/client/comment/commentReplys",returnMap);
     }

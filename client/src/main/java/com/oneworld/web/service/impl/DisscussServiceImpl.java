@@ -196,4 +196,16 @@ public class DisscussServiceImpl implements DiscussService {
         }
         return returnMap;
     }
+
+    public Map searchDiscuss(Map map) {
+        Map returnMap = new HashMap();
+        try {
+            List<Discuss> discussList = discussMapper.queryDiscussPageNew(map);
+            returnMap.put(ParameterConstant.RETURN_DATA,discussList);
+        }catch (Exception e){
+            e.printStackTrace();
+            returnMap = RequestConstant.getRequestDesCode(-1);
+        }
+        return returnMap;
+    }
 }

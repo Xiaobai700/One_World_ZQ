@@ -70,50 +70,76 @@
                     </div>
                 </div>
             </div>
-
+            <%--搜索框--%>
+            <div class="search">
+                <div class="input-group">
+                    <input type="text" class="form-control searchText" value="${keys}" id="searchText" style="width:290px;height: 40px;border-radius: 6px;"> <span class="input-group-btn"> <button type="button" onclick="searchForm(2)" class="btn btn-primary">搜索
+                                        </button> </span>
+                </div>
+            </div>
             <!--右边的菜单-->
-            <%--<div class="dh_div_right">
-                <ul class="ul_first">
-                    <li class="li_cai_dan"><a href="index.do"><div class="cai_dan">首页</div></a></li>
-                    <li class="li_cai_dan"><a href="allShares.do"><div class="cai_dan">分享</div></a></li>
-                    <li class="li_cai_dan"><a href="welcome.do"><div class="cai_dan">欢迎</div></a></li>
-                    <li class="li_cai_dan"><a href="discussPageNew.do"><div class="cai_dan">职业讨论</div></a></li>
-                    <li class="li_cai_dan"><a href="allyueban.do"><div class="cai_dan" style="background-color:#F47A7A;">约伴</div></a></li>
-                    <!-- <li style="width: 30px;"><a>登陆</a></li>
-                    <li style="width: 30px;" class="zhu_ce"><a>注册</a></li> -->
-                    <li style="width: 90px;"><a>发起活动</a>
-                        <ul class="hd">
-                            <li><a onclick="addAppPage('发布约伴活动','add-app.html')" >活动约伴</a></li>
-                            <li><a onclick="addDiscussPage('发布讨论活动','add-discuss.html')">行业交流</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>--%>
             <div class="dh_div_right">
                 <ul class="ul_first">
+                    <li class="li_cai_dan" style="width: 40px;">
+                        <a class="myInfo" href="#">
+                            <i class="fa fa-bell"></i> <span class="<%--label label-danger--%>" id="size"
+                                                             style="font-size: 10px;font-weight: 600;background-color: #ed5565;color: #FFF;line-height: 12px;padding: 1px 5px;position: absolute;/*top: -2px;*/"></span>
+                        </a>
+                        <div class="upUp" style="position: absolute;">
+                            <span class="glyphicon glyphicon-chevron-up"></span>
+                        </div>
+                        <div class="myMessage">
+                            <div class="messageTop" style="line-height: 1.7;">
+                                <button class="inform" id="inform" style="">通知消息</button>
+                                <button class="inform" id="system" style="width: 50%;float: left;text-align: center;font-size: 17px;">系统消息</button>
+                            </div>
+                            <div class="messageDetail" id="messageDetail">
+                                <div id="systemMessage" style="display: none;">
+                                </div>
+                                <div id="informMessage">
+
+                                </div>
+                            </div>
+                            <div class="messageBottom" onclick="allMessagePage('与我相关','allMessage.do')">
+                                <i class="fa fa-envelope fa-fw"></i>查看更多消息
+                            </div>
+                        </div>
+                        <%-- <ul class="myMessage">
+                             <li class="a">
+                                 <i class="fa fa-envelope fa-fw"></i><span id="underSize"></span>条未读消息
+                             </li>
+                             <li class="a">
+                                     <div id="messageDetail" style="text-align: left">
+                                     </div>
+                             </li>
+                             <li class="a" onclick="allMessagePage('与我相关','allMessage.do')">
+                                 <i class="fa fa-envelope fa-fw"></i>查看更多消息
+                             </li>
+                         </ul>--%>
+                    </li>
                     <li class="li_cai_dan"><a href="index.do"><div class="cai_dan" style="background-color:#F47A7A;">首页</div></a></li>
                     <li class="li_cai_dan"><a href="allShares.do"><div class="cai_dan">分享</div></a></li>
                     <li class="li_cai_dan"><a href="welcome.do"><div class="cai_dan">欢迎</div></a></li>
                     <li class="li_cai_dan"><a href="discussPageNew.do"><div class="cai_dan">职业讨论</div></a></li>
                     <li class="li_cai_dan"><a href="allyueban.do"><div class="cai_dan">约伴</div></a></li>
-                    <li class="dropdown li_cai_dan" style="width: 40px;">
-                        <a href="#">
-                            <i class="fa fa-bell"></i> <span class="label label-danger" id="size"
-                                                             style="line-height: 12px;padding: 1px 5px;position: absolute;;top: -2px;"></span>
-                        </a>
-                        <ul class="myMessage">
-                            <li class="a">
-                                <i class="fa fa-envelope fa-fw"></i><span id="underSize"></span>条未读消息
-                            </li>
-                            <li class="a">
-                                <div id="messageDetail" style="text-align: left">
-                                </div>
-                            </li>
-                            <li class="a" onclick="allMessagePage('与我相关','allMessage.do')">
-                                <i class="fa fa-envelope fa-fw"></i>查看更多消息
-                            </li>
-                        </ul>
-                    </li>
+                    <%--<li class="dropdown li_cai_dan" style="width: 40px;">--%>
+                        <%--<a href="#">--%>
+                            <%--<i class="fa fa-bell"></i> <span class="label label-danger" id="size"--%>
+                                                             <%--style="line-height: 12px;padding: 1px 5px;position: absolute;;top: -2px;"></span>--%>
+                        <%--</a>--%>
+                        <%--<ul class="myMessage">--%>
+                            <%--<li class="a">--%>
+                                <%--<i class="fa fa-envelope fa-fw"></i><span id="underSize"></span>条未读消息--%>
+                            <%--</li>--%>
+                            <%--<li class="a">--%>
+                                <%--<div id="messageDetail" style="text-align: left">--%>
+                                <%--</div>--%>
+                            <%--</li>--%>
+                            <%--<li class="a" onclick="allMessagePage('与我相关','allMessage.do')">--%>
+                                <%--<i class="fa fa-envelope fa-fw"></i>查看更多消息--%>
+                            <%--</li>--%>
+                        <%--</ul>--%>
+                    <%--</li>--%>
 
                     <li style="width: 90px;"><a>发起活动</a>
                         <ul class="hd">
@@ -145,7 +171,7 @@
         <div class="fx_right">
             <c:if test="${index.appSize == 0}">
                 <h2><p style="font-family: '微软雅黑';margin-left: 90px;
-                margin-top: 60px;">该活动类型下没有进行过任何活动！看看别的吧！</p></h2>
+                margin-top: 60px;">啥也没搜到！看看别的吧！</p></h2>
             </c:if>
          <c:forEach var="app" items="${index.app}">
              <div class="main_yb_div">

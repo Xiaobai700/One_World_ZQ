@@ -39,6 +39,7 @@ public class ReportController {
             report.setId(UUID.randomUUID().toString());
             report.setCurrentState(0);
             report.setStatus(0);
+            report.setIsDelete(0);
             report.setUpdateTime(new Timestamp(new Date().getTime()));
             returnMap = reportService.insertReport(report);
             outWriter.write(mapper.writeValueAsString(returnMap));
@@ -50,12 +51,12 @@ public class ReportController {
 
     @RequestMapping("reportPage.do")
     public ModelAndView  reportPage(HttpServletRequest request,HttpServletResponse response,
-                                    String account,String targetId,Integer targetType){
+                                    String account,String targetId,Integer targetType,String discussId){
         Map returnMap = new HashMap();
         returnMap.put("account",account);
         returnMap.put("targetId",targetId);
         returnMap.put("targetType",targetType);
-
+        returnMap.put("discussId",discussId);
         return new ModelAndView("/client/reportPage",returnMap);
     }
 

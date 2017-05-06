@@ -23,4 +23,7 @@ public interface ShareMapper {
 
 	//	查询所有分享
 	public List<Share> querySharePage(Map map);
+
+	//更新分享
+	public int updateShare(Share share);
 }

@@ -65,4 +65,14 @@
             LIMIT #{index},#{length}
         </if>
     </select>
+
+    <update id="updateShare" parameterType="com.oneworld.web.model.Share">
+        update t_share
+            <set>
+                <if test="like_times != null">
+                    like_times = #{like_times,jdbcType=INTEGER}
+                </if>
+            </set>
+            where id = #{id,jdbcType=VARCHAR}
+    </update>
 </mapper>

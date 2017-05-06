@@ -21,5 +21,7 @@ public interface DiscussService {
 		public Map queryDisscussPageNew(int begainPage, int pageSize);
 
 		//查看讨论详情
-	public Map discussDetail(String id,String account);
+		public Map discussDetail(String id,String account);
+		//讨论模糊查询
+		public Map searchDiscuss(Map map);
 }

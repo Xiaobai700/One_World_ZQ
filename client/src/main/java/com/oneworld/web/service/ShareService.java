@@ -12,7 +12,7 @@ public interface ShareService {
 		//查询所有分享，按点赞数降序
 		public Map queryAllByLike();
 		//根据id查找分享
-		public Map findShareById(String id);
+		public Map findShareById(String id,String account);
 		//根据用户的账号查询分享
 		public Map findSharesByAccount(String account);
 }

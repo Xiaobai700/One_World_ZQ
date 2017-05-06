@@ -10,15 +10,16 @@
         <result column="current_state" property="currentState" jdbcType="INTEGER"/>
         <result column="status" property="status" jdbcType="INTEGER"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
     </resultMap>
     <sql id="Base_Column_List">
-       pk_id,id,report_type,target_id,target_type,current_state,status,update_time
+       pk_id,id,report_type,target_id,target_type,current_state,status,update_time,is_delete
     </sql>
 
     <insert id="insertReport" parameterType="com.oneworld.web.model.Report">
-        insert into t_report (id,report_type,target_id,target_type,current_state,status,update_time)
+        insert into t_report (id,report_type,target_id,target_type,current_state,status,update_time,is_delete)
         values (#{id,jdbcType=VARCHAR},#{reportType,jdbcType=VARCHAR},#{targetId,jdbcType=VARCHAR},#{targetType,jdbcType=INTEGER},#{currentState,jdbcType=INTEGER},
-        #{status,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP})
+        #{status,jdbcType=INTEGER},#{updateTime,jdbcType=TIMESTAMP},#{isDelete,jdbcType=INTEGER})
     </insert>
 
     <delete id="deleteReport" parameterType="java.lang.String">
@@ -64,7 +65,7 @@
         UPDATE t_report
         <set>
             <if test="reportType != null">
-                report_type = #{reportType,jdbcType=VARCHAR} ORDER report_type LIKE CONCAT('%','${reportType}','%'),
+                report_type = #{reportType,jdbcType=VARCHAR},
             </if>
             <if test="isDelete != null">
                 is_delete = #{isDelete,jdbcType=INTEGER},

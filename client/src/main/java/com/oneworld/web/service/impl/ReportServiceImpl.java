@@ -34,16 +34,16 @@ public class ReportServiceImpl implements ReportService {
         Map returnMap = new HashMap();
         try{
             String reportType = report.getReportType();
-            Integer targetType = report.getTargetType();
+//            Integer targetType = report.getTargetType();
             String targetId = report.getTargetId();
 
             Map requestMap = new HashMap();
             requestMap.put("targetId",targetId);
-            requestMap.put("targetType",targetType);
+            requestMap.put("targetType",report.getTargetType());
 
             boolean flag = false;
             Report isReport = null;
-            switch (targetType){
+            switch (report.getTargetType()){
                 case 1:
                     Answer answer = answerMapper.findAnswerById(targetId);
                     if(answer != null){

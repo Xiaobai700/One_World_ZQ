@@ -139,21 +139,27 @@ public class DiscussController {
     }
     @RequestMapping("page.do")
     @ResponseBody
-    public void page(HttpServletRequest request,HttpServletResponse response,String page)throws IOException{
+    public void page(HttpServletRequest request,HttpServletResponse response,String page,String keys)throws IOException{
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter outWriter = response.getWriter();
         ObjectMapper mapper = new ObjectMapper();
         Map returnMap1 = new HashMap();
 
         int beginPage = (Integer.parseInt(page.trim())-1)*10;
-        System.err.println(beginPage);
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         Map<String, Object> returnMap= null;
-        List<Discuss> discusses =(List<Discuss>) discussService.queryDisscussPageNew(beginPage, 10).get("data");
+        Map requestMap = new HashMap();
+        requestMap.put("pageBegin",beginPage);
+        requestMap.put("pageSize",10);
+        requestMap.put("keys",keys);
+//        List<Discuss> discusses =(List<Discuss>) discussService.queryDisscussPageNew(beginPage, 10).get("data");
+        List<Discuss> discusses = (List<Discuss>) discussService.searchDiscuss(requestMap).get("data");
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         for (Discuss discuss : discusses) {
             returnMap = new HashMap<String, Object>();
             UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(discuss.getAsker_account()).get("data");
+            Industry industry = industryMapper.findIndustryById(discuss.getIndustry_id());
+            returnMap.put("industryName",industry.getIndustry_name());
             returnMap.put("title", discuss.getDiscuss_title());
             returnMap.put("id",discuss.getId());
             returnMap.put("describe",discuss.getQuestion_describe());
