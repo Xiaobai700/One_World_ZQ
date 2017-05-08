@@ -25,13 +25,6 @@
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <script type="text/javascript" src="../../static/js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="../../static/js/bootstrap.min.js"></script>
-    <%--<!--bootstrap-->
-    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-    <script src="../../static/js/jquery-2.2.4.min.js"></script>
-    <script src="../../static/js/bootstrap.min.js"></script>--%>
-
-    <%--<script src="../../static/js/bootstrap.min.js?v=3.3.6"></script>--%>
-    <%--<script src="../../static/js/content.min.js?v=1.0.0"></script>--%>
     <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
     <!--引入主页的js文件-->
     <script src="../../static/js/index_js.js"></script>
@@ -55,29 +48,12 @@
                 <div class="dh_div_dl_tx">
                     <div class="xian"></div>
                     <div class="dl_tx"><%--head/${userInfo.head}--%>
-                       <a class="tx_gr" href="mySpace.do"><img src="${userHead}"></a>
+                       <a class="tx_gr" href="mySpace.do"><img src="head/${userHead}"></a>
                     </div>
                 </div>
             </div>
 
             <!--右边的菜单-->
-            <%--<div class="dh_div_right">
-                <ul class="ul_first">
-                    <li class="li_cai_dan"><a href="index.do"><div class="cai_dan">首页</div></a></li>
-                    <li class="li_cai_dan"><a href="allShares.do"><div class="cai_dan">分享</div></a></li>
-                    <li class="li_cai_dan"><a href="welcome.do"><div class="cai_dan">欢迎</div></a></li>
-                    <li class="li_cai_dan"><a href="discussPageNew.do"><div class="cai_dan">职业讨论</div></a></li>
-                    <li class="li_cai_dan"><a href="allyueban.do"><div class="cai_dan">约伴</div></a></li>
-                    <!-- <li style="width: 30px;"><a  data-toggle="modal" data-target=".login">登陆</a></li>
-                    <li style="width: 30px;" class="zhu_ce"><a data-toggle="modal" data-target=".sign">注册</a></li> -->
-                    <li style="width: 90px;"><a>发起活动</a>
-                        <ul class="hd">
-                            <li><a onclick="addAppPage('发布约伴活动','add-app.html')" >活动约伴</a></li>
-                            <li><a onclick="addDiscussPage('发布讨论活动','add-discuss.html')">行业交流</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>--%>
             <div class="dh_div_right">
                 <ul class="ul_first">
                     <li class="li_cai_dan" style="width: 40px;">
@@ -104,43 +80,12 @@
                                 <i class="fa fa-envelope fa-fw"></i>查看更多消息
                             </div>
                         </div>
-                        <%-- <ul class="myMessage">
-                             <li class="a">
-                                 <i class="fa fa-envelope fa-fw"></i><span id="underSize"></span>条未读消息
-                             </li>
-                             <li class="a">
-                                     <div id="messageDetail" style="text-align: left">
-                                     </div>
-                             </li>
-                             <li class="a" onclick="allMessagePage('与我相关','allMessage.do')">
-                                 <i class="fa fa-envelope fa-fw"></i>查看更多消息
-                             </li>
-                         </ul>--%>
                     </li>
                     <li class="li_cai_dan"><a href="index.do"><div class="cai_dan" style="background-color:#F47A7A;">首页</div></a></li>
                     <li class="li_cai_dan"><a href="allShares.do"><div class="cai_dan">分享</div></a></li>
                     <li class="li_cai_dan"><a href="welcome.do"><div class="cai_dan">欢迎</div></a></li>
                     <li class="li_cai_dan"><a href="discussPageNew.do"><div class="cai_dan">职业讨论</div></a></li>
                     <li class="li_cai_dan"><a href="allyueban.do"><div class="cai_dan">约伴</div></a></li>
-                    <%--<li class="li_cai_dan"><a href="#">消息<span class="label label-danger" id="message">22</span></a></li>--%>
-                    <%--<li class="dropdown li_cai_dan" style="width: 40px;">--%>
-                        <%--<a class="&lt;%&ndash;dropdown-toggle count-info&ndash;%&gt;" &lt;%&ndash;data-toggle="dropdown"&ndash;%&gt; href="#">--%>
-                            <%--<i class="fa fa-bell"></i> <span class="label label-danger" id="size"--%>
-                                                             <%--style="line-height: 12px;padding: 1px 5px;position: absolute;;top: -2px;"></span>--%>
-                        <%--</a>--%>
-                        <%--<ul class="myMessage">--%>
-                            <%--<li class="a">--%>
-                                <%--<i class="fa fa-envelope fa-fw"></i><span id="underSize"></span>条未读消息--%>
-                            <%--</li>--%>
-                            <%--<li class="a">--%>
-                                <%--<div id="messageDetail" style="text-align: left">--%>
-                                <%--</div>--%>
-                            <%--</li>--%>
-                            <%--<li class="a" onclick="allMessagePage('与我相关','allMessage.do')">--%>
-                                <%--<i class="fa fa-envelope fa-fw"></i>查看更多消息--%>
-                            <%--</li>--%>
-                        <%--</ul>--%>
-                    <%--</li>--%>
                     <li style="width: 90px;"><a>发起活动</a>
                         <ul class="hd">
                             <li><a onclick="addAppPage('发布约伴活动','add-app.html')" >活动约伴</a></li>
@@ -186,7 +131,7 @@
                 <div class="social-feed-box">
                     <div class="social-avatar">
                         <a href="#" class="pull-left">
-                            <img alt="image" src="${answer.answerUser.head }">
+                            <img alt="image" src="head/${answer.answerUser.head }">
                         </a>
                         <div class="media-body">
                             <a href="#">

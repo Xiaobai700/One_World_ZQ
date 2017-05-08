@@ -113,12 +113,18 @@ public class DiscussController {
             List<Discuss> all =(List<Discuss>) discussService.queryAllDiscuss().get("data");
 
             String user_account = (String) request.getSession().getAttribute("account");
-            UserInfo s_userInfo =(UserInfo) userInfoService.findUserInfoByAccount(user_account).get("data");
+            if(user_account == null){
+                modelAndView.addObject("userHead","img/person.jpg");
+            }else {
+                UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(user_account).get("data");
+                modelAndView.addObject("userHead",userInfo.getHead());
+            }
+//            UserInfo s_userInfo =(UserInfo) userInfoService.findUserInfoByAccount(user_account).get("data");
             Map requestMap = new HashMap();
             requestMap.put("pageSize",10);
             returnMap = (Map)indexService.discussPageAll(requestMap).get("data");
 
-            modelAndView.addObject("userInfo", s_userInfo);
+//            modelAndView.addObject("userInfo", s_userInfo);
             modelAndView.addObject("account",user_account);
             modelAndView.addObject("color_1", "badge badge-primary");
             modelAndView.addObject("color_2", "badge");

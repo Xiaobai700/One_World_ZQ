@@ -35,11 +35,16 @@
                 <div class="dh_div_dl_tx">
                     <div class="xian"></div>
                     <div class="dl_tx">
-                        <a class="tx_gr" href="mySpace.do"><img src="head/${userInfo.head}"></a>
+                        <a class="tx_gr" href="mySpace.do"><img src="head/${userHead}"></a>
                     </div>
                 </div>
             </div>
-
+            <div class="search">
+                <div class="input-group">
+                    <input type="text" class="form-control searchText" id="searchText" value="${keys}" style="width:290px;height: 40px;border-radius: 6px;"> <span class="input-group-btn"> <button type="button" onclick="searchForm(4)" class="btn btn-primary">搜索
+                                        </button> </span>
+                </div>
+            </div>
             <!--右边的菜单-->
             <div class="dh_div_right">
                 <ul class="ul_first">
@@ -67,13 +72,16 @@
     </div>
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
+            <c:if test="${index.numbers == 0}">
+                <p style="font-size: 30px;font-family: 微软雅黑;margin-left: 400px;">啥也没有。。。</p>
+            </c:if>
             <c:forEach var="user" items="${index.userInfo}">
                 <div class="col-sm-4">
                     <div class="contact-box" style="height: 195px;">
                         <a href="personal.do?account=${user.account}">
                             <div class="col-sm-4">
                                 <div class="text-center">
-                                    <img alt="image" class="img-circle m-t-xs img-responsive" src="img/a2.jpg">
+                                    <img alt="image" class="img-circle m-t-xs img-responsive" src="head/${user.head}">
                                     <div class="m-t-xs font-bold">
                                         <span style="color: palevioletred;"class="${user.sex}"></span>
                                         <span style="margin-left: 1px;font-size: smaller;">${user.age}</span><br />
@@ -106,10 +114,11 @@
 </footer>
 <script src="../../static/js/jquery.min.js?v=2.1.4"></script>
 <script src="../../static/js/bootstrap.min.js?v=3.3.6"></script>
-<script src="../../static/js/content.min.js?v=1.0.0"></script>
+<script src="../../client/js/addAppAndDiscussFunction.js"></script>
+<%--<script src="../../static/js/content.min.js?v=1.0.0"></script>--%>
 <script>
     $(document).ready(function(){$(".contact-box").each(function(){animationHover(this,"pulse")})});
 </script>
-<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+<%--<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>--%>
 </body>
 </html>

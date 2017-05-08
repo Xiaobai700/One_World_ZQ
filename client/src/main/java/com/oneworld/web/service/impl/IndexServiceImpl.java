@@ -64,6 +64,9 @@ private AppTypeMapper appTypeMapper;
 
 @Autowired
 private IndustryMapper industryMapper;
+
+@Autowired
+private AttentionService attentionService;
 /**首页*/
     public Map indexAll(Map map) {
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
@@ -82,10 +85,27 @@ private IndustryMapper industryMapper;
             List<Map<String,Object>> discuss = new ArrayList<Map<String, Object>>();
 
             Map<String,List> hotUser1ResultMap = new HashedMap();
-            hotUser1ResultMap.put("hot1",hot1Users);
+            String myAccount = (String) map.get("join_account");
+            List<Map<String,Object>> hot1UserList = new ArrayList<Map<String, Object>>();
+            for (UserInfo userInfo:hot1Users) {
+                Map userMap = new HashMap();
+                boolean isCare = attentionService.isCare(myAccount,userInfo.getAccount());
+                userMap.put("userInfo",userInfo);
+                userMap.put("isCare",isCare);
+                hot1UserList.add(userMap);
+            }
+            hotUser1ResultMap.put("hot1",hot1UserList);
 
             Map<String,List> hotUser2ResultMap = new HashedMap();
-            hotUser2ResultMap.put("hot2",hot2Users);
+            List<Map<String,Object>> hot2UserList = new ArrayList<Map<String, Object>>();
+            for (UserInfo userInfo:hot2Users) {
+                Map user2Map = new HashMap();
+                boolean isCare = attentionService.isCare(myAccount,userInfo.getAccount());
+                user2Map.put("isCare",isCare);
+                user2Map.put("userInfo",userInfo);
+                hot2UserList.add(user2Map);
+            }
+            hotUser2ResultMap.put("hot2",hot2UserList);
 
             for (Appointment app:appointments) {
                 Map<String,Object> appResult = new HashedMap();
@@ -405,6 +425,7 @@ private IndustryMapper industryMapper;
                     List<Join> joins = joinMapper.queryJoinsByMap(requestMap);
                     int count = joins.size();
                     appMe.put("appointment",a);
+                    appMe.put("meTime",fmt.format(a.getPublish_time()));
                     appMe.put("want_join_count",count);
                     apps.add(appMe);
                 }
@@ -425,10 +446,17 @@ private IndustryMapper industryMapper;
                 appResult.put("app",apps);
                 appResult.put("appSize",appointments.size());
                 appResult.put("appJoinSize",appointmentList.size());
+
 //                发起的讨论
                 List<Discuss> discusses = discussMapper.queryDiscussByUserAccount(account);
-
-                discussMeResult.put("discussMe",discusses);
+                List<Map<String,Object>> discussList = new ArrayList<Map<String,Object>>();
+                for (Discuss discussMe:discusses) {
+                    Map discussMeMap = new HashMap();
+                    discussMeMap.put("discussMe",discussMe);
+                    discussMeMap.put("meTime",fmt.format(discussMe.getAsk_time()));
+                    discussList.add(discussMeMap);
+                }
+                discussMeResult.put("discussMe",discussList);
                 discussMeResult.put("discussMeSize",discusses.size());
 //                参与的讨论
                 List<Answer> answers = answerMapper.findAnswersByUser_account(account);
@@ -436,6 +464,7 @@ private IndustryMapper industryMapper;
                     Map<String,Object> discussAnswer = new HashedMap();
                     Discuss discuss = discussMapper.findDiscussById(a.getDiscuss_id());
                     discussAnswer.put("answer",a);
+                    discussAnswer.put("meTime",fmt.format(a.getAnswer_time()));
                     discussAnswer.put("discuss",discuss);
                     dises.add(discussAnswer);
                 }
@@ -443,7 +472,14 @@ private IndustryMapper industryMapper;
                 discussAnswerResult.put("discussAnswerSize",answers.size());
 //                发布的分享
                 List<Share> shares = shareMapper.findSharesByAccount(account);
-                shareResult.put("share",shares);
+                List<Map<String,Object>> sharesMe = new ArrayList<Map<String, Object>>();
+                for (Share share:shares) {
+                    Map shareMeMap = new HashMap();
+                    shareMeMap.put("share",share);
+                    shareMeMap.put("meTime",fmt.format(share.getShare_time()));
+                    sharesMe.add(shareMeMap);
+                }
+                shareResult.put("share",sharesMe);
                 shareResult.put("shareSize",shares.size());
 
                 retMap.put("userInfo",userInfoResult);

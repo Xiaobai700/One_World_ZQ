@@ -55,7 +55,7 @@ if(account !=""){
             messageNumber = message.messageSize;
             // messageDetail.innerHTML = '<i class="fa fa-envelope fa-fw"></i>'+messageNumber+'条未读消息';
             $.each(message.message,function () {
-                dv.innerHTML+=this.message.content;
+                // dv.innerHTML+=this.message.content;
                informMessage.innerHTML +="<div class='oneMessage'>"+this.message.content+"</div>";
                 // messageDetail.innerHTML+= "<span class='small' style='color: #5BC4C8;;'>"+this.message.sendTime+"</span><br />"+this.message.content+"<br />";
             });
@@ -67,7 +67,7 @@ if(account !=""){
 
             // messageDetail.innerHTML = '<i class="fa fa-envelope fa-fw"></i>'+messageNumber+'条未读消息 <span class="pull-right text-muted small">4分钟前</span>';
         }else {
-            dv.innerHTML+=message.message.content;
+            // dv.innerHTML+=message.message.content;
             toastr.info(message.message.content);
             // toast(message.message.content,"消息");
             messageNumber += 1;
@@ -94,6 +94,7 @@ if(account !=""){
 
 /*发起一个约伴活动*/
 function add_app() {
+    var reg = /^\+?[1-9][0-9]*$/;
     var sex_restrict = $("#sex_restrict").val();
     var theme = $("#theme").val();
     var content = UE.getEditor('editor').getContent();
@@ -101,6 +102,7 @@ function add_app() {
     var begin_time = $(".kssj").val();
     var more_time = $("#jqsj").val();
     var duration = $("#duration").val();
+    var count = $("#count").val();
     if(sex_restrict == -1){
         layer.msg("请选择性别限制！");
     }else if(theme.trim() == ""){
@@ -113,6 +115,8 @@ function add_app() {
         layer.msg("请选择活动开始时间！");
     }else if(duration.trim() == ""){
         layer.msg("请填写活动持续时间！");
+    }else if(!reg.test(duration)){
+        layer.msg("活动持续的时间只能是整数");
     }else {
         $.ajax({
             url: "add-app.action",
@@ -179,7 +183,7 @@ function join_app(id,user_account) {
                 success:function(data){
                     var dataObj=eval("("+data+")");
                     if(dataObj.code == 0){
-                        layer.msg("加入成功！");
+                        layer.msg("申请成功等待对方审核！");
                         ws.send(user_account+','+2+','+id);
                         window.location.reload();
                     }
@@ -229,10 +233,17 @@ function rejectJoin(id,user_account,appId) {
     });
 }
 /*关注某用户*/
-function careUser(user_account) {
-   /* var ws ;
-    ws = new WebSocket("ws://localhost:8080/hello?"+user_account);*/
-    layer.confirm("确定要关注TA吗？",function (index) {
+function careUser(user_account,careType) {
+    var msg = "";
+    switch (careType){
+        case 1:
+            msg+="确定要关注TA吗？";
+            break;
+        case 0:
+            msg+="你真的不关注他了？"
+            break
+    }
+    layer.confirm(msg,function (index) {
         if($("#account").val() == "") {
             layer.msg("你还未登陆,请先登陆!");
         }else {
@@ -243,12 +254,14 @@ function careUser(user_account) {
                     user_account:user_account
                 },
                 success:function(data){
-                    // var dataObj=eval("("+data+")");
                     layer.msg(data.msg);
                     if(data.code == 0){
                         /*把关注的目标用户的账号发给服务器*/
                         ws.send(user_account+','+1);
                         /*在发送消息之后刷新页面*/
+                        window.location.reload();
+                    }else {
+                        /*取消关注的时候就不发消息给用户了*/
                         window.location.reload();
                     }
                 }
@@ -288,7 +301,82 @@ var answerContent = $("#my_reply").val();
         })
     }
 }
+/*修改个人信息*/
+var currentShowCity=0;
+var shi = "";
+var sheng = $(".sheng").val();
+$("#province").change(function(){
+    $("#province option").each(function(i,o){
+        if($(this).attr("selected"))
+        {
+            $(".citys").hide();//所有的城市隐藏
+            $(".citys").eq(i).show();//与省对应的城市显示
+            //再加一个循环
+            var obj = $(".citys").eq(i);
+            /*  shi = $(".citys").eq(i).val();  */
+            for(var i=0;i<obj.length;i++){
+                $(".citys option").addClass("shi");
+            }
+            $(".shi").click(function(){
+                shi = $(this).text();
+            });
+            currentShowCity=i;
+        }
+    });
+});
+$("#province").change();
+$("#province option").click(function(){
+    sheng = $(this).text();
+});
+function updateMyInfo() {
+    var sex = $('input[name="sex"]').val();
+    var nickName = $("#nickName").val();
+    var hobby = $("#hobby").val();
+    var signature = $("#signature").val();
+    var job = $("#job-select").val();
+    var birth = $("#datepicker").val();
+    if(sex == ""){
+        layer.msg("请选择你的性别");
+    }else if(nickName.trim() == ""){
+        layer.msg("昵称不可为空！");
+    }else if(signature.trim() == ""){
+        signature += "这个人很懒，他啥也没写。";
+    }else if(job == -1){
+        layer.msg("请选择你所在的行业");
+    }else if(birth == ""){
+        layer.msg("请填写你的生日");
+    }else {
+        $.ajax({
+            url:"modifyUser.do",
+            type:"post",
+            data:{
+                nickName:nickName,
+                sheng:sheng,
+                shi:shi,
+                hobby:hobby,
+                signature:signature,
+                job:job,
+                sex:sex,
+                birth:birth
+            },
+            dataType:"text",
+            success:function(data){
+                var dataObj=eval("("+data+")");
+//                        alert(dataObj.returnMsg);
+                if(dataObj.code == 0){
+                    layer.msg("信息修改成功！");
+//                            window.location.href="mySpace.do";
+                    window.location.reload();
+                }else{
+                }
 
+            },
+            error:function(){
+                alert("错误");
+            }
+        });
+    }
+}
 
 /**关于评论 对问题的回复的评论1 对约伴活动的评论2 对分享的评论3
  * ******************************************************************/
@@ -510,7 +598,30 @@ function allMessagePage(title,url) {
     var editor = url;
     var w = 700;
     var h = 500;
+    var myAccount = $("#account").val();
+    if(myAccount != ""){
+        layer.open({
+            type: 2,
+            area: [w + 'px', h + 'px'],
+            fix: false, //不固定
+            maxmin: true,
+            shade: 0.4,
+            title: title,
+            content: editor,
+            end: function () {
+            }
+        });
+    }else {
+        layer.msg("您还未登陆，请先登录！");
+    }
+
     //layer_show(title,editor,w,h);
+}
+/*分享详情弹出框*/
+function shareDetail(title,url,id) {
+    var editor = url+'?id='+id;
+    var w = 600;
+    var h = 500;
     layer.open({
         type: 2,
         area: [w + 'px', h + 'px'],
@@ -523,7 +634,6 @@ function allMessagePage(title,url) {
         }
     });
 }
-
 /*回答的评论弹出层*/
 function invitationCommentsPage(title,url,id,label,objectAccount,discussId) {
     var editor = url+'?targetId='+id+'&label='+label+'&objectAccount='+objectAccount+'&discussId='+discussId;
@@ -584,6 +694,7 @@ function getReply(title,url,commentId,replyType,patentId) {
 //1:对讨论的搜索
 //2:对约伴活动的搜索
 //3:对分享的搜索
+//4:对用户的搜索
 function searchForm(searchType) {
     var searchText = $("#searchText").val();
     window.location.href='search.do?searchType='+searchType+'&keys='+searchText;

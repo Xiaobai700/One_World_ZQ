@@ -324,6 +324,7 @@ img.img-circle{
 .can_yu_tx ul li{
     list-style: none;
     display: inline-block;
+    float: right;
 }
 .main_1_4{
     /*border: 2px solid #A9DBA9;*/

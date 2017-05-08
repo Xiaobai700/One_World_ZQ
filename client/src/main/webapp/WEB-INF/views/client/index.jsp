@@ -12,7 +12,6 @@ pageEncoding="utf-8"%>
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <script type="text/javascript" src="../static/js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
-
     <!--引入主页的css样式文件-->
     <link href="../static/css/index_style.css" rel="stylesheet">
     <!--引入导航的css样式文件-->
@@ -63,7 +62,7 @@ pageEncoding="utf-8"%>
                         <div class="xian"></div>
                         <div class="dl_tx">
                             <!--头像个人 点击可以进入个人中心的-->
-                            <a class="tx_gr" href="mySpace.do?account=${account}"><%--<img src="upload/${userInfo.head}">--%><img src="${userHead}"></a>
+                            <a class="tx_gr" href="mySpace.do?account=${account}"><%--<img src="upload/${userInfo.head}">--%><img src="head/${userHead}"></a>
                         </div>
                     </div>
                 </div>
@@ -221,29 +220,39 @@ pageEncoding="utf-8"%>
                         <div class="row">
                             <div class="col-md-5">
                                 <!--头像-->
-                                <a href="personal.do?account=${hotOne.account}"><img src="head/${hotOne.head }" class="user_tx"></a>
+                                <c:if test="${account != hotOne.userInfo.account}">
+                                    <a href="personal.do?account=${hotOne.userInfo.account}"><img src="head/${hotOne.userInfo.head }" class="user_tx"></a>
+                                </c:if>
+                                <c:if test="${account == hotOne.userInfo.account}">
+                                    <a href="mySpace.do?account=${account}"><img src="head/${hotOne.userInfo.head }" class="user_tx"></a>
+                                </c:if>
                             </div>
                             <div class="col-md-7">
                                 <!--姓名 性别 年龄-->
                                 <div class="y_h">
-                                    <span class="yh_name"><strong>${hotOne.nickName }</strong></span>&nbsp;
-                                    <span class="${hotOne.sex }" style="color: palevioletred;"></span>
-                                    <span style="color: palevioletred">${hotOne.age }</span>
-                                    <c:forEach var="care" items="${care }">
-		    			    <c:choose >
-		    			    	<c:when test="${care.user_account==hotOne.account }">
-		    			    		<span style="float: right;margin-top: 10px;color:pink;" class="glyphicon glyphicon-heart attent"></span>
-		    			    	</c:when>
-		    			    </c:choose>
-		    			  </c:forEach>
-                                    <span style="float: right;margin-top: 10px;" class="ion-android-favorite-outline attent care" onclick="careUser('${hotOne.account }')"></span>
-                                    <input type="hidden" value="${hotOne.account }" />
+                                    <span class="yh_name"><strong>${hotOne.userInfo.nickName }</strong></span>&nbsp;
+                                    <span class="${hotOne.userInfo.sex }" style="color: palevioletred;"></span>
+                                    <span style="color: palevioletred">${hotOne.userInfo.age }</span>
+                                    <%--<c:forEach var="care" items="${care }">--%>
+		    			    <%--<c:choose >--%>
+		    			    	<%--<c:when test="${care.user_account==hotOne.account }">--%>
+                                    <c:if test="${hotOne.isCare == true}">
+                                        <span style="float: right;margin-top: 10px;color:pink;" onclick="careUser('${hotOne.userInfo.account}',0)" class="glyphicon glyphicon-heart attent"></span>
+                                    </c:if>
+                                    <c:if test="${hotOne.isCare == false}">
+                                        <span style="float: right;margin-top: 10px;" onclick="careUser('${hotOne.userInfo.account}',1)" class="glyphicon glyphicon-heart attent"></span>
+                                    </c:if>
+		    			    	<%--</c:when>--%>
+		    			    <%--</c:choose>--%>
+		    			  <%--</c:forEach>--%>
+                                    <%--<span style="float: right;margin-top: 10px;" class="ion-android-favorite-outline attent care" onclick="careUser('${hotOne.account }')"></span>--%>
+                                    <input type="hidden" value="${hotOne.userInfo.account }" />
                                 </div>
                                 <div class="y_h">
-                                    <span class="yh_location">${hotOne.location }</span><br />
+                                    <span class="yh_location">${hotOne.userInfo.location }</span><br />
                                 </div>
                                 <div class="y_h">
-                                    <span class="yh_name"><strong>${hotOne.signature }</strong></span>
+                                    <span class="yh_name"><strong>${hotOne.userInfo.signature }</strong></span>
                                 </div>
                             </div>
                         </div>
@@ -259,31 +268,41 @@ pageEncoding="utf-8"%>
                     <div class="main_yh_div">
                         <div class="row">
                             <div class="col-md-5">
-                                <!--头像-->
-                                <a href="personal.do?account=${hotTwo.account}"><img src="head/${hotTwo.head }" class="user_tx"></a>
+                                <c:if test="${account != hotTwo.userInfo.account}">
+                                    <a href="personal.do?account=${hotTwo.userInfo.account}"><img src="head/${hotTwo.userInfo.head }" class="user_tx"></a>
+                                </c:if>
+                                <c:if test="${account == hotTwo.userInfo.account}">
+                                    <a href="mySpace.do?account=${account}"><img src="head/${hotTwo.userInfo.head }" class="user_tx"></a>
+                                </c:if>
                             </div>
                             <div class="col-md-7">
                                 <!--姓名 性别 年龄-->
                                 <div class="y_h">
-                                    <span class="yh_name"><strong>${hotTwo.nickName }</strong></span>&nbsp;
-                                    <span class="${hotTwo.sex }" style="color: palevioletred;"></span>
-                                    <span style="color: palevioletred">${hotTwo.age }</span>
-                                    <input type="hidden" value="${hotTwo.nickName }" />
-                                    <c:forEach var="care" items="${care }">
-		    			    <c:choose >
-		    			    	<c:when test="${care.user_account==hotTwo.account }">
-		    			    		<span style="float: right;margin-top: 10px;color:pink;" class="glyphicon glyphicon-heart attent"></span>
-		    			    	</c:when>
-		    			    </c:choose>
-		    			  </c:forEach>
-                                    <span style="float: right;margin-top: 10px;" class="ion-android-favorite-outline attent care" onclick="careUser('${hotTwo.account }')"></span>
-                                    <input type="hidden" value="${hotTwo.account }" />
+                                    <span class="yh_name"><strong>${hotTwo.userInfo.nickName }</strong></span>&nbsp;
+                                    <span class="${hotTwo.userInfo.sex }" style="color: palevioletred;"></span>
+                                    <span style="color: palevioletred">${hotTwo.userInfo.age }</span>
+                                    <input type="hidden" value="${hotTwo.userInfo.nickName }" />
+                                    <%--<c:forEach var="care" items="${care }">--%>
+		    			    <%--<c:choose >--%>
+		    			    	<%--<c:when test="${care.user_account==hotTwo.account }">--%>
+                                    <c:if test="${hotTwo.isCare == true}">
+                                        <span style="float: right;margin-top: 10px;color:pink;" onclick="careUser('${hotTwo.userInfo.account}',0)" class="glyphicon glyphicon-heart attent"></span>
+                                    </c:if>
+                                    <c:if test="${hotTwo.isCare == false}">
+                                        <span style="float: right;margin-top: 10px;" onclick="careUser('${hotTwo.userInfo.account}',1)" class="glyphicon glyphicon-heart attent"></span>
+                                    </c:if>
+
+		    			    	<%--</c:when>--%>
+		    			    <%--</c:choose>--%>
+		    			  <%--</c:forEach>--%>
+                                    <%--<span style="float: right;margin-top: 10px;" class="ion-android-favorite-outline attent care" onclick="careUser('${hotTwo.userInfo.account }')"></span>--%>
+                                    <input type="hidden" value="${hotTwo.userInfo.account }" />
                                 </div>
                                 <div class="y_h">
-                                    <span class="yh_location">${hotTwo.location }</span><br />
+                                    <span class="yh_location">${hotTwo.userInfo.location }</span><br />
                                 </div>
                                 <div class="y_h">
-                                    <span class="yh_name"><strong>${hotTwo.signature }</strong></span>
+                                    <span class="yh_name"><strong>${hotTwo.userInfo.signature }</strong></span>
                                 </div>
                             </div>
                         </div>

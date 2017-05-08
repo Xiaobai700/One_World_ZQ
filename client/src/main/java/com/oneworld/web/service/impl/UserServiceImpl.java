@@ -31,8 +31,11 @@ public class UserServiceImpl implements UserService {
         try {
             User user = userMapper.findUserByAccount(account);
             if(user != null){
-                if(user.getPassword().equals(password)){
+                if(user.getPassword().equals(password) && user.getDisabled() == 0){
                     returnMap = RequestConstant.getRequestDesCode(1);
+                }else if(user.getDisabled() == 1){
+                    returnMap.put(ParameterConstant.RETURN_MSG,"您已被禁用！");
+                    returnMap.put(ParameterConstant.RETURN_CODE,-4);
                 }else {
                     returnMap = RequestConstant.getRequestDesCode(-3);
                 }
@@ -112,4 +115,5 @@ public class UserServiceImpl implements UserService {
         }
         return returnMap;
     }
+
 }

@@ -20,10 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Master ZQ on 2017/3/6.
@@ -132,6 +129,20 @@ public class CommonController {
                 modelAndView.addObject("index", returnMap);
                 modelAndView.addObject("color_2", "badge");
                 modelAndView.addObject("color_1", "badge badge-primary");
+                modelAndView.addObject("keys",keys);
+                break;
+            case 4:
+                modelAndView = new ModelAndView("/client/user/fansOrcarer");
+                Map returnMap4 = new HashMap();
+                String account = (String) request.getSession().getAttribute("account");
+                String label = "搜索到的用户";
+                Map requestMap4 = new HashMap();
+                requestMap4.put("keys",keys);
+                List<UserInfo> userInfos = (List<UserInfo>) userInfoService.searchUser(requestMap4).get("data");
+                returnMap4.put("userInfo",userInfos);
+                returnMap4.put("label",label);
+                returnMap4.put("numbers",userInfos.size());
+                modelAndView.addObject("index",returnMap4);
                 modelAndView.addObject("keys",keys);
                 break;
         }

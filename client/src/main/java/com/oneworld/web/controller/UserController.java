@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Timestamp;
 import java.util.*;
 
 /**
@@ -58,8 +57,11 @@ public class UserController {
         if(returnMap.get("code").equals(1)){
             request.getSession().setAttribute("account", account);
             request.getSession().setAttribute("password", password);
+            outWriter.write(mapper.writeValueAsString(returnMap));
+        }else {
+            outWriter.write(mapper.writeValueAsString(returnMap));
         }
-        outWriter.write(mapper.writeValueAsString(returnMap));
+
     }
 
     @RequestMapping("userRegist.action")
@@ -141,8 +143,8 @@ public class UserController {
                 String strsub1=null;
                 //获得生日的最后四个字符，由于我的生日选择插件的格式就是最后4位是年份，若是换成别的日期选择器就另当别论
                 if(birth.length()>=4){// 判断是否长度大于等于4
-                    String strsub=birth.substring(birth.length()- 4);//一个参数表示截取传递的序号之后的部分
-                    strsub1=birth.substring(birth.length()- 4,birth.length());//截取两个数字之间的部分
+//                    String strsub=birth.substring(birth.length()- 4);//一个参数表示截取传递的序号之后的部分
+                    strsub1=birth.substring(0,4);//截取两个数字之间的部分
                 }
                 int by=Integer.parseInt(strsub1);//String类型转成int类型
                 int age = year - by;
@@ -166,7 +168,13 @@ public class UserController {
                                     String label){
         ModelAndView modelAndView = new ModelAndView("/client/user/fansOrcarer");
         Map returnMap = new HashMap();
-        String account = request.getSession().getAttribute("account").toString();
+        String account =(String) request.getSession().getAttribute("account");
+        if(account == null){
+            modelAndView.addObject("userHead","img/person.jpg");
+        }else {
+            UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(account).get("data");
+            modelAndView.addObject("userHead",userInfo.getHead());
+        }
         List<UserInfo> userInfos = new ArrayList<UserInfo>();
         List<Attention> attentions = new ArrayList<Attention>();
         if(label.equals("我关注的")){
@@ -180,6 +188,7 @@ public class UserController {
         }
         returnMap.put("userInfo",userInfos);
         returnMap.put("label",label);
+        returnMap.put("numbers",userInfos.size());
         modelAndView.addObject("index",returnMap);
         return modelAndView;
     }
@@ -191,9 +200,13 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView("/client/user/person");
         Map returnMap = new HashMap();
         Map requestMap = new HashMap();
+        String myAccount =(String) request.getSession().getAttribute("account");
+        //判断我是否关注了这个用户
+        boolean isCare = attentionService.isCare(myAccount,account);
         requestMap.put("account",account);
         returnMap = (Map) indexService.userSpace(requestMap).get("data");
         modelAndView.addObject("index",returnMap);
+        modelAndView.addObject("isCare",isCare);
         return  modelAndView;
     }
 
@@ -207,12 +220,8 @@ public class UserController {
         ObjectMapper mapper = new ObjectMapper();
         Map returnMap = new HashMap();
         try{
-                String account =(String)request.getSession().getAttribute("account");
-                Attention attention = new Attention();
-                attention.setCarer_account(account);
-                attention.setUser_account(user_account);
-                attention.setAttention_time(new Timestamp(new Date().getTime()));
-                returnMap = attentionService.careUser(attention);
+            String account =(String)request.getSession().getAttribute("account");
+            returnMap = attentionService.careUser(account,user_account);
             outWriter.write(mapper.writeValueAsString(returnMap));
         }catch (Exception e){
             e.printStackTrace();

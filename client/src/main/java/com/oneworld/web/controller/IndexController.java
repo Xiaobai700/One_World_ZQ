@@ -1,6 +1,5 @@
 package com.oneworld.web.controller;
 
-import com.oneworld.web.constant.RequestConstant;
 import com.oneworld.web.model.Attention;
 import com.oneworld.web.model.Join;
 import com.oneworld.web.model.UserInfo;
@@ -63,10 +62,9 @@ public class IndexController {
             modelAndView.addObject("care",attentions);
             modelAndView.addObject("joins",joins);
             modelAndView.addObject("index",resultMap);
-//            modelAndView.addObject("userInfo",userInfo);
+            modelAndView.addObject("account",user_account);
         }catch (Exception e){
             e.printStackTrace();
-            resultMap = RequestConstant.getRequestDesCode(-1);
         }
 
         return modelAndView;

@@ -54,7 +54,7 @@
         <ul class="media-list">
             <li class="media">
                 <a class="media-left" href="#">
-                    <img src="../../img/a1.jpg" style="width: 50px;height: 50px;border-radius: 25px;">
+                    <img src="head/${index.editor.head}" style="width: 50px;height: 50px;border-radius: 25px;">
                 </a>
                 <div class="media-body">
                     <Strong class="media-heading">${index.editor.nickName}</strong><br />

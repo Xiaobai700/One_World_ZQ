@@ -27,20 +27,6 @@
     <script src="../../static/js/index_js.js"></script>
     <%--layer--%>
     <script type="text/javascript" src="../../static/js/layer/2.1/layer.js"></script>
-    <%--<!--引入主页的css样式文件-->
-    <link href="static/css/index_style.css" rel="stylesheet">
-    <!--引入导航的css样式文件-->
-    <link href="static/css/dao_hang_style.css" rel="stylesheet">
-    <link href="static/css/ionicons.css" rel="stylesheet">
-    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!--bootstrap-->
-    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-    <script src="static/js/jquery-2.2.4.min.js"></script>
-    <script src="static/js/bootstrap.min.js"></script>
-    <script src="static/js/index_js.js"></script>
-    <link href="../static/css/font-awesome.min93e3.css" rel="stylesheet">
-    &lt;%&ndash;layer&ndash;%&gt;
-    <script type="text/javascript" src="../../static/js/layer/2.1/layer.js"></script>--%>
     <style type="text/css">
     .share_contents img{
     margin-left:38px;
@@ -65,7 +51,7 @@
                 <div class="dh_div_dl_tx">
                     <div class="xian"></div>
                     <div class="dl_tx">
-                        <a class="tx_gr" href="mySpace.do"><img src="head/${userInfo.head}"></a>
+                        <a class="tx_gr" href="mySpace.do"><img src="head/${userHead}"></a>
                     </div>
                 </div>
             </div>
@@ -210,22 +196,7 @@
             }
         });
     }
-    function shareDetail(title,url,id) {
-        var editor = url+'?id='+id;
-        var w = 600;
-        var h = 500;
-        layer.open({
-            type: 2,
-            area: [w + 'px', h + 'px'],
-            fix: false, //不固定
-            maxmin: true,
-            shade: 0.4,
-            title: title,
-            content: editor,
-            end: function () {
-            }
-        });
-    }
+
 </script>
 </body>
 </html>

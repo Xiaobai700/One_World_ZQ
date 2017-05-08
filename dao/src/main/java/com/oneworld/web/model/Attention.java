@@ -3,18 +3,20 @@ package com.oneworld.web.model;
 import java.sql.Timestamp;
 
 public class Attention {
-	private Integer pk_id;
-	private int id;//id
+	private Integer pkId;
+	private String id;//id
 	private String carer_account;//关注别人的人的账号
 	private Timestamp attention_time;//关注的时间
 	private String user_account;//被关注的人的账号
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+
+	public void setId(String id) {
 		this.id = id;
 	}
+
 	public String getCarer_account() {
 		return carer_account;
 	}

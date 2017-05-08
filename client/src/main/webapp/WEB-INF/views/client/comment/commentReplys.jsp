@@ -43,7 +43,7 @@
         <div class="social-feed-box">
             <div class="social-avatar">
                 <a href="#" class="pull-left">
-                    <img alt="image" src="${reply.replyerUser.head}">
+                    <img alt="image" src="head/${reply.replyerUser.head}">
                 </a>
                 <div class="media-body">
                     <div>

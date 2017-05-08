@@ -77,7 +77,12 @@
                         <div class="user-button">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <button type="button" style="color: deeppink;" class="btn btn-primary btn-sm btn-block"><i class="fa fa-heart"></i> 关注</button>
+                                    <c:if test="${isCare == true}">
+                                    <button type="button" onclick="careUser('${index.userInfo.account}',0)" style="color: deeppink;" class="btn btn-primary btn-sm btn-block"><i class="fa fa-heart"></i> 取消关注</button>
+                                    </c:if>
+                                    <c:if test="${isCare == false}">
+                                        <button type="button" style="color: deeppink;" onclick="careUser('${index.userInfo.account}',1)" class="btn btn-primary btn-sm btn-block"><i class="fa fa-heart"></i> 关注</button>
+                                    </c:if>
                                 </div>
                                 <div class="col-sm-6">
                                     <button type="button" class="btn btn-danger btn-sm btn-block" onclick="reportPage('选择举报类型','reportPage.do','${index.userInfo.account }','${index.userInfo.account }',2)"><i class="fa fa-flag"></i> 举报</button>
@@ -96,18 +101,6 @@
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
                         </a>
-                        <%--<a class="dropdown-toggle" data-toggle="dropdown" href="profile.html#">--%>
-                            <%--<i class="fa fa-wrench"></i>--%>
-                        <%--</a>--%>
-                        <%--<ul class="dropdown-menu dropdown-user">--%>
-                            <%--<li><a href="profile.html#">选项1</a>--%>
-                            <%--</li>--%>
-                            <%--<li><a href="profile.html#">选项2</a>--%>
-                            <%--</li>--%>
-                        <%--</ul>--%>
-                        <%--<a class="close-link">--%>
-                            <%--<i class="fa fa-times"></i>--%>
-                        <%--</a>--%>
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -173,8 +166,8 @@
                                             <div><strong>${index.userInfo.nickName}</strong>没有发起任何讨论</div>
                                         </c:if>
                                         <c:forEach var="fq" items="${index.discussMeResult.discussMe}">
-                                            <small class="pull-right text-navy">${fq.ask_time }</small>
-                                            <strong>${index.userInfo.nickName}</strong> 发起了题为<strong>${fq.discuss_title }</strong>的讨论.
+                                            <small class="pull-right text-navy">${fq.meTime}</small>
+                                            <strong>${index.userInfo.nickName}</strong> 发起了题为<strong>${fq.discussMe.discuss_title }</strong>的讨论.
                                             <br>
                                             <div class="actions">
                                                 <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> 赞 </a>
@@ -197,7 +190,7 @@
                                             <div><strong>${index.userInfo.nickName}</strong>没有参与任何讨论</div>
                                         </c:if>
                                         <c:forEach var="join" items="${index.discussAnswerResult.discussAnswer}">
-                                            <small class="pull-right text-navy">${join.answer.answer_time }</small>
+                                            <small class="pull-right text-navy">${join.meTime}</small>
                                             <strong>${index.userInfo.nickName}</strong> 回答了 <strong>问题：${join.discuss.discuss_title }</strong>.
                                             <br>
                                             <div class="actions">
@@ -222,8 +215,8 @@
                                         <div><strong>${index.userInfo.nickName}</strong>没有发表过任何分享</div>
                                     </c:if>
                                     <c:forEach var="share" items="${index.shareResult.share}">
-                                        <small class="pull-right text-navy">${share.share_time }</small>
-                                        <strong>${index.userInfo.nickName}</strong> 发表了题为 <strong>${share.share_title}</strong>的分享.
+                                        <small class="pull-right text-navy">${share.meTime }</small>
+                                        <strong>${index.userInfo.nickName}</strong> 发表了题为 <strong>${share.share.share_title}</strong>的分享.
                                         <br>
                                         <div class="photos">
                                             <img alt="image" class="feed-photo" src="../../img/a1.jpg">

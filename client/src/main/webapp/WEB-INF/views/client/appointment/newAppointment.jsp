@@ -72,8 +72,8 @@
                         $('.clockpicker').clockpicker();
                     </script>
                     <input type="text" id="duration" placeholder="持续时间"class="form-control zqChoose" style="width: 90px;">
-                    <input type="text" id="count"placeholder="人数"class="form-control zqChoose" style="width: 90px;">
-                    <input type="text" id="site"placeholder="地点"class="form-control zqChoose" style="width: 90px;">
+                    <%--<input type="text" id="count"placeholder="人数"class="form-control zqChoose" style="width: 90px;">--%>
+                    <input type="text" id="site"placeholder="地点"class="form-control zqChoose" style="width: 130px;">
                         <select class="form-control zqChoose" id="sex_restrict" style="width: 150px;">
                             <option value="-1">请选择性别要求</option>
                             <option value="男生">男生</option>
@@ -233,15 +233,14 @@
             .clockpicker('toggleView', 'minutes');
     }
 </script>
-<script src="static/js/pikaday.js"></script>
+<script src="../../static/js/pikaday.js"></script>
 <script>
-    var disable = false, picker = new Pikaday({
+    var disable = false, icpker = new Pikaday({
         field: document.getElementById('datepicker'),
         firstDay: 1,
         minDate: new Date(2000, 0, 1),
         maxDate: new Date(2020, 12, 31),
         yearRange: [2000,2020],
-
         showDaysInNextAndPreviousMonths: true
     });
 </script>

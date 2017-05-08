@@ -164,7 +164,7 @@
         where account = #{account,jdbcType=VARCHAR}
     </update>
 
-    <select id="findAllUserPage" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <select id="findAllUserPage" parameterType="java.util.Map" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         FROM t_userinfo
@@ -173,9 +173,10 @@
                 and nickName = #{nickName,jdbcType=VARCHAR}
             </if>
             <if test="keys!=null and keys!='' ">
-                AND (
-                nickName LIKE #{keys,jdbcType=VARCHAR}
-                )
+                AND nickName LIKE '%${keys}%'
+                OR location LIKE '%${keys}%'
+                OR job LIKE '%${keys}%'
+                OR signature LIKE '%${keys}%'
             </if>
             <if test="job!=null and job!='' ">
                 and job = #{job,jdbcType=VARCHAR}

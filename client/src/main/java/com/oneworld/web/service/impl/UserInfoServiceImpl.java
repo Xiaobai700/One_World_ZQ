@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -55,6 +56,19 @@ public class UserInfoServiceImpl implements UserInfoService {
         }catch (Exception e){
             returnMap = RequestConstant.getRequestDesCode(-1);
            e.printStackTrace();
+        }
+        return returnMap;
+    }
+
+    public Map searchUser(Map map) {
+        Map returnMap = new HashMap();
+        try{
+            List<UserInfo> userInfos = userinfoMapper.findAllUserPage(map);
+            returnMap.put(ParameterConstant.RETURN_CODE,0);
+            returnMap.put(ParameterConstant.RETURN_DATA,userInfos);
+        }catch (Exception e){
+            e.printStackTrace();
+            returnMap = RequestConstant.getRequestDesCode(-1);
         }
         return returnMap;
     }

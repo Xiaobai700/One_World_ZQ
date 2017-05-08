@@ -1,3 +1,4 @@
+<%--suppress ALL --%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -6,21 +7,25 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<!--引入主页的css样式文件-->
+    <!--引入主页的css样式文件-->
     <link href="static/css/index_style.css" rel="stylesheet">
     <!--引入导航的css样式文件-->
+    <%--<link href="../../static/css/dao_hang_style.css">--%>
     <link href="static/css/duckr.css" rel="stylesheet">
     <link href="static/css/ionicons.css" rel="stylesheet">
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
     <!--bootstrap-->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/pikaday.css">
-    <!-- <script type="text/javascript" src="js/jquery-2.2.4.min.js"></script> -->
-    <script src="static/js/jquery-1.8.3.min.js"></script>
-    <script src="static/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../static/css/pikaday.css">
+   <%--<script type="text/javascript" src="../../static/js/jquery-2.2.4.min.js"></script>--%>
+    <script src="../../static/js/jquery-1.8.3.min.js"></script>
+    <script src="../../static/js/bootstrap.min.js"></script>
+    <link href="../../static/css/font-awesome.min93e3.css" rel="stylesheet">
+    <link href="../../static/css/mySpaceStyle.css" rel="stylesheet">
+    <%--layer--%>
+    <script type="text/javascript" src="../../static/js/layer/2.1/layer.js"></script>
 <script type="text/javascript">
-
 </script>
     <!--引入主页的js文件-->
     <script src="static/js/index_js.js"></script>
@@ -28,87 +33,9 @@
 
 </head>
 <style type="text/css">
-
-/*主页的上部分*/
-/*导航栏*/
-nav{
-    height: 250px;
-    background-color: #a9dba9;
-    background: url("img/background.jpg");
-}
-/*包含logo和登陆者的头像*/
-.dh_div_left{
-    float: left;
-}
-.dh_div_logo{
-    padding: 10px;
-}
-/*登陆者头像*/
-.dh_div_dl_tx{
-    width: 50px;
-    height: 185px;
-    margin-top: -100px;
-    margin-left: 240px;
-}
-.xian{
-    margin-left: 24px;
-    width: 4px;
-    height: 124px;
-    background-color: #FFCCFF;
-}
-.dl_tx img{
-    width: 50px;
-    height: 50px;
-    border-radius:25px;
-}
-/*右边菜单*/
-.dh_div_right{
-    float: right;
-    margin-top: 20px;
-}
-.dh_div_right ul li{
-    display: inline-block;
-    list-style: none;
-    width: 80px;
-}
-.dh_div_right li a{
-    color: black;
-}
-.cai_dan{
-    width: 66px;
-    height:30px;
-    border:1px solid black;
-    text-align: center;
-    display: table-cell;/*让div中的文字纵向居中*/
-    vertical-align:middle;/*让div中的文字纵向居中*/
-    box-shadow: 5px 5px 5px #0e0e0e;
-    background-color: pink;
-}
-.cai_dan:hover{
-    background-color: #F47A7A;
-}
-.zhu_ce{
-    border-right: 2px solid darkgrey;
-}
-.hd{
-    display: none;
-    width:90px;
-    background-color: pink;
-    position: absolute;
-    z-index: 8000;
-    margin-left: -17px;
-    text-align: center;
-}
-.hd li{
-    width: 95px;
-    list-style: none;
-    margin-left:-39px;
-}
-/*主页的底部*/
-footer{
-    height: 140px;
-    background-color: #E5E5E5;
-}
+    nav{
+        background: url("img/background.jpg");
+    }
 </style>
 <body >
 <header>
@@ -123,49 +50,38 @@ footer{
             </div>
 
             <!--右边的菜单-->
-            <%--<div class="dh_div_right">
+            <div class="dh_div_right">
                 <ul class="ul_first">
+                    <li class="li_cai_dan" style="width: 40px;">
+                        <a class="myInfo" href="#">
+                            <i class="fa fa-bell"></i> <span class="<%--label label-danger--%>" id="size"
+                                                             style="font-size: 10px;font-weight: 600;background-color: #ed5565;color: #FFF;line-height: 12px;padding: 1px 5px;position: absolute;/*top: -2px;*/"></span>
+                        </a>
+                        <div class="upUp" style="position: absolute;">
+                            <span class="glyphicon glyphicon-chevron-up"></span>
+                        </div>
+                        <div class="myMessage">
+                            <div class="messageTop" style="line-height: 1.7;">
+                                <button class="inform" id="inform" style="">通知消息</button>
+                                <button class="inform" id="system" style="width: 50%;float: left;text-align: center;font-size: 17px;">系统消息</button>
+                            </div>
+                            <div class="messageDetail" id="messageDetail">
+                                <div id="systemMessage" style="display: none;">
+                                </div>
+                                <div id="informMessage">
+
+                                </div>
+                            </div>
+                            <div class="messageBottom" onclick="allMessagePage('与我相关','allMessage.do')">
+                                <i class="fa fa-envelope fa-fw"></i>查看更多消息
+                            </div>
+                        </div>
+                    </li>
                     <li class="li_cai_dan"><a href="index.do"><div class="cai_dan">首页</div></a></li>
                     <li class="li_cai_dan"><a href="allShares.do"><div class="cai_dan">分享</div></a></li>
                     <li class="li_cai_dan"><a href="welcome.do"><div class="cai_dan">欢迎</div></a></li>
                     <li class="li_cai_dan"><a href="discussPageNew.do"><div class="cai_dan">职业讨论</div></a></li>
                     <li class="li_cai_dan"><a href="allyueban.do"><div class="cai_dan">约伴</div></a></li>
-                    <!-- <li style="width: 30px;"><a  data-toggle="modal" data-target=".login">登陆</a></li>
-                    <li style="width: 30px;" class="zhu_ce"><a data-toggle="modal" data-target=".sign">注册</a></li> -->
-                    <li style="width: 90px;"><a>发起活动</a>
-                        <ul class="hd">
-                            <li><a>活动约伴</a></li>
-                            <li><a>行业交流</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>--%>
-            <div class="dh_div_right">
-                <ul class="ul_first">
-                    <li class="li_cai_dan"><a href="index.do"><div class="cai_dan" style="background-color:#F47A7A;">首页</div></a></li>
-                    <li class="li_cai_dan"><a href="allShares.do"><div class="cai_dan">分享</div></a></li>
-                    <li class="li_cai_dan"><a href="welcome.do"><div class="cai_dan">欢迎</div></a></li>
-                    <li class="li_cai_dan"><a href="discussPageNew.do"><div class="cai_dan">职业讨论</div></a></li>
-                    <li class="li_cai_dan"><a href="allyueban.do"><div class="cai_dan">约伴</div></a></li>
-                    <%--<li class="li_cai_dan"><a href="#">消息<span class="label label-danger" id="message">22</span></a></li>--%>
-                    <li class="dropdown li_cai_dan" style="width: 40px;">
-                        <a class="<%--dropdown-toggle count-info--%>" <%--data-toggle="dropdown"--%> href="#">
-                            <i class="fa fa-bell"></i> <span class="label label-danger" id="size"
-                                                             style="line-height: 12px;padding: 1px 5px;position: absolute;;top: -2px;"></span>
-                        </a>
-                        <ul class="message">
-                            <li class="a">
-                                <i class="fa fa-envelope fa-fw"></i><span id="underSize"></span>条未读消息
-                            </li>
-                            <li class="a">
-                                <div id="messageDetail" style="text-align: left">
-                                </div>
-                            </li>
-                            <li class="a" onclick="allMessagePage('与我相关','allMessage.do')">
-                                <i class="fa fa-envelope fa-fw"></i>查看更多消息
-                            </li>
-                        </ul>
-                    </li>
                     <li style="width: 90px;"><a>发起活动</a>
                         <ul class="hd">
                             <li><a onclick="addAppPage('发布约伴活动','add-app.html')" >活动约伴</a></li>
@@ -217,11 +133,23 @@ footer{
                 		<div>性别</div>
                             <input type="hidden" id="user_sex" value="${index.userInfo.sex }">
                 		<div>
-                		<label class="radio-inline">
-						  <input type="radio" name="inlineRadioOptions" class="sex" id="inlineRadio1" value="gender ion-male"> 男
-						</label>
-						<label class="radio-inline">
-						  <input type="radio" name="inlineRadioOptions" class="sex" id="inlineRadio2" value="gender ion-female"> 女
+
+                            <c:if test="${index.userInfo.sex == 'gender ion-male'}">
+                                <label class="radio-inline">
+                                <input type="radio" name="sex"class="sex" id="inlineRadio" checked="checked" value="gender ion-male"> 男
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="sex"class="sex" id="inlineRadio2"  value="gender ion-female"> 女
+                                </label>
+                            </c:if>
+                            <c:if test="${index.userInfo.sex == 'gender ion-female'}">
+                                <label class="radio-inline">
+                                    <input type="radio" name="sex"class="sex" id="inlineRadio1" value="gender ion-male"> 男
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="sex"class="sex" id="inlineRadio3" checked="checked"   value="gender ion-female"> 女
+                                </label>
+                            </c:if>
 						</label>
                 		</div>
                 		</div>
@@ -879,10 +807,10 @@ dsy.add("0_33",["台北","高雄","台中","花莲","基隆","嘉义","金门","
                 	</div>
                 	<div class="col-md-6"><!-- 职业 -->
                 	<div>职业: ${userInfo.job }</div>
-			                <select id="job-select" class="form-control duckr-select" data-reactid=".0.1.1.1.1.0.3.0.1" value="">
+			                <select id="job-select" class="form-control duckr-select"value="">
                                 <option value="-1">请选择</option>
                                 <c:forEach var="industry" items="${industries}">
-                                    <option data-reactid=".0.1.1.1.1.0.3.0.1.0">${industry.industry_name}</option>
+                                    <option value="${industry.id}">${industry.industry_name}</option>
                                 </c:forEach>
 			               <%-- <option data-reactid=".0.1.1.1.1.0.3.0.1.0">计算机/互联网/通讯</option>
 			                <option data-reactid=".0.1.1.1.1.0.3.0.1.1">商业/服务业/个体经营</option>
@@ -908,7 +836,7 @@ dsy.add("0_33",["台北","高雄","台中","花莲","基隆","嘉义","金门","
                 	<textarea class="form-control" rows="3" id="signature">${index.userInfo.signature }</textarea>
                 	</div>
                 	<div class="col-md-12" style="text-align:center;margin-top:30px;">
-                	  <button class="btn btn-success" id="save">保存</button>
+                	  <button class="btn btn-success" id="save" onclick="updateMyInfo()">保存</button>
                 	</div>
                 </div>
                 </div>
@@ -935,7 +863,7 @@ dsy.add("0_33",["台北","高雄","台中","花莲","基隆","嘉义","金门","
                     	</div>
                     	<!-- 主题 -->
                     	<div style="width:100%;float:left;margin-top:8px;border-bottom:1px solid lightgray;">
-                    	<a href="myYuebanDetail.do?id=${app.appointment.id }"><span style="font-size:18px;color:gray;margin-top:27px;margin-left:27px;">${app.appointment.theme }</span></a>
+                    	<a href="appDetails.do?id=${app.appointment.id }"><span style="font-size:18px;color:gray;margin-top:27px;margin-left:27px;">${app.appointment.theme }</span></a>
                     	</div>
                     	<!-- 有几人加入 -->
                     	<div style="width:100%;float:left;margin-top:8px;">
@@ -959,7 +887,7 @@ dsy.add("0_33",["台北","高雄","台中","花莲","基隆","嘉义","金门","
                             <span style="margin-left: 15px;">赞同</span>
                         </div>
                         <div class="jl_you">
-                            <a href="talksDetails.do?id=${join.discuss.id }"><span>问题：${join.discuss.discuss_title }</span><br /></a>
+                            <a href="discussDetail.do?id=${join.discuss.id }"><span>问题：${join.discuss.discuss_title }</span><br /></a>
                             <span>回答：${join.answer.answer_content }</span>
                         </div>
                     </div>
@@ -974,11 +902,11 @@ dsy.add("0_33",["台北","高雄","台中","花莲","基隆","嘉义","金门","
                     <c:forEach var="fq" items="${index.discussMeResult.discussMe}">
                     <div class="content">
                         <div class="jl_zuo">
-                            <span style="margin-left: 20px;">${fq.answer_times }</span><br />
+                            <span style="margin-left: 20px;">${fq.discussMe.answer_times }</span><br />
                             <span style="margin-left: 15px;">回答</span>
                         </div>
                         <div class="jl_you">
-                            <span>问题：${fq.discuss_title }</span><br />
+                            <span>问题：<a href="discussDetail.do?id=${fq.discussMe.id}">${fq.discussMe.discuss_title }</a></span><br />
                         </div>
                     </div>
                     </c:forEach>
@@ -991,13 +919,17 @@ dsy.add("0_33",["台北","高雄","台中","花莲","基隆","嘉义","金门","
              <c:forEach var="share" items="${index.shareResult.share}">
                 <div class="content">
                     <div class="shi_jian">
-                        <span>${share.share_time }</span>
+                        <span>${share.meTime }</span>
                     </div>
-                    <div class="zhao_pian">
-                        <img src="${share.share_thumbnail }"  />
+                    <div class="zhao_pian" onclick="shareDetail('分享详情','shareDetail.do','${share.share.id}')">
+                        <img  src="${share.share.share_thumbnail }"  />
                     </div>
                     <div class="content_zi">
-                        ${share.share_content }
+                        <%--<a href="shareDetail.do?id=${share.share.id}">--%>
+                        <span onclick="shareDetail('分享详情','shareDetail.do','${share.share.id}')">
+                                ${share.share.share_content }
+                        </span>
+                        <%--</a>--%>
                     </div>
                 </div>
      </c:forEach>
@@ -1005,7 +937,7 @@ dsy.add("0_33",["台北","高雄","台中","花莲","基隆","嘉义","金门","
         </div>
     </div>
 </div>
-<script src="js/pikaday.js"></script>
+<script src="../../static/js/pikaday.js"></script>
 <script type="text/javascript">
 var disable = false, picker = new Pikaday({
     field: document.getElementById('datepicker'),
@@ -1018,6 +950,7 @@ var disable = false, picker = new Pikaday({
 });		
 </script>
 <script type="text/javascript">
+    $("#job-select").find("option[value='${index.userInfo.job}']").attr("selected",true);
     <%--头像上传--%>
 $("#userHead").click(function(){
 					$("#btn_file").click();
@@ -1041,117 +974,13 @@ $("#userHead").click(function(){
 				return url;
 			}
 //
- var currentShowCity=0; 
- var shi = "";
- var sheng = $(".sheng").val();
-$("#province").change(function(){
-	   $("#province option").each(function(i,o){
-		   if($(this).attr("selected"))
-		   {
-			   $(".citys").hide();//所有的城市隐藏
-			   $(".citys").eq(i).show();//与省对应的城市显示
-			   //再加一个循环
-			   var obj = $(".citys").eq(i);
-			   /*  shi = $(".citys").eq(i).val();  */
-			     for(var i=0;i<obj.length;i++){
-				   $(".citys option").addClass("shi");
-			   }
-			     $(".shi").click(function(){
-					   shi = $(this).text();
-				   }); 
-			    currentShowCity=i; 
-		   }
-	   });
-});
-$("#province").change();
-var sex = "";
-var obj;   
- obj=document.getElementsByName("inlineRadioOptions"); 
- sex = $('input[name="inlineRadioOptions"]').val();
-// 性别此处未处理好
- if(obj!=null){ 
-    var i;
-     for(i=0;i<obj.length;i++){
-         if(obj[i].value == $("#user_sex").val()){
-             $(this).prop("selected",selected);
-         }
-        $(".sex").click(function(){
-        	sex=$(this).val();
-        });
-     }
-} 
- $("#province option").click(function(){
-	 sheng = $(this).text();
- });
+
     //修改个人信息
     $("#save").click(function(){
-    	    	$.ajax({
-    				url:"modifyUser.do",
-    				type:"post",
-    				data:{
-    					nickName:$("#nickName").val(),
-    					sheng:sheng,
-    					shi:shi,
-    					hobby:$("#hobby").val(),
-    					signature:$("#signature").val(),
-    					job:$("#job-select").val(), 
-    					sex:sex,
-    					birth:$("#datepicker").val()
-    				},
-    				dataType:"text",
-    				success:function(data){
-                        var dataObj=eval("("+data+")");
-//                        alert(dataObj.returnMsg);
-                        if(dataObj.code == 0){
-                            layer.msg("信息修改成功！");
-//                            window.location.href="mySpace.do";
-                            window.location.reload();
-                        }else{
-                        }
 
-    				},
-    				error:function(){
-    					alert("错误");
-    				}
-    			});
     	    });
  
 </script>
-<div class="modal fade care" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" >我的关注</h4>
-            </div>
-            <div class="modal-body">
-             <c:forEach var="caredUser" items="${caredUser}"> 
-                <img src="head/${caredUser.get(0).head }" style="width:40px;height:40px;border-radius: 20px;">
-             </c:forEach>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade fans" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" >我的粉丝</h4>
-            </div>
-            <div class="modal-body">
-             <c:forEach var="fansUser" items="${fansUser}"> 
-                <a href="personal.do?account=${fansUser.account }"><img src="head/${fansUser.head }" style="width:40px;height:40px;border-radius: 20px;"></a>
-             </c:forEach>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div>
-    </div>
-</div>
+<script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>
 </body>
 </html>

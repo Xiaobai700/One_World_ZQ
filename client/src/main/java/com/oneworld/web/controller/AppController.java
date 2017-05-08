@@ -127,12 +127,12 @@ public class AppController {
             UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(account).get("data");
             modelAndView.addObject("userHead",userInfo.getHead());
         }
-//        UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(account).get("data");
+        UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(account).get("data");
 
         /*取得所有活动类型*/
         List<AppType> appTypes = (List<AppType>) appTypeService.getAllAppType().get("data");
 
-//        modelAndView.addObject("userInfo",userInfo);
+        modelAndView.addObject("userInfo",userInfo);
         modelAndView.addObject("appTypes",appTypes);
         modelAndView.addObject("account",account);
         return  modelAndView;
@@ -162,7 +162,7 @@ public class AppController {
             appointment.setIs_checked(0);
             appointment.setApp_type(0);
             appointment.setSite(site);
-            appointment.setBegin_time(begin_time+""+more_time);
+            appointment.setBegin_time(begin_time+" "+more_time);
             appointment.setContent(content);
             appointment.setDuration(duration);
             appointment.setPublish_time(new Timestamp(new Date().getTime()));

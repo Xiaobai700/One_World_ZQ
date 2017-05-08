@@ -249,7 +249,8 @@
                     layer.msg(dataObj.msg,{time:2000});
                     window.location.href="index.do";
                 }else{
-                    window.location.href="welcome.do";
+                    layer.msg(dataObj.msg,{time:6000});
+//                    window.location.href="welcome.do";
                 }
             },
             error:function(data){

@@ -13,6 +13,9 @@ public interface UserInfoService {
 	
 	//更新用户下信息
 	public Map updateUserInfo(UserInfo userInfo);
+
+	//搜索用户
+	public Map searchUser(Map map);
 	
 	//根据粉丝数降序，取前三名
 //	public List<UserInfo> hotUserL1();

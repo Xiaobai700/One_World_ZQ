@@ -1,0 +1,120 @@
+nav{
+    height: 250px;
+    background-color: #a9dba9;
+    background: url("img/background.jpg");
+}
+/*包含logo和登陆者的头像*/
+.dh_div_left{
+    float: left;
+}
+.dh_div_logo{
+    padding: 10px;
+}
+/*登陆者头像*/
+.dh_div_dl_tx{
+    width: 50px;
+    height: 185px;
+    margin-top: -100px;
+    margin-left: 240px;
+}
+.xian{
+    margin-left: 24px;
+    width: 4px;
+    height: 124px;
+    background-color: #FFCCFF;
+}
+.dl_tx img{
+    width: 50px;
+    height: 50px;
+    border-radius:25px;
+}
+/*右边菜单*/
+.dh_div_right{
+    float: right;
+    margin-top: 20px;
+}
+.dh_div_right ul li{
+    display: inline-block;
+    list-style: none;
+    width: 80px;
+}
+.dh_div_right li a{
+    color: black;
+}
+.cai_dan{
+    width: 66px;
+    height:30px;
+    border:1px solid black;
+    text-align: center;
+    display: table-cell;/*让div中的文字纵向居中*/
+    vertical-align:middle;/*让div中的文字纵向居中*/
+    box-shadow: 5px 5px 5px #0e0e0e;
+    background-color: pink;
+}
+.cai_dan:hover{
+    background-color: #F47A7A;
+}
+.zhu_ce{
+    border-right: 2px solid darkgrey;
+}
+.hd{
+    display: none;
+    width:90px;
+    background-color: pink;
+    position: absolute;
+    z-index: 8000;
+    margin-left: -17px;
+    text-align: center;
+}
+.upUp{
+    display: none;
+}
+.myMessage{
+    border-radius: 4px;
+    display: none;
+    /*width:180px;*/
+    width:310px;
+    /*height: 350px;*/
+    /*background-color: whitesmoke;*/
+    background-color: #FFFFFF;
+    position: absolute;
+    z-index: 8000;
+    margin-left: -146px;
+    margin-top: 10px;
+    /*text-align: center;*/
+    box-shadow: 0 1px 4px rgba(0,0,0,.3);
+}
+.messageDetail{
+    min-height: 350px;
+}
+.myMessage li{
+    width: 180px;
+    list-style: none;
+    margin-left:-39px;
+}
+.oneMessage{
+    border-bottom: 1px solid #eee;
+    min-height: 60px;
+}
+.messageBottom{
+    text-align: center;
+    font-size: 17px;
+}
+.messageTop{
+    height:30px;
+}
+.inform{
+    width: 50%;float: left;
+    text-align: center;
+    font-size: 17px;
+}
+.hd li{
+    width: 95px;
+    list-style: none;
+    margin-left:-39px;
+}
+/*主页的底部*/
+footer{
+    height: 140px;
+    background-color: #E5E5E5;
+}

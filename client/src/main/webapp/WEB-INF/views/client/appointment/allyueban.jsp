@@ -66,7 +66,7 @@
                 <div class="dh_div_dl_tx">
                     <div class="xian"></div>
                     <div class="dl_tx">
-                        <a class="tx_gr" href="mySpace.do"><img src="head/${userInfo.head}"></a>
+                        <a class="tx_gr" href="mySpace.do"><img src="head/${userHead}"></a>
                     </div>
                 </div>
             </div>

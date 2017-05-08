@@ -14,4 +14,6 @@ public interface AttentionMapper {
 	public List<Attention> findAttentionsByCared_account(String cared_account);
 	//	根据关注者的账号和被关注者的账号查询
 	public Attention findAttentionByTwoAccount(Map map);
+	//删除一条关注信息
+	public int deleteAttentionById(String id);
 }
