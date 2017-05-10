@@ -60,6 +60,7 @@ public class UserServiceImpl implements UserService {
                 User newUser = new User();
                 newUser.setAccount(account);
                 newUser.setPassword(password);
+                newUser.setDisabled(0);
                 userMapper.insertUser(newUser);
 
                 UserInfo newUserInfo = new UserInfo();
@@ -75,6 +76,7 @@ public class UserServiceImpl implements UserService {
 //                newUserInfo.setLocation("");
                 newUserInfo.setCare_count(0);
                 newUserInfo.setFans_count(0);
+                newUserInfo.setDisabled(0);
                 newUserInfo.setRegist_time(new Timestamp(new Date().getTime()));
                 userinfoMapper.insertUserInfo(newUserInfo);
                 returnMap.put(ParameterConstant.RETURN_MSG,"注册成功！");

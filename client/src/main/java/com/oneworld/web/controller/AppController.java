@@ -147,7 +147,8 @@ public class AppController {
                          String begin_time,
                          String more_time,
                          String duration,
-                         String sex_restrict)throws IOException{
+                         String sex_restrict,
+                         String app_type)throws IOException{
         String account = request.getSession().getAttribute("account").toString();
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter outWriter = response.getWriter();
@@ -160,10 +161,10 @@ public class AppController {
             appointment.setTheme(theme);
             appointment.setSex_restrict(sex_restrict);
             appointment.setIs_checked(0);
-            appointment.setApp_type(0);
             appointment.setSite(site);
             appointment.setBegin_time(begin_time+" "+more_time);
             appointment.setContent(content);
+            appointment.setApp_type(app_type);
             appointment.setDuration(duration);
             appointment.setPublish_time(new Timestamp(new Date().getTime()));
             appointment.setOrganizer_account(account);

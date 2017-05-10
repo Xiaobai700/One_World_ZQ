@@ -2,10 +2,8 @@ package com.oneworld.web.service.impl;
 
 import com.oneworld.web.constant.ParameterConstant;
 import com.oneworld.web.constant.RequestConstant;
-import com.oneworld.web.dao.AppointmentMapper;
-import com.oneworld.web.dao.CommentMapper;
-import com.oneworld.web.dao.JoinMapper;
-import com.oneworld.web.dao.UserinfoMapper;
+import com.oneworld.web.dao.*;
+import com.oneworld.web.model.AppType;
 import com.oneworld.web.model.Appointment;
 import com.oneworld.web.model.Join;
 import com.oneworld.web.model.UserInfo;
@@ -44,7 +42,8 @@ public class AppointServiceImpl implements AppointService {
 
     @Autowired
     private CommentService commentService;
-
+    @Autowired
+    private AppTypeMapper appTypeMapper;
     public Map newestAppointment() {
         Map returnMap = new HashMap();
         try{
@@ -80,7 +79,10 @@ public class AppointServiceImpl implements AppointService {
     public Map insertAppointment(Appointment appointment) {
         Map returnMap = new HashedMap();
         try{
+            AppType appType = appTypeMapper.findAppTypeById(appointment.getApp_type());
+            appType.setAttention_num(appType.getAttention_num()+1);
             appointmentMapper.insertAppointment(appointment);
+            appTypeMapper.updateAppType(appType);
             returnMap.put(ParameterConstant.RETURN_CODE,0);
             returnMap.put(ParameterConstant.RETURN_MSG,"新增活动成功，等待系统管理员审核！");
         }catch (Exception e){

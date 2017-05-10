@@ -80,7 +80,7 @@
                             <option value="女生">女生</option>
                             <option value="男女不限">男女不限</option>
                         </select>
-                        <select class="form-control zqChoose" style="width: 150px;">
+                        <select class="form-control zqChoose" id="app_type" style="width: 150px;">
                             <option value="-1">请选择活动类型</option>
                             <c:forEach var="appType" items="${appTypes}">
                                 <option value=${appType.id}>${appType.typeName}</option>

@@ -9,7 +9,10 @@ import java.util.Map;
 public interface AppointmentMapper {
 	//增加一个约伴信息
 	public int insertAppointment(Appointment appointment);
-	
+
+	//删除约伴活动
+	public int deleteAppointment(String id);
+
 	//显示热门约伴信息，显示最新的三个活动
 	public List<Appointment> newestAppointment();
 	

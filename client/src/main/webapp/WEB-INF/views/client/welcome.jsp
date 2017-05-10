@@ -271,12 +271,13 @@
                 var dataObj=eval("("+data+")");
                 if(dataObj.code == 0){
                     layer.msg(dataObj.msg,{time:2000});
-                    window.location.href="welcome.do";
+                    window.location.reload();
                 }else{
 
                 }
             },
             error:function(data){
+                layer.msg("注册失败");
                 window.location.href="welcome.do";
             }
         });

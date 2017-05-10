@@ -103,6 +103,7 @@ function add_app() {
     var more_time = $("#jqsj").val();
     var duration = $("#duration").val();
     var count = $("#count").val();
+    var app_type = $("#app_type").val();
     if(sex_restrict == -1){
         layer.msg("请选择性别限制！");
     }else if(theme.trim() == ""){
@@ -117,6 +118,8 @@ function add_app() {
         layer.msg("请填写活动持续时间！");
     }else if(!reg.test(duration)){
         layer.msg("活动持续的时间只能是整数");
+    }else if(app_type == -1){
+       layer.msg("请选择活动类型");
     }else {
         $.ajax({
             url: "add-app.action",
@@ -128,7 +131,8 @@ function add_app() {
                 begin_time: begin_time, /* 年月日 */
                 more_time: more_time, /* 小时 分钟 */
                 duration: duration,
-                sex_restrict: sex_restrict
+                sex_restrict: sex_restrict,
+                app_type:app_type
             },
             dataType: "text",
             success: function (data) {

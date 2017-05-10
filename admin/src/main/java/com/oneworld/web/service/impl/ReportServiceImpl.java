@@ -3,11 +3,16 @@ package com.oneworld.web.service.impl;
 import com.oneworld.web.constant.ParameterConstant;
 import com.oneworld.web.constant.RequestConstant;
 import com.oneworld.web.dao.AnswerMapper;
+import com.oneworld.web.dao.AppointmentMapper;
 import com.oneworld.web.dao.ReportMapper;
 import com.oneworld.web.dao.UserMapper;
 import com.oneworld.web.model.Answer;
+import com.oneworld.web.model.Appointment;
 import com.oneworld.web.model.Report;
 import com.oneworld.web.model.User;
+import com.oneworld.web.service.CommentService;
+import com.oneworld.web.service.JoinService;
+import com.oneworld.web.service.LikeService;
 import com.oneworld.web.service.ReportService;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +33,14 @@ public class ReportServiceImpl implements ReportService {
     private AnswerMapper answerMapper;
     @Autowired
     private UserMapper userMapper;
-
+    @Autowired
+    private CommentService commentService;
+    @Autowired
+    private AppointmentMapper appointmentMapper;
+    @Autowired
+    private LikeService likeService;
+    @Autowired
+    private JoinService joinService;
     public Map getReportPage(Map map) {
         Map returnMap = new HashedMap();
         try{
@@ -92,8 +104,9 @@ public class ReportServiceImpl implements ReportService {
                         Answer answer = answerMapper.findAnswerById(targetId);
                         if(answer != null){
                             answerMapper.deleteAnswer(targetId);
+                            commentService.deleteComments(targetId,1);
+                            likeService.deleteLike(targetId,1);
                             report.setStatus(processType);
-//                            report.setUpdateTime(new Timestamp(new Date().getTime()));
                             report.setCurrentState(1);
                             reportMapper.updateReport(report);
                             returnMap.put(ParameterConstant.RETURN_CODE,0);
@@ -102,6 +115,25 @@ public class ReportServiceImpl implements ReportService {
                             returnMap.put(ParameterConstant.RETURN_CODE,1008);
                             returnMap.put(ParameterConstant.RETURN_MSG,"该回答不存在！");
                             return  returnMap;
+                        }
+                        break;
+                    case 3:/*举报约伴活动*/
+                        Appointment appointment = appointmentMapper.findAppointmentById(targetId);
+                        if(appointment != null){
+                            /*删除约伴活动*/
+                            appointmentMapper.deleteAppointment(targetId);
+                            /*删除约伴下的评论*/
+                            commentService.deleteComments(targetId,3);
+                            /*删除与此活动有关的加入信息*/
+                            joinService.deleteJoinsByAppId(targetId);
+                            report.setStatus(processType);
+                            report.setCurrentState(1);
+                            reportMapper.updateReport(report);
+                            returnMap.put(ParameterConstant.RETURN_CODE,0);
+                            returnMap.put(ParameterConstant.RETURN_MSG,"回答已经删除!");
+                        }else {
+                            returnMap.put(ParameterConstant.RETURN_CODE,1008);
+                            returnMap.put(ParameterConstant.RETURN_MSG,"该活动不存在");
                         }
                         break;
                 }

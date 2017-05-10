@@ -94,7 +94,7 @@ public class ReportController {
         ObjectMapper mapper = new ObjectMapper();
         Map returnMap = new HashMap();
         try{
-            if(targetType == 2){
+            if(targetType == 2){/*如果举报的是用户 因为对举报用户的处理只有两个选项 与举报帖子不同*/
                 switch (processType){
                     case 1:
                         returnMap = reportService.deleteReport(targetId,targetType,reportId,processType);

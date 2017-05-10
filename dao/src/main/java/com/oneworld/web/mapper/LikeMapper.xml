@@ -23,6 +23,11 @@
         where  liker_account = #{likerAccount,jdbcType=VARCHAR} and invitation_id = #{invitationId,jdbcType=VARCHAR}and type = #{type,jdbcType=INTEGER}
     </delete>
 
+    <delete id="deleteLkeById" parameterType="java.lang.String">
+        delete from t_like
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+
     <select id="selectLikeByAccountAndId" parameterType="java.util.Map" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
@@ -38,5 +43,12 @@
                 and type = #{type,jdbcType=INTEGER}
             </if>
         </trim>
+    </select>
+
+    <select id="selectLikeByIdAndType" parameterType="java.util.Map" resultMap="BaseResultMap">
+       SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_like
+        WHERE invitation_id = #{invitationId,jdbcType=VARCHAR} AND type = #{type,jdbcType=INTEGER}
     </select>
 </mapper>

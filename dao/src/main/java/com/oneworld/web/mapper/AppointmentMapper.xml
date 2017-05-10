@@ -16,7 +16,7 @@
         <result column="over_flag" property="over_flag" jdbcType="INTEGER"/>
         <result column="want_join" property="want_join" jdbcType="INTEGER"/>
         <result column="is_checked" property="is_checked" jdbcType="INTEGER"/>
-        <result column="app_type" property="app_type" jdbcType="INTEGER"/>
+        <result column="app_type" property="app_type" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
         id,organizer_account,theme,content,site,begin_time,publish_time,duration,thumbnail,sex_restrict,over_flag,want_join,is_checked,app_type
@@ -27,8 +27,13 @@
         values (#{id,jdbcType=VARCHAR},#{organizer_account,jdbcType=VARCHAR}, #{theme,jdbcType=VARCHAR},
         #{content,jdbcType=VARCHAR}, #{site,jdbcType=VARCHAR}, #{begin_time,jdbcType=VARCHAR},#{publish_time,jdbcType=TIMESTAMP},#{duration,jdbcType=VARCHAR},
         #{thumbnail,jdbcType=VARCHAR},#{sex_restrict,jdbcType=VARCHAR},#{over_flag,jdbcType=INTEGER},#{want_join,jdbcType=INTEGER},#{is_checked,jdbcType=INTEGER},
-        #{app_type,jdbcType=INTEGER})
+        #{app_type,jdbcType=VARCHAR})
     </insert>
+    <delete id="deleteAppointment" parameterType="java.lang.String">
+        DELETE
+        FROM t_appointment
+        WHERE id= #{id,jdbcType=VARCHAR}
+    </delete>
 
 <!--限制个数-->
     <select id="newestAppointment" resultMap="BaseResultMap">
@@ -71,7 +76,7 @@
                 and theme = #{theme,jdbcType=VARCHAR}
             </if>
             <if test="app_type!=null and app_type!=''">
-                and app_type = #{app_type,jdbcType=INTEGER}
+                and app_type = #{app_type,jdbcType=VARCHAR}
             </if>
             <if test="is_checked!=null and is_checked!=''">
                 and is_checked = #{is_checked,jdbcType=INTEGER}

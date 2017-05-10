@@ -132,6 +132,7 @@
                 <c:if test="${index.isJoin==false}">
                     <button class="btn btn-outline btn-primary" onclick="join_app('${index.appointment.id}',${index.find_userInfo.account })">申请加入活动</button>
                 </c:if>
+                <button class="btn btn-danger" onclick="reportPage('举报约伴活动','reportPage.do','${index.find_userInfo.account}','${index.appointment.id}',3,'${index.appointment.id}')">举报</button>
             </div>
         </div>
         <!--活动的内容详细，文字和图片-->

@@ -17,7 +17,7 @@ public class Appointment {
 	private int over_flag;//是否结束
 	private int want_join;
 	private int is_checked;//是否审核通过
-	private int app_type;//活动类型
+	private String app_type;//活动类型
 
 	public Integer getPk_id() {
 		return pk_id;
@@ -121,11 +121,11 @@ public class Appointment {
 		this.is_checked = is_checked;
 	}
 
-	public int getApp_type() {
+	public String getApp_type() {
 		return app_type;
 	}
 
-	public void setApp_type(int app_type) {
+	public void setApp_type(String app_type) {
 		this.app_type = app_type;
 	}
 

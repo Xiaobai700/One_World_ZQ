@@ -174,6 +174,10 @@ public class WebSocketTest {
                         case 2:/*对用户的举报*/
                             content = "您被其他用户举报！";
                             break;
+                        case 3:
+                            Appointment appointment = appointmentMapper.findAppointmentById(targetId);
+                            content = "您发起的主题为<a href=appDetails.do?id="+targetId+">"+appointment.getTheme()+"</a>的活动被举报";
+                            break;
                     }
                     break;
                 case 7:

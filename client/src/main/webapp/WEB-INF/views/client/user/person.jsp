@@ -85,7 +85,7 @@
                                     </c:if>
                                 </div>
                                 <div class="col-sm-6">
-                                    <button type="button" class="btn btn-danger btn-sm btn-block" onclick="reportPage('选择举报类型','reportPage.do','${index.userInfo.account }','${index.userInfo.account }',2)"><i class="fa fa-flag"></i> 举报</button>
+                                    <button type="button" class="btn btn-danger btn-sm btn-block" onclick="reportPage('选择举报类型','reportPage.do','${index.userInfo.account }','${index.userInfo.account }',2,'')"><i class="fa fa-flag"></i> 举报</button>
                                 </div>
                             </div>
                         </div>
