@@ -15,4 +15,5 @@ public interface IndustryService {
     public Map updateIndustry(Industry industry);
 
     public Map queryIndustryPage(Map map);
+
 }

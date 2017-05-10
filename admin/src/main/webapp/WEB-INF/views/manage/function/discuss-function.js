@@ -14,7 +14,7 @@ jQuery(function () {
                 "sInfoFiltered": "(共 _MAX_ 条)",
                 "sInfoEmpty": "记录数为0",
                 "sInfoPostFix": "",
-                "sSearch": "手机号，昵称、地域搜索",
+                "sSearch": "标题、描述搜索",
                 "sUrl": "",
                 "oPaginate": {
                     "sFirst": "第一页",
@@ -36,12 +36,16 @@ jQuery(function () {
 
             "aoColumns": [
                 {"mData": "discuss_title", 'sClass': 'center'},
-                {"mData": "id", 'sClass': 'center'},
-                {"mData": "question_describe", 'sClass': 'center'},
+                // {"mData": "id", 'sClass': 'center'},
+                // {"mData": "question_describe", 'sClass': 'center'},
                 {"mData": "asker_account", 'sClass': 'center'},
                 {"mData": "answer_times", 'sClass': 'center'},
                 {"mData": "ask_time", 'sClass': 'center'},
-                {"mData": "id", 'sClass': 'center'}
+                {"mData": "id", 'sClass': 'center',"mRender":function (data,type,full) {
+                    var returnStr = "";
+                    returnStr += '<i class="glyphicon glyphicon-edit" title="详情" onClick="detailDiscuss(\'查看详情\',\'discuss-info.html\',\''+full["id"]+'\')"></i>';
+                    return returnStr;
+                }}
             ]
         });
     });
@@ -60,3 +64,22 @@ function retrieveData(sSource111, aoData111, fnCallback111) {
         }
     });
 }
+function detailDiscuss(title,url,id) {
+    var editor = url+"?id="+id;
+    var w = 700;
+    var h = 500;
+    layer.open({
+        type: 2,
+        area: [w + 'px', h + 'px'],
+        fix: false, //不固定
+        maxmin: true,
+        shadeClose: true,/*点击遮罩层 弹出框消失*/
+        shade: 0.4,
+        title: title,
+        content: editor,
+        end: function () {
+            table.fnDraw(true);
+        }
+    });
+}
+

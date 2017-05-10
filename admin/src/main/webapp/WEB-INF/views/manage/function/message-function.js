@@ -14,7 +14,7 @@ jQuery(function () {
                 "sInfoFiltered": "(共 _MAX_ 条)",
                 "sInfoEmpty": "记录数为0",
                 "sInfoPostFix": "",
-                "sSearch": "手机号，昵称、地域搜索",
+                "sSearch": "内容搜索",
                 "sUrl": "",
                 "oPaginate": {
                     "sFirst": "第一页",

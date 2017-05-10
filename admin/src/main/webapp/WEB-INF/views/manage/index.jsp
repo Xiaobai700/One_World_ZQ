@@ -150,6 +150,21 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a href="#">
+                        <i class="glyphicon glyphicon-wrench"></i>
+                        <span class="nav-label">系统统计</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="data-show.html" data-index="0">各行业用户所占比例展示</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="invitation-show.html" data-index="0">各类列子所占比例展示</a>
+                        </li>
+                    </ul>
+                </li>
 
                 <li>
                     <a href="#">

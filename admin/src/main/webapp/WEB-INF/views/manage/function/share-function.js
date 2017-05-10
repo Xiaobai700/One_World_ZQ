@@ -14,7 +14,7 @@ jQuery(function () {
                 "sInfoFiltered": "(共 _MAX_ 条)",
                 "sInfoEmpty": "记录数为0",
                 "sInfoPostFix": "",
-                "sSearch": "手机号，昵称、地域搜索",
+                "sSearch": "标题、内容",
                 "sUrl": "",
                 "oPaginate": {
                     "sFirst": "第一页",
@@ -39,8 +39,8 @@ jQuery(function () {
                 {"mData": "sharer_account", 'sClass': 'center'},
                 {"mData": "share_time", 'sClass': 'center'},
                 // {"mData": "share_thumbnail", 'sClass': 'center'},
-                {"mData": "like_times", 'sClass': 'center'},
-                {"mData": "id", 'sClass': 'center'}
+                {"mData": "like_times", 'sClass': 'center'}
+                // {"mData": "id", 'sClass': 'center'}
             ]
         });
     });

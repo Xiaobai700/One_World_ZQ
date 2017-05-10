@@ -2,13 +2,17 @@ package com.oneworld.web.service.impl;
 
 import com.oneworld.web.constant.ParameterConstant;
 import com.oneworld.web.constant.RequestConstant;
+import com.oneworld.web.dao.AppTypeMapper;
 import com.oneworld.web.dao.AppointmentMapper;
+import com.oneworld.web.model.AppType;
 import com.oneworld.web.model.Appointment;
 import com.oneworld.web.service.AppointService;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,13 +23,28 @@ import java.util.Map;
 public class AppoinmentServiceImpl implements AppointService {
     @Autowired
     private AppointmentMapper appointmentMapper;
+    @Autowired
+    private AppTypeMapper appTypeMapper;
 
     public Map insertAppointment(Appointment appointment) {
         return null;
     }
 
     public Map findAppointmentById(String id) {
-        return null;
+        /*转变日期格式*/
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Map returnMap = new HashMap();
+        try{
+            Appointment appointment = appointmentMapper.findAppointmentById(id);
+            List<AppType> appTypeList = appTypeMapper.queryAllAppType();
+            returnMap.put("appTypeList",appTypeList);
+            returnMap.put("pTime",fmt.format(appointment.getPublish_time()));
+            returnMap.put(ParameterConstant.RETURN_DATA,appointment);
+        }catch (Exception e){
+            e.printStackTrace();
+            returnMap = RequestConstant.getRequestDesCode(-1);
+        }
+        return returnMap;
     }
 
     public Map getAppaPage(Map map) {

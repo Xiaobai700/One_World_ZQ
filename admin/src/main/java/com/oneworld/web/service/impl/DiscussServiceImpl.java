@@ -3,12 +3,16 @@ package com.oneworld.web.service.impl;
 import com.oneworld.web.constant.ParameterConstant;
 import com.oneworld.web.constant.RequestConstant;
 import com.oneworld.web.dao.DiscussMapper;
+import com.oneworld.web.dao.IndustryMapper;
 import com.oneworld.web.model.Discuss;
+import com.oneworld.web.model.Industry;
 import com.oneworld.web.service.DiscussService;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,8 +23,22 @@ import java.util.Map;
 public class DiscussServiceImpl implements DiscussService {
 @Autowired
 private DiscussMapper discussMapper;
+@Autowired
+private IndustryMapper industryMapper;
     public Map findDiscussById(String id) {
-        return null;
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Map returnMap = new HashMap();
+        try{
+            Discuss discuss = discussMapper.findDiscussById(id);
+            List<Industry> industryList = industryMapper.queryAllIndustry();
+            returnMap.put(ParameterConstant.RETURN_DATA,discuss);
+            returnMap.put("industryList",industryList);
+            returnMap.put("dTime",fmt.format(discuss.getAsk_time()));
+        }catch (Exception e){
+            e.printStackTrace();
+            returnMap = RequestConstant.getRequestDesCode(-1);
+        }
+        return  returnMap;
     }
 
     public Map getDiscussPage(Map map) {

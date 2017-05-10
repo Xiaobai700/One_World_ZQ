@@ -14,7 +14,7 @@ jQuery(function () {
                 "sInfoFiltered": "(共 _MAX_ 条)",
                 "sInfoEmpty": "记录数为0",
                 "sInfoPostFix": "",
-                "sSearch": "手机号，昵称、地域搜索",
+                "sSearch": "活动主题，内容，地点搜索",
                 "sUrl": "",
                 "oPaginate": {
                     "sFirst": "第一页",
@@ -63,7 +63,8 @@ jQuery(function () {
                 {"mData": "publish_time", 'sClass': 'center'},
                 {"mData": "id", 'sClass': 'center',"mRender":function (data,type,full) {
                     var returnStr = "";
-                    returnStr += '<i class="glyphicon glyphicon-trash" title="删除" onClick="deleteApp(\''+full["id"]+'\')"></i>';
+                    // returnStr += '<i class="glyphicon glyphicon-trash" title="删除" onClick="deleteApp(\''+full["id"]+'\')"></i>';
+                    returnStr += '<i class="glyphicon glyphicon-edit" title="详情" onClick="detailApp(\'查看详情\',\'app-info.html\',\''+full["id"]+'\')"></i>';
                     return returnStr;
                 }}
             ]
@@ -121,4 +122,21 @@ function deleteApp(id) {
     layer.confirm("你确定要删除这个活动？",function (index) {
     })
 }
-
+function detailApp(title,url,id) {
+    var editor = url+"?id="+id;
+    var w = 700;
+    var h = 500;
+    layer.open({
+        type: 2,
+        area: [w + 'px', h + 'px'],
+        fix: false, //不固定
+        maxmin: true,
+        shadeClose: true,/*点击遮罩层 弹出框消失*/
+        shade: 0.4,
+        title: title,
+        content: editor,
+        end: function () {
+            table.fnDraw(true);
+        }
+    });
+}

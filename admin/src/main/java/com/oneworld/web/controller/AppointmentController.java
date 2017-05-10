@@ -33,10 +33,18 @@ public class AppointmentController {
         return modelAndView;
     }
     @RequestMapping("app-info.html")
-    public ModelAndView appointmentInfo(HttpServletRequest request,
-                                        String id){
-        ModelAndView modelAndView = new ModelAndView("/manage/appointment/appointment-info");
-        return modelAndView;
+    public ModelAndView appointmentInfo(HttpServletRequest request,HttpServletResponse response,
+                                        String id) throws IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        PrintWriter outWriter = response.getWriter();
+        ObjectMapper mapper = new ObjectMapper();
+        Map returnMap = new HashMap();
+
+        /*转变日期格式*/
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        mapper.setDateFormat(fmt);
+        returnMap = appointService.findAppointmentById(id);
+        return new ModelAndView("/manage/appointment/appointment-info",returnMap);
     }
 
     @RequestMapping("appointment-list.json")

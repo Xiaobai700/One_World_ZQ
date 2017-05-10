@@ -33,6 +33,20 @@ public class DiscussController {
         ModelAndView modelAndView = new ModelAndView("/manage/discuss/discuss-list");
         return modelAndView;
     }
+    @RequestMapping("discuss-info.html")
+    public ModelAndView discussInfo(HttpServletRequest request,String id,HttpServletResponse response
+    ) throws IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        PrintWriter outWriter = response.getWriter();
+        ObjectMapper mapper = new ObjectMapper();
+        Map returnMap = new HashMap();
+
+        /*转变日期格式*/
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        mapper.setDateFormat(fmt);
+        returnMap = discussService.findDiscussById(id);
+        return new ModelAndView("/manage/discuss/discuss-info",returnMap);
+    }
 
     @RequestMapping("discuss-list.json")
     @ResponseBody
