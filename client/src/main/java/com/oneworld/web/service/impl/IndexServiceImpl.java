@@ -403,6 +403,9 @@ private AttentionService attentionService;
             String account = map.get("account").toString();
             UserInfo userInfoResult = userinfoMapper.findUserInfoByAccount(account);
 
+            //该用户所在的行业
+            Industry industry = industryMapper.findIndustryById(userInfoResult.getJob());
+
             List<Map<String,Object>> apps = new ArrayList<Map<String, Object>>();
             Map<String,Object> appResult = new HashedMap();
 
@@ -437,11 +440,6 @@ private AttentionService attentionService;
                     Appointment appointment = appointmentMapper.findAppointmentById(join.getAppointment_id());
                     appointmentList.add(appointment);
                 }
-                /*for (Appointment appointment:appointmentList) {
-                    Map<String,Object> appJoined = new HashedMap();
-                    appJoined.put("appointment",appointment);
-                    apps.add(appJoined);
-                }*/
                 appResult.put("appJoined",appointmentList);
                 appResult.put("app",apps);
                 appResult.put("appSize",appointments.size());
@@ -482,6 +480,7 @@ private AttentionService attentionService;
                 shareResult.put("share",sharesMe);
                 shareResult.put("shareSize",shares.size());
 
+                retMap.put("industry",industry);
                 retMap.put("userInfo",userInfoResult);
                 retMap.put("appResult",appResult);
                 retMap.put("discussMeResult",discussMeResult);

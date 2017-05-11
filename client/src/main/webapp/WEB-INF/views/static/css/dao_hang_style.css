@@ -123,5 +123,21 @@ nav{
 /*主页的底部*/
 footer{
     height: 140px;
-    background-color: #E5E5E5;
+    /*background-color: #E5E5E5;*/
+    background-color: #a9dba9;
+}
+footer div{
+    text-align: center;
+    padding-top: 30px;
+    font-family: 微软雅黑;
+    font-size: 17px;
+    color: gray;
+}
+footer ul li{
+    list-style: circle;
+    display: inline-block;
+    margin-left: 4px;
+}
+.feedBack:hover{
+    color: #00a2d4;
 }

@@ -30,12 +30,11 @@
 
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <script type="text/javascript" src="../../static/js/jquery-1.8.3.min.js"></script>
-    <%--<script type="text/javascript" src="../../static/js/jquery.min.js?v=2.1.4"></script>--%>
     <script type="text/javascript" src="../../static/js/bootstrap.min.js"></script>
-    <%--<script type="text/javascript" src="../../static/js/content.min.js?v=1.0.0"></script>--%>
     <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
     <!--引入主页的js文件-->
     <script src="../../static/js/index_js.js"></script>
+    <link href="../static/css/toastr.min.css" rel="stylesheet">
     <%--layer--%>
     <script type="text/javascript" src="../../static/js/layer/2.1/layer.js"></script>
     <%--<script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>--%>
@@ -243,8 +242,10 @@
 <div id="dv"></div>
 <footer>
     <div>
-        <br />
-        <p style="text-align: center;">南京工业职业技术学院计算机与软件学院</p>
+        <ul>
+            <li>联系作者:1053373312@qq.com</li>
+            <li class="feedBack" onclick="feedBackPage('反馈信息','feedBack.html')">反馈</li>
+        </ul>
     </div>
 </footer>
 <%--<script type="text/javascript" src="../../static/lightbox2/2.8.1/js/lightbox-plus-jquery.js"></script>--%>
@@ -288,9 +289,6 @@
 
 
 </script>
-<script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>
-<script src="../../static/js/toastr.min.js"></script>
-<script src="../../static/js/toast.js"></script>
 <script type="text/javascript">
     $(".reply").toggle(function () {
         var account = $(this).attr("account");
@@ -311,5 +309,8 @@
         cancelReply();
     });
 </script>
+<script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>
+<script type="text/javascript" src="../../static/js/toastr.min.js"></script>
+<script type="text/javascript" src="../../static/js/toast.js"></script>
 </body>
 </html>

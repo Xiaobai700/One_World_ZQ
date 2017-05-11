@@ -8,33 +8,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-
-    <%--<!--引入主页的css样式文件-->
-    <link href="static/css/index_style.css" rel="stylesheet">
-    <!--引入导航的css样式文件-->
-    <link href="static/css/dao_hang_style.css" rel="stylesheet">
-    <link href="static/css/ionicons.css" rel="stylesheet">
-    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-
-    <!--bootstrap-->
-    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-    <script type="text/javascript" src="static/js/jquery.min.js"></script>
-    <script src="static/js/bootstrap.min.js"></script>
-    &lt;%&ndash;H+&ndash;%&gt;
-    &lt;%&ndash;<link href="../../static/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">&ndash;%&gt;
-    <link href="../../static/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
-    <link href="../../static/css/animate.min.css" rel="stylesheet">
-    <link href="../../static/css/style.min862f.css?v=4.1.0" rel="stylesheet">
-    <!--引入主页的js文件-->
-   <script src="static/js/index_js.js"></script>
-    &lt;%&ndash;layer&ndash;%&gt;
-    <script type="text/javascript" src="../../static/js/layer/2.1/layer.js"></script>--%>
     <!-- 重要！不在线引入就会出现各种各样奇葩的问题 -->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-    <script type="text/javascript" src="../static/js/jquery-1.8.3.min.js"></script>
-    <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
-
+    <script type="text/javascript" src="../../static/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="../../static/js/bootstrap.min.js"></script>
     <!--引入主页的css样式文件-->
     <link href="../../static/css/index_style.css" rel="stylesheet">
     <!--引入导航的css样式文件-->
@@ -47,6 +24,7 @@
     <link href="../../static/css/style.min862f.css?v=4.1.0" rel="stylesheet">
     <!--引入主页的js文件-->
     <script src="../../static/js/index_js.js"></script>
+    <link href="../../static/css/toastr.min.css" rel="stylesheet">
     <%--layer--%>
     <script type="text/javascript" src="../../static/js/layer/2.1/layer.js"></script>
     <title>所有约伴</title>
@@ -104,43 +82,12 @@
                                 <i class="fa fa-envelope fa-fw"></i>查看更多消息
                             </div>
                         </div>
-                        <%-- <ul class="myMessage">
-                             <li class="a">
-                                 <i class="fa fa-envelope fa-fw"></i><span id="underSize"></span>条未读消息
-                             </li>
-                             <li class="a">
-                                     <div id="messageDetail" style="text-align: left">
-                                     </div>
-                             </li>
-                             <li class="a" onclick="allMessagePage('与我相关','allMessage.do')">
-                                 <i class="fa fa-envelope fa-fw"></i>查看更多消息
-                             </li>
-                         </ul>--%>
                     </li>
-                    <li class="li_cai_dan"><a href="index.do"><div class="cai_dan" style="background-color:#F47A7A;">首页</div></a></li>
+                    <li class="li_cai_dan"><a href="index.do"><div class="cai_dan">首页</div></a></li>
                     <li class="li_cai_dan"><a href="allShares.do"><div class="cai_dan">分享</div></a></li>
                     <li class="li_cai_dan"><a href="welcome.do"><div class="cai_dan">欢迎</div></a></li>
                     <li class="li_cai_dan"><a href="discussPageNew.do"><div class="cai_dan">职业讨论</div></a></li>
-                    <li class="li_cai_dan"><a href="allyueban.do"><div class="cai_dan">约伴</div></a></li>
-                    <%--<li class="dropdown li_cai_dan" style="width: 40px;">--%>
-                        <%--<a href="#">--%>
-                            <%--<i class="fa fa-bell"></i> <span class="label label-danger" id="size"--%>
-                                                             <%--style="line-height: 12px;padding: 1px 5px;position: absolute;;top: -2px;"></span>--%>
-                        <%--</a>--%>
-                        <%--<ul class="myMessage">--%>
-                            <%--<li class="a">--%>
-                                <%--<i class="fa fa-envelope fa-fw"></i><span id="underSize"></span>条未读消息--%>
-                            <%--</li>--%>
-                            <%--<li class="a">--%>
-                                <%--<div id="messageDetail" style="text-align: left">--%>
-                                <%--</div>--%>
-                            <%--</li>--%>
-                            <%--<li class="a" onclick="allMessagePage('与我相关','allMessage.do')">--%>
-                                <%--<i class="fa fa-envelope fa-fw"></i>查看更多消息--%>
-                            <%--</li>--%>
-                        <%--</ul>--%>
-                    <%--</li>--%>
-
+                    <li class="li_cai_dan"><a href="allyueban.do"><div class="cai_dan" style="background-color:#F47A7A;">约伴</div></a></li>
                     <li style="width: 90px;"><a>发起活动</a>
                         <ul class="hd">
                             <li><a onclick="addAppPage('发布约伴活动','add-app.html')" >活动约伴</a></li>
@@ -230,13 +177,14 @@
 <div id="dv"></div>
 <footer>
     <div>
-        <br />
-        <h3> <p style="text-align: center;font-family: 微软雅黑;">南京工业职业技术学院计算机与软件学院</p></h3>
+        <ul>
+            <li>联系作者:1053373312@qq.com</li>
+            <li class="feedBack" onclick="feedBackPage('反馈信息','feedBack.html')">反馈</li>
+        </ul>
     </div>
 </footer>
 <script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>
-<script type="text/javascript">
-
-</script>
+<script src="../../static/js/toastr.min.js"></script>
+<script src="../../static/js/toast.js"></script>
 </body>
 </html>

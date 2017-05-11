@@ -187,10 +187,12 @@
         </div>
     </div>
 </div>
-<footer>
+<footer style="background-color: #E5E5E5;">
     <div>
-        <br />
-        <p style="text-align: center;">南京工业职业技术学院计算机与软件学院</p>
+        <ul>
+            <li>联系作者:1053373312@qq.com</li>
+            <li class="feedBack" onclick="feedBackPage('反馈信息','feedBack.html')">反馈</li>
+        </ul>
     </div>
 </footer>
 <!-- 登陆的模态框 -->

@@ -34,7 +34,7 @@
                         <img alt="image" class="img-responsive" src="head/${index.userInfo.head }">
                     </div>
                     <div class="ibox-content profile-content">
-                        <h4><strong>${index.userInfo.nickName }</strong></h4>
+                        <h4><strong>${index.userInfo.nickName }</strong>&nbsp;${index.industry.industry_name}</h4>
                         <p><i class="fa fa-map-marker"></i> ${index.userInfo.location}</p>
                         <h5>
                             关于TA
@@ -117,7 +117,7 @@
                                         </c:if>
                                         <c:forEach var="app" items="${index.appResult.appJoined}">
                                             <small class="pull-right text-navy">${share.share_time }</small>
-                                            <strong>${index.userInfo.nickName}</strong> 参与了<strong>${app.theme }</strong>主题的活动.
+                                            <strong>${index.userInfo.nickName}</strong> 参与了<a href="appDetails.do?id=${app.id}"><strong>${app.theme }</strong></a>主题的活动.
                                             <br>
                                             <div class="actions">
                                                 <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> 赞 </a>
@@ -141,8 +141,8 @@
                                             <div><strong>${index.userInfo.nickName}</strong>没有发起过任何活动</div>
                                         </c:if>
                                         <c:forEach var="app" items="${index.appResult.app}">
-                                            <small class="pull-right text-navy">${share.share_time }</small>
-                                            <strong>${index.userInfo.nickName}</strong> 发起了<strong>${app.appointment.theme }</strong>主题的活动.
+                                            <small class="pull-right text-navy">${app.meTime}</small>
+                                            <strong>${index.userInfo.nickName}</strong> 发起了<a href="appDetails.do?id=${app.appointment.id}"><strong>${app.appointment.theme }</strong></a>主题的活动.
                                             <br>
                                             <div class="actions">
                                                 <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> 赞 </a>
@@ -167,7 +167,7 @@
                                         </c:if>
                                         <c:forEach var="fq" items="${index.discussMeResult.discussMe}">
                                             <small class="pull-right text-navy">${fq.meTime}</small>
-                                            <strong>${index.userInfo.nickName}</strong> 发起了题为<strong>${fq.discussMe.discuss_title }</strong>的讨论.
+                                            <strong>${index.userInfo.nickName}</strong> 发起了题为<a href="discussDetail.do?id=${fq.discussMe.id}"><strong>${fq.discussMe.discuss_title }</strong></a>的讨论.
                                             <br>
                                             <div class="actions">
                                                 <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> 赞 </a>
@@ -191,7 +191,7 @@
                                         </c:if>
                                         <c:forEach var="join" items="${index.discussAnswerResult.discussAnswer}">
                                             <small class="pull-right text-navy">${join.meTime}</small>
-                                            <strong>${index.userInfo.nickName}</strong> 回答了 <strong>问题：${join.discuss.discuss_title }</strong>.
+                                            <strong>${index.userInfo.nickName}</strong> 回答了 <a href="discussDetail.do?id=${join.discuss.id}"><strong>问题：${join.discuss.discuss_title }</strong></a>.
                                             <br>
                                             <div class="actions">
                                                 <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> 赞 </a>
@@ -216,10 +216,10 @@
                                     </c:if>
                                     <c:forEach var="share" items="${index.shareResult.share}">
                                         <small class="pull-right text-navy">${share.meTime }</small>
-                                        <strong>${index.userInfo.nickName}</strong> 发表了题为 <strong>${share.share.share_title}</strong>的分享.
+                                        <strong>${index.userInfo.nickName}</strong> 发表了题为 <a href="shareDetail.do?id=${share.share.id}"><strong>${share.share.share_title}</strong></a>的分享.
                                         <br>
                                         <div class="photos">
-                                            <img alt="image" class="feed-photo" src="../../img/a1.jpg">
+                                            <img alt="image" class="feed-photo" src="${share.share.share_thumbnail}">
                                         </div>
                                         <div class="actions">
                                             <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> 赞 </a>
@@ -228,12 +228,11 @@
                                     <c:if test="${index.shareResult.shareSize != 0}">
                                         <a class="btn btn-xs btn-primary" href="">查看TA的所有分享</a>
                                     </c:if>
-
                                 </div>
                             </div>
                         </div>
 
-                        <button class="btn btn-primary btn-block m"><i class="fa fa-arrow-down"></i> 显示更多</button>
+                        <%--<button class="btn btn-primary btn-block m"><i class="fa fa-arrow-down"></i> 显示更多</button>--%>
 
                     </div>
 
@@ -245,10 +244,10 @@
 </div>
 
 <script src="../../static/js/bootstrap.min.js?v=3.3.6"></script>
-<script src="../../static/js/content.min.js?v=1.0.0"></script>
+<%--<script src="../../static/js/content.min.js?v=1.0.0"></script>--%>
 <script src="../../static/js/jquery.peity.min.js"></script>
 <script src="../../static/js/peity-demo.min.js"></script>
-<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+<%--<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>--%>
 
 <script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>
 </body>

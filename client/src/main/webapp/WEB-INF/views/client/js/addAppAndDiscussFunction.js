@@ -674,6 +674,24 @@ function reportPage(title,url,account,targetId,targetType,discussId) {
         }
     });
 }
+/*反馈弹出层*/
+function feedBackPage(title,url) {
+    var editor = url;
+    var w = 400;
+    var h = 300;
+    //layer_show(title,editor,w,h);
+    layer.open({
+        type: 2,
+        area: [w + 'px', h + 'px'],
+        fix: false, //不固定
+        maxmin: true,
+        shade: 0.4,
+        title: title,
+        content: editor,
+        end: function () {
+        }
+    });
+}
 
 /*查看回复*/
 function getReply(title,url,commentId,replyType,patentId) {

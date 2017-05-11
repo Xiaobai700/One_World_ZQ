@@ -32,7 +32,7 @@
     <script type="text/javascript" src="../../static/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
     <!--引入主页的js文件-->
-    <%--<script src="../../static/js/index_js.js"></script>--%>
+    <script src="../../static/js/index_js.js"></script>
     <%--layer--%>
     <script type="text/javascript" src="../../static/js/layer/2.1/layer.js"></script>
 
@@ -69,7 +69,7 @@
     </div>
     <div class="share_img"></div>
     <div style="margin-top: 20px;">
-        <span class="x_s_p_l">评论</span>
+        <span class="x_s_p_l">有${index.share.like_times}个赞</span>&nbsp;
         <c:if test="${index.isLike == true}">
             <span style="color:purple;" onclick="likeInvitation('${index.editor.account}','${id}',2,'${id}')" class="glyphicon glyphicon-thumbs-up">取消赞</span>
         </c:if>
@@ -134,9 +134,6 @@
         $(this).find("div.other").hide();
     })
 </script>
-<script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>
-<script src="../../static/js/toastr.min.js"></script>
-<script src="../../static/js/toast.js"></script>
 <script type="text/javascript">
     $(".reply").toggle(function () {
         var account = $(this).attr("account");
@@ -157,5 +154,8 @@
         cancelReply();
     });
 </script>
+<script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>
+<script src="../../static/js/toastr.min.js"></script>
+<script src="../../static/js/toast.js"></script>
 </body>
 </html>

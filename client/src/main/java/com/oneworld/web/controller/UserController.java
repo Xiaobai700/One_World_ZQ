@@ -190,6 +190,7 @@ public class UserController {
         returnMap.put("label",label);
         returnMap.put("numbers",userInfos.size());
         modelAndView.addObject("index",returnMap);
+        modelAndView.addObject("account",account);
         return modelAndView;
     }
 

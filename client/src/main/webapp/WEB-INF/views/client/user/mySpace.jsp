@@ -10,7 +10,6 @@
     <!--引入主页的css样式文件-->
     <link href="static/css/index_style.css" rel="stylesheet">
     <!--引入导航的css样式文件-->
-    <%--<link href="../../static/css/dao_hang_style.css">--%>
     <link href="static/css/duckr.css" rel="stylesheet">
     <link href="static/css/ionicons.css" rel="stylesheet">
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -18,13 +17,13 @@
     <!--bootstrap-->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../static/css/pikaday.css">
-   <%--<script type="text/javascript" src="../../static/js/jquery-2.2.4.min.js"></script>--%>
     <script src="../../static/js/jquery-1.8.3.min.js"></script>
     <script src="../../static/js/bootstrap.min.js"></script>
     <link href="../../static/css/font-awesome.min93e3.css" rel="stylesheet">
     <link href="../../static/css/mySpaceStyle.css" rel="stylesheet">
     <%--layer--%>
     <script type="text/javascript" src="../../static/js/layer/2.1/layer.js"></script>
+    <link href="../../static/css/toastr.min.css" rel="stylesheet">
 <script type="text/javascript">
 </script>
     <!--引入主页的js文件-->
@@ -94,6 +93,7 @@
     </nav>
 </header>
 <div class="personal_main">
+   <input type="hidden" value="${index.userInfo.account}" id="account">
     <!--头像年龄等信息-->
     <div class="personal_main_left">
     <form action="uploadHead.action" method="post" enctype="multipart/form-data">
@@ -973,14 +973,9 @@ $("#userHead").click(function(){
 				}
 				return url;
 			}
-//
-
-    //修改个人信息
-    $("#save").click(function(){
-
-    	    });
- 
 </script>
 <script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>
+<script src="../../static/js/toastr.min.js"></script>
+<script src="../../static/js/toast.js"></script>
 </body>
 </html>

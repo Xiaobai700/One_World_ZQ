@@ -106,25 +106,6 @@
                     <li class="li_cai_dan"><a href="welcome.do"><div class="cai_dan">欢迎</div></a></li>
                     <li class="li_cai_dan"><a href="discussPageNew.do"><div class="cai_dan">职业讨论</div></a></li>
                     <li class="li_cai_dan"><a href="allyueban.do"><div class="cai_dan">约伴</div></a></li>
-                    <%--<li class="li_cai_dan"><a href="#">消息<span class="label label-danger" id="message">22</span></a></li>--%>
-                    <%--<li class="dropdown li_cai_dan" style="width: 40px;">--%>
-                        <%--<a class="&lt;%&ndash;dropdown-toggle count-info&ndash;%&gt;" &lt;%&ndash;data-toggle="dropdown"&ndash;%&gt; href="#">--%>
-                            <%--<i class="fa fa-bell"></i> <span class="label label-danger" id="size"--%>
-                                                             <%--style="line-height: 12px;padding: 1px 5px;position: absolute;;top: -2px;"></span>--%>
-                        <%--</a>--%>
-                        <%--<ul class="myMessage">--%>
-                            <%--<li class="a">--%>
-                                <%--<i class="fa fa-envelope fa-fw"></i><span id="underSize"></span>条未读消息--%>
-                            <%--</li>--%>
-                            <%--<li class="a">--%>
-                                <%--<div id="messageDetail" style="text-align: left">--%>
-                                <%--</div>--%>
-                            <%--</li>--%>
-                            <%--<li class="a" onclick="allMessagePage('与我相关','allMessage.do')">--%>
-                                <%--<i class="fa fa-envelope fa-fw"></i>查看更多消息--%>
-                            <%--</li>--%>
-                        <%--</ul>--%>
-                    <%--</li>--%>
                     <li style="width: 90px;"><a>发起活动</a>
                         <ul class="hd">
                             <li><a onclick="addAppPage('发布约伴活动','add-app.html')" >活动约伴</a></li>
@@ -169,8 +150,10 @@
 <div id="dv"></div>
 <footer>
     <div>
-        <br />
-        <p style="text-align: center;">南京工业职业技术学院计算机与软件学院</p>
+        <ul>
+            <li>联系作者:1053373312@qq.com</li>
+            <li class="feedBack" onclick="feedBackPage('反馈信息','feedBack.html')">反馈</li>
+        </ul>
     </div>
 </footer>
 <script type="text/javascript" src="../../client/js/addAppAndDiscussFunction.js"></script>

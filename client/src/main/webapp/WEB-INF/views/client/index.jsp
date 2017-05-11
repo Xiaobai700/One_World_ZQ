@@ -18,7 +18,6 @@ pageEncoding="utf-8"%>
     <link href="../static/css/dao_hang_style.css" rel="stylesheet">
     <link href="../static/css/ionicons.css" rel="stylesheet">
     <%--H+的相关样式--%>
-    <%--<link href="../static/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">--%>
     <link href="../static/css/font-awesome.min93e3.css" rel="stylesheet">
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link href="../static/css/toastr.min.css" rel="stylesheet">
@@ -94,18 +93,6 @@ pageEncoding="utf-8"%>
                                     <i class="fa fa-envelope fa-fw"></i>查看更多消息
                                 </div>
                             </div>
-                            <%-- <ul class="myMessage">
-                                 <li class="a">
-                                     <i class="fa fa-envelope fa-fw"></i><span id="underSize"></span>条未读消息
-                                 </li>
-                                 <li class="a">
-                                         <div id="messageDetail" style="text-align: left">
-                                         </div>
-                                 </li>
-                                 <li class="a" onclick="allMessagePage('与我相关','allMessage.do')">
-                                     <i class="fa fa-envelope fa-fw"></i>查看更多消息
-                                 </li>
-                             </ul>--%>
                         </li>
                         <li class="li_cai_dan"><a href="index.do"><div class="cai_dan" style="background-color:#F47A7A;">首页</div></a></li>
                         <li class="li_cai_dan"><a href="allShares.do"><div class="cai_dan">分享</div></a></li>
@@ -315,15 +302,13 @@ pageEncoding="utf-8"%>
     </div>
 </div>
 <div id="dv">
-    <%--<div class="alert alert-success alert-dismissable">
-        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-        H+是一个很棒的后台UI框架 <a class="alert-link" href="notifications.html#">了解更多</a>.
-    </div>--%>
 </div>
 <footer>
     <div>
-        <br />
-        <p style="text-align: center;">南京工业职业${account}技术学院计算机与软件学院</p>
+        <ul>
+            <li>联系作者:1053373312@qq.com</li>
+            <li class="feedBack" onclick="feedBackPage('反馈信息','feedBack.html')">反馈</li>
+        </ul>
     </div>
 </footer>
 </div>
