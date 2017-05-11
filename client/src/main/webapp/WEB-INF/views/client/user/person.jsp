@@ -109,7 +109,7 @@
                             <div class="feed-activity-list">
                                 <div class="feed-element">
                                     <a href="profile.html#" class="pull-left">
-                                        <img alt="image" class="img-circle" src="../../img/a1.jpg">
+                                        <img alt="image" class="img-circle" src="head/${index.userInfo.head}">
                                     </a>
                                     <div class="media-body ">
                                         <c:if test="${index.appResult.appJoinSize == 0}">
@@ -117,11 +117,11 @@
                                         </c:if>
                                         <c:forEach var="app" items="${index.appResult.appJoined}">
                                             <small class="pull-right text-navy">${share.share_time }</small>
-                                            <strong>${index.userInfo.nickName}</strong> 参与了<a href="appDetails.do?id=${app.id}"><strong>${app.theme }</strong></a>主题的活动.
+                                            参与了<a href="appDetails.do?id=${app.id}"><strong>${app.theme }</strong></a>主题的活动.
                                             <br>
-                                            <div class="actions">
+                                            <%--<div class="actions">
                                                 <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> 赞 </a>
-                                            </div>
+                                            </div>--%>
                                         </c:forEach>
                                         <c:if test="${index.appResult.appJoinSize != 0}">
                                             <a class="btn btn-xs btn-primary" href="">查看TA参与的所有活动</a>
@@ -134,19 +134,19 @@
                             <div class="feed-activity-list">
                                 <div class="feed-element">
                                     <a href="profile.html#" class="pull-left">
-                                        <img alt="image" class="img-circle" src="../../img/a1.jpg">
+                                        <img alt="image" class="img-circle" src="head/${index.userInfo.head}">
                                     </a>
                                     <div class="media-body ">
                                         <c:if test="${index.appResult.appSize == 0}">
                                             <div><strong>${index.userInfo.nickName}</strong>没有发起过任何活动</div>
                                         </c:if>
                                         <c:forEach var="app" items="${index.appResult.app}">
-                                            <small class="pull-right text-navy">${app.meTime}</small>
-                                            <strong>${index.userInfo.nickName}</strong> 发起了<a href="appDetails.do?id=${app.appointment.id}"><strong>${app.appointment.theme }</strong></a>主题的活动.
+                                            <small class="pull-left text-navy">${app.meTime}</small><br />
+                                             发起了<a href="appDetails.do?id=${app.appointment.id}"><strong>${app.appointment.theme }</strong></a>主题的活动.
                                             <br>
-                                            <div class="actions">
+                                            <%--<div class="actions">
                                                 <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> 赞 </a>
-                                            </div>
+                                            </div>--%>
                                         </c:forEach>
                                         <c:if test="${index.appResult.appSize != 0}">
                                             <a class="btn btn-xs btn-primary" href="">查看TA发布的所有活动</a>
@@ -159,19 +159,19 @@
                             <div class="feed-activity-list">
                                 <div class="feed-element">
                                     <a href="profile.html#" class="pull-left">
-                                        <img alt="image" class="img-circle" src="../../img/a1.jpg">
+                                        <img alt="image" class="img-circle" src="head/${index.userInfo.head}">
                                     </a>
                                     <div class="media-body ">
                                         <c:if test="${index.discussMeResult.discussMeSize == 0}">
                                             <div><strong>${index.userInfo.nickName}</strong>没有发起任何讨论</div>
                                         </c:if>
                                         <c:forEach var="fq" items="${index.discussMeResult.discussMe}">
-                                            <small class="pull-right text-navy">${fq.meTime}</small>
-                                            <strong>${index.userInfo.nickName}</strong> 发起了题为<a href="discussDetail.do?id=${fq.discussMe.id}"><strong>${fq.discussMe.discuss_title }</strong></a>的讨论.
+                                            <small class="pull-left text-navy">${fq.meTime}</small><br />
+                                              发起了题为<a href="discussDetail.do?id=${fq.discussMe.id}"><strong>${fq.discussMe.discuss_title }</strong></a>的讨论.
                                             <br>
-                                            <div class="actions">
+                                            <%--<div class="actions">
                                                 <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> 赞 </a>
-                                            </div>
+                                            </div>--%>
                                         </c:forEach>
                                         <c:if test="${index.discussMeResult.discussMeSize != 0}">
                                             <a class="btn btn-xs btn-primary" href="">查看TA发起的所有讨论</a>
@@ -183,19 +183,19 @@
                             <div class="feed-activity-list">
                                 <div class="feed-element">
                                     <a href="profile.html#" class="pull-left">
-                                        <img alt="image" class="img-circle" src="../../img/a1.jpg">
+                                        <img alt="image" class="img-circle" src="head/${index.userInfo.head}">
                                     </a>
                                     <div class="media-body ">
                                         <c:if test="${index.discussAnswerResult.discussAnswerSize == 0}">
                                             <div><strong>${index.userInfo.nickName}</strong>没有参与任何讨论</div>
                                         </c:if>
                                         <c:forEach var="join" items="${index.discussAnswerResult.discussAnswer}">
-                                            <small class="pull-right text-navy">${join.meTime}</small>
-                                            <strong>${index.userInfo.nickName}</strong> 回答了 <a href="discussDetail.do?id=${join.discuss.id}"><strong>问题：${join.discuss.discuss_title }</strong></a>.
-                                            <br>
-                                            <div class="actions">
+                                            <small class="pull-left text-navy">${join.meTime}</small><br />
+                                             回答了 <a href="discussDetail.do?id=${join.discuss.id}"><strong>问题：${join.discuss.discuss_title }</strong></a>.
+                                            <br />&nbsp;
+                                            <%--<div class="actions">
                                                 <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> 赞 </a>
-                                            </div>
+                                            </div>--%>
                                         </c:forEach>
                                         <c:if test="${index.discussAnswerResult.discussAnswerSize != 0}">
                                             <a class="btn btn-xs btn-primary" href="">查看TA回答的所有问题</a>
@@ -216,14 +216,14 @@
                                     </c:if>
                                     <c:forEach var="share" items="${index.shareResult.share}">
                                         <small class="pull-right text-navy">${share.meTime }</small>
-                                        <strong>${index.userInfo.nickName}</strong> 发表了题为 <a href="shareDetail.do?id=${share.share.id}"><strong>${share.share.share_title}</strong></a>的分享.
+                                        <strong>${index.userInfo.nickName}</strong> 发表了题为 <strong onclick="shareDetail('分享详情','shareDetail.do','${share.share.id}')">${share.share.share_title}</strong>的分享.
                                         <br>
                                         <div class="photos">
                                             <img alt="image" class="feed-photo" src="${share.share.share_thumbnail}">
                                         </div>
-                                        <div class="actions">
+                                        <%--<div class="actions">
                                             <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> 赞 </a>
-                                        </div>
+                                        </div>--%>
                                     </c:forEach>
                                     <c:if test="${index.shareResult.shareSize != 0}">
                                         <a class="btn btn-xs btn-primary" href="">查看TA的所有分享</a>

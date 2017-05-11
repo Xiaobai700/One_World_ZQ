@@ -1,6 +1,7 @@
 /**
  * Created by Master ZQ on 2017/3/24.
  */
+// window.location.reload();
 $(function () {
     toastr.options = {
         "closeButton": false, //是否显示关闭按钮
@@ -55,28 +56,21 @@ if(account !=""){
             messageNumber = message.messageSize;
             // messageDetail.innerHTML = '<i class="fa fa-envelope fa-fw"></i>'+messageNumber+'条未读消息';
             $.each(message.message,function () {
-                // dv.innerHTML+=this.message.content;
-               informMessage.innerHTML +="<div class='oneMessage'>"+this.message.content+"</div>";
-                // messageDetail.innerHTML+= "<span class='small' style='color: #5BC4C8;;'>"+this.message.sendTime+"</span><br />"+this.message.content+"<br />";
+               informMessage.innerHTML +="<div class='oneMessage'>"+this.content+"</div>";
             });
             size.innerHTML = message.messageSize;
             // underSize.innerHTML = messageNumber;
             $.each(message.systemMessage,function () {
                 systemMessage.innerHTML +="<div class='oneMessage'>"+this.content+"</div>";
             });
-
-            // messageDetail.innerHTML = '<i class="fa fa-envelope fa-fw"></i>'+messageNumber+'条未读消息 <span class="pull-right text-muted small">4分钟前</span>';
         }else {
-            // dv.innerHTML+=message.message.content;
             toastr.info(message.message.content);
-            // toast(message.message.content,"消息");
             messageNumber += 1;
             size.innerHTML = "";
             size.innerHTML += messageNumber;
             underSize.innerHTML ="";
             underSize.innerHTML += messageNumber;
             messageDetail.innerHTML+= "<span class='small' style='color: #5BC4C8;;'>"+message.message.sendTime+"</span><br />"+message.message.content+"<br />";
-
         }
 
         // }
@@ -599,6 +593,15 @@ function addDiscussPage(title,url) {
 }
 /*所有消息的弹出层*/
 function allMessagePage(title,url) {
+    /*把所有未读消息设为已读*/
+    $.ajax({
+        url: "updateMessage.action",
+        type: "post",
+        data: {
+        },
+        success: function (data) {
+        }
+    });
     var editor = url;
     var w = 700;
     var h = 500;

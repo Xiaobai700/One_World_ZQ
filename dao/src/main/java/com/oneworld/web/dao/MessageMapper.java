@@ -22,4 +22,7 @@ public interface MessageMapper {
     List<Message> searchUserMessage(Map map);
 
     List<Message> getMessageByMap(Map map);
+
+    /*把所有未读消息设为已读*/
+    int updateAllUnreadMessage(Message message);
 }

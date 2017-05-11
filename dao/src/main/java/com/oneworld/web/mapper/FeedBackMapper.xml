@@ -19,7 +19,7 @@
         values (#{id,jdbcType=VARCHAR},#{user_account,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{is_reply,jdbcType=INTEGER},#{is_delete,jdbcType=INTEGER},#{feedback_time,jdbcType=TIMESTAMP})
     </insert>
 
-    <delete id="deleteFeedback" parameterType="java.lang.Integer">
+    <delete id="deleteFeedback" parameterType="java.lang.String">
         delete from t_feedback
         where id = #{id,jdbcType=VARCHAR}
     </delete>
@@ -49,9 +49,15 @@
                 is_reply = #{is_reply,jdbcType=INTEGER},
             </if>
             <if test="is_delete != null">
-                is_dalete = #{is_dalete,jdbcType=INTEGER},
+                is_delete = #{is_delete,jdbcType=INTEGER},
             </if>
         </set>
         where id = #{id,jdbcType=VARCHAR}
     </update>
+    <select id="findBackById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_feedBack
+        WHERE id = #{id,jdbcType=VARCHAR}
+    </select>
 </mapper>

@@ -63,7 +63,7 @@ public class MessageServiceImpl implements MessageService {
             Map requestMap = new HashMap();
             requestMap.put("receiver",account);
             requestMap.put("isRead",0);
-            List<Message> unReadMessag= messageMapper.searchUserMessage(requestMap);
+            List<Message> unReadMessag= messageMapper.getMessageByMap(requestMap);
             List<Map<String,Object>> unReadResult = new ArrayList<Map<String, Object>>();
             for (Message m:unReadMessag) {
                 Map unReadMessageMap = new HashMap();
@@ -75,7 +75,7 @@ public class MessageServiceImpl implements MessageService {
             Map requestMap1 = new HashMap();
             requestMap1.put("receiver",account);
             requestMap1.put("isRead",1);
-            List<Message> readMessages =messageMapper.searchUserMessage(requestMap1);
+            List<Message> readMessages =messageMapper.getMessageByMap(requestMap1);
             List<Map<String,Object>> readResult = new ArrayList<Map<String, Object>>();
             for (Message m:readMessages) {
                 Map readMessageMap = new HashMap();
@@ -94,7 +94,13 @@ public class MessageServiceImpl implements MessageService {
 
     public Map userMessage(Map map) {
         Map returnMap = new HashMap();
-
+        try{
+            List<Message> messages = messageMapper.getMessageByMap(map);
+            returnMap.put(ParameterConstant.RETURN_DATA,messages);
+        }catch (Exception e){
+            e.printStackTrace();
+            returnMap = RequestConstant.getRequestDesCode(-1);
+        }
         return returnMap;
     }
 
@@ -130,5 +136,25 @@ public class MessageServiceImpl implements MessageService {
             e.printStackTrace();
         }
         return returnMap;
+    }
+
+    public Map updateIsReadAsRead(String account) {
+        Map returnMap = new HashMap();
+        try{
+            Map requestMap = new HashMap();
+            requestMap.put("receiver",account);
+            requestMap.put("isRead",0);
+            List<Message> messages = messageMapper.searchUserMessage(requestMap);
+            for (Message message:messages) {
+                message.setIsRead(1);
+                messageMapper.updateAllUnreadMessage(message);
+            }
+            returnMap.put(ParameterConstant.RETURN_CODE,0);
+            returnMap.put(ParameterConstant.RETURN_MSG,"更新成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            returnMap = RequestConstant.getRequestDesCode(-1);
+        }
+        return  returnMap;
     }
 }

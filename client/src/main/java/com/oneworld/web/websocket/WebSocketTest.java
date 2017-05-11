@@ -64,7 +64,8 @@ public class WebSocketTest {
             Map requestMap = new HashMap();
             requestMap.put("receiver",account);
             requestMap.put("isRead",0);
-            List<Message> messages =(List<Message>) messageService.allMessages(account).get("unRead");
+            List<Message> messages =(List<Message>) messageService.userMessage(requestMap).get("data");
+//            List<Message> messages =(List<Message>) messageService.allMessages(account).get("unRead");
             Map returnMap = new HashMap();
 
             /**查看有没有未读的系统消息 广播给用户*/

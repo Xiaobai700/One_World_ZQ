@@ -157,7 +157,7 @@ public class DisscussServiceImpl implements DiscussService {
             List<Map<String,Object>> answers = new ArrayList<Map<String, Object>>();
             if(discuss != null){
                 UserInfo discussUser = userinfoMapper.findUserInfoByAccount(discuss.getAsker_account());
-                List<Answer> answerList = answerMapper.findAnswersByDiscuss_id(id);
+                List<Answer> answerList = answerMapper.findAllAnswersByDiscuss_id(id);
                 if(answerList.size()>0){
                     SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     for (Answer a:answerList) {

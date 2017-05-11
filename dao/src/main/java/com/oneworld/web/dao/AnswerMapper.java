@@ -10,7 +10,7 @@ public interface AnswerMapper {
 	//增加一个回答
 	public int insertAnswer(Answer answer);
 	
-	//根据讨论的id查询所有回答,这个是用于首页圆桌显示的，显示六个回答，暂时还不知道怎么限制个数
+	//根据讨论的id查询所有回答,这个是用于首页圆桌显示的，显示六个回答
 	public List<Answer> findAnswersByDiscuss_id(String discuss_id);
 	
 	//根据讨论的id显示所有回答

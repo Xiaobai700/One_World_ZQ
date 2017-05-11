@@ -72,7 +72,13 @@ public class UserController {
         ObjectMapper mapper = new ObjectMapper();
         Map returnMap = new HashMap();
         returnMap = userService.userRegist(account,password);
-        outWriter.write(mapper.writeValueAsString(returnMap));
+        if(returnMap.get("code").equals(2)){
+            request.getSession().setAttribute("account", account);
+            request.getSession().setAttribute("password", password);
+            outWriter.write(mapper.writeValueAsString(returnMap));
+        }else {
+            outWriter.write(mapper.writeValueAsString(returnMap));
+        }
     }
 
     @RequestMapping("mySpace.do")

@@ -97,7 +97,11 @@ nav{
     box-shadow: 0 1px 4px rgba(0,0,0,.3);
 }
 .messageDetail{
+    display:block;
+    width: 310px;
     min-height: 350px;
+    max-height:350px;
+    overflow: hidden;
 }
 .myMessage li{
     width: 180px;

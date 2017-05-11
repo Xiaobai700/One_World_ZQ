@@ -28,7 +28,7 @@
         update t_user
         <set>
             <if test="password!= null">
-                password = #{password,jdbcType = VARCHAR},
+                password = #{password,jdbcType=VARCHAR},
             </if>
         </set>
         where account = #{account,jdbcType=VARCHAR}

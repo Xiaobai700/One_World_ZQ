@@ -25,28 +25,28 @@
     </delete>
 
     <select id="searchMessage" parameterType="java.util.Map" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    FROM t_message
-    <trim prefix="WHERE" prefixOverrides="AND|OR">
-        <if test="isRead!=null and isRead!='' ">
-            and is_read = #{isRead,jdbcType=INTEGER}
+        select
+        <include refid="Base_Column_List"/>
+        FROM t_message
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="isRead!=null and isRead!='' ">
+                and is_read = #{isRead,jdbcType=INTEGER}
+            </if>
+            <if test="content!=null and content!='' ">
+                and content = #{content,jdbcType=VARCHAR}
+            </if>
+            <if test="keys!=null and keys!='' ">
+                AND receiver LIKE '%${keys}%'
+                OR sender LIKE '%${keys}%'
+                OR content LIKE '%${keys}%'
+            </if>
+            and type =0
+        </trim>
+        ORDER BY send_time DESC
+        <if test="index != null and length != null">
+            LIMIT #{index},#{length}
         </if>
-        <if test="content!=null and content!='' ">
-            and content = #{content,jdbcType=VARCHAR}
-        </if>
-        <if test="keys!=null and keys!='' ">
-            AND receiver LIKE '%${keys}%'
-            OR sender LIKE '%${keys}%'
-            OR content LIKE '%${keys}%'
-        </if>
-        and type =0
-    </trim>
-    ORDER BY send_time DESC
-    <if test="index != null and length != null">
-        LIMIT #{index},#{length}
-    </if>
-</select>
+    </select>
     <select id="searchUserMessage" parameterType="java.util.Map" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -84,4 +84,14 @@
         FROM t_message
         WHERE id= #{id,jdbcType=VARCHAR}
     </select>
+    <update id="updateAllUnreadMessage" parameterType="com.oneworld.web.model.Message">
+        UPDATE
+        t_message
+        <set>
+            <if test="isRead!= null">
+                is_read =#{isRead,jdbcType=INTEGER},
+            </if>
+        </set>
+        WHERE id =#{id,jdbcType=VARCHAR}
+    </update>
 </mapper>

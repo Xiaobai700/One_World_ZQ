@@ -73,4 +73,23 @@ public class MessageController {
             outWriter.write(mapper.writeValueAsString(returnMap));
         }
     }
+
+    @RequestMapping("updateMessage.action")
+    @ResponseBody
+    public void updateMessage(HttpServletResponse response,HttpServletRequest request) throws IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        PrintWriter outWriter = response.getWriter();
+        ObjectMapper mapper = new ObjectMapper();
+        Map returnMap = new HashMap();
+        String account = (String) request.getSession().getAttribute("account");
+        try{
+            returnMap = messageService.updateIsReadAsRead(account);
+            outWriter.write(mapper.writeValueAsString(returnMap));
+        }catch (Exception e){
+            e.printStackTrace();
+            outWriter.write(mapper.writeValueAsString(returnMap));
+        }
+    }
+
+
 }

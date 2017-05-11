@@ -11,9 +11,11 @@ import java.util.Map;
 public interface FeedBackMapper {
     public int insertFeedBack(FeedBack feedBack);
 
-    public int deleteFeedback(int id);
+    public int deleteFeedback(String id);
 
     public int updateFeedBack(FeedBack feedBack);
 
     public List<FeedBack> queryBackPage(Map map);
+
+    public FeedBack findBackById(String id);
 }

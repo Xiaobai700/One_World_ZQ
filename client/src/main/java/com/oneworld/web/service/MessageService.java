@@ -19,4 +19,6 @@ public interface MessageService {
     Map deleteMessage(String id);
 
     Map batchDeleteMessage(String idString);
+    /*把所有未读消息设为已读*/
+    Map updateIsReadAsRead(String account);
 }

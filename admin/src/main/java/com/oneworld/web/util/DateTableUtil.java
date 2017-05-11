@@ -49,6 +49,11 @@ public class DateTableUtil {
                         requestMap.put("currentState", jsonObject.get("value").toString());
                     }
                 }
+                else if (jsonObject.get("name").equals("is_reply")) {
+                    if (!jsonObject.get("value").toString().equals("-1")) {
+                        requestMap.put("is_reply", jsonObject.get("value").toString());
+                    }
+                }
                 else if (jsonObject.get("name").equals("reportType")) {
                     if (!jsonObject.get("value").toString().equals("-1")) {
                         requestMap.put("reportType", jsonObject.get("value").toString());

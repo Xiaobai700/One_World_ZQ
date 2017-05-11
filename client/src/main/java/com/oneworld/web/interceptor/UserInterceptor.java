@@ -37,9 +37,7 @@ public class UserInterceptor implements HandlerInterceptor {
                         outWriter.println("<script>");
                         outWriter.println("alert('您还未登陆，快去登陆吧！')");
                         outWriter.println("</script>");
-//                    resultMap.put(ParameterConstant.RETURN_MSG,"您还未登陆，快去登陆吧！");
-//                    outWriter.write(mapper.writeValueAsString(resultMap));
-                        httpServletResponse.sendRedirect(httpServletRequest.getContextPath()+"welcome.do");
+                        httpServletResponse.sendRedirect(httpServletRequest.getContextPath()+"login.do");
                         return false;
                     } else{
                         return true;

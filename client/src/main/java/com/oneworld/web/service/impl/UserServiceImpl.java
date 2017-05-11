@@ -79,8 +79,7 @@ public class UserServiceImpl implements UserService {
                 newUserInfo.setDisabled(0);
                 newUserInfo.setRegist_time(new Timestamp(new Date().getTime()));
                 userinfoMapper.insertUserInfo(newUserInfo);
-                returnMap.put(ParameterConstant.RETURN_MSG,"注册成功！");
-                returnMap.put(ParameterConstant.RETURN_CODE,0);
+                returnMap = RequestConstant.getRequestDesCode(2);
             }
         }catch (Exception e){
             e.printStackTrace();
