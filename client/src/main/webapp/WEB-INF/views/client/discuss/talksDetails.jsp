@@ -132,13 +132,13 @@
                 <div class="social-feed-box">
                     <div class="social-avatar">
                         <a href="#" class="pull-left">
-                            <img alt="image" src="head/${answer.answerUser.head }">
+                            <a href="personal.do?account=${answer.answerUser.account}"><img alt="image" src="head/${answer.answerUser.head }"></a>
                         </a>
                         <div class="media-body">
-                            <a href="#">
+                            <a href="#" style="float: left;">
                                     ${answer.answerUser.nickName }
                             </a>
-                            <small class="text-muted">软件工程师</small>
+                            <small class="text-muted" style="float: left;">${answer.job}行业</small>
                         </div>
                     </div>
                     <div class="social-body">

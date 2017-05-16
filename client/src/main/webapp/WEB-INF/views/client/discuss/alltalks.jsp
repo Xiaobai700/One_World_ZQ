@@ -160,6 +160,10 @@
     <div class="zy_tl_main_1_you">
         <div class="wrapper wrapper-content blog">
             <div class="row content">
+                <c:if test="${index.discussNumbers == 0}">
+                    <h2><p style="font-family: '微软雅黑';margin-left: 90px;
+                margin-top: 60px;">啥也没搜到！看看别的吧！</p></h2>
+                </c:if>
                 <c:forEach var="discuss" items="${index.dis}">
                 <div class="col-lg-12">
                     <div class="ibox">

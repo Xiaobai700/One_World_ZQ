@@ -54,13 +54,14 @@ public class AppController {
         Map resultMap = new HashMap();
         String user_account = (String) request.getSession().getAttribute("account");
         if(user_account == null){
-            modelAndView.addObject("userHead","img/person.jpg");
+            modelAndView.addObject("userHead","person.jpg");
         }else {
             UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(user_account).get("data");
             modelAndView.addObject("userHead",userInfo.getHead());
         }
         Map requestMap = new HashMap();
         requestMap.put("user_account",user_account);
+        requestMap.put("is_checked",1);
         resultMap = (Map) indexService.yuebanAll(requestMap).get("data");
 
         modelAndView.addObject("account",user_account);
@@ -94,12 +95,12 @@ public class AppController {
     }
     /**查询约伴活动 根据活动的类型模糊查询*/
     @RequestMapping("allYuebanType.do")
-    public ModelAndView allYueBanType(HttpServletRequest request,HttpServletResponse response,int appTypeId)throws IOException{
+    public ModelAndView allYueBanType(HttpServletRequest request,HttpServletResponse response,String appTypeId)throws IOException{
         ModelAndView modelAndView = new ModelAndView("/client/appointment/allyueban");
         Map resultMap = new HashMap();
         String user_account =(String) request.getSession().getAttribute("account");
         if(user_account == null){
-            modelAndView.addObject("userHead","img/person.jpg");
+            modelAndView.addObject("userHead","person.jpg");
         }else {
             UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(user_account).get("data");
             modelAndView.addObject("userHead",userInfo.getHead());
@@ -107,13 +108,14 @@ public class AppController {
         Map requestMap = new HashMap();
         requestMap.put("user_account",user_account);
         requestMap.put("app_type",appTypeId);
+        requestMap.put("is_checked",1);
         resultMap = (Map) indexService.yueBanType(requestMap).get("data");
 
         modelAndView.addObject("account",user_account);
         modelAndView.addObject("index",resultMap);
+        modelAndView.addObject("color_1", "badge");
+        modelAndView.addObject("color_2", "badge");
         modelAndView.addObject("appTypeId",appTypeId);
-        modelAndView.addObject("color_1", "color_1");
-        modelAndView.addObject("color_2", "color_2");
         return modelAndView;
     }
     @RequestMapping("add-app.html")
@@ -122,17 +124,18 @@ public class AppController {
         ModelAndView modelAndView = new ModelAndView("/client/appointment/newAppointment");
         String account = (String) request.getSession().getAttribute("account");
         if(account == null){
-            modelAndView.addObject("userHead","img/person.jpg");
+            modelAndView.addObject("userHead","person.jpg");
         }else {
             UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(account).get("data");
             modelAndView.addObject("userHead",userInfo.getHead());
         }
         UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(account).get("data");
-
+        String job =(String) userInfoService.findUserInfoByAccount(account).get("job");
         /*取得所有活动类型*/
         List<AppType> appTypes = (List<AppType>) appTypeService.getAllAppType().get("data");
 
         modelAndView.addObject("userInfo",userInfo);
+        modelAndView.addObject("job",job);
         modelAndView.addObject("appTypes",appTypes);
         modelAndView.addObject("account",account);
         return  modelAndView;

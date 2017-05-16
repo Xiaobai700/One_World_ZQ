@@ -2,7 +2,9 @@ package com.oneworld.web.service.impl;
 
 import com.oneworld.web.constant.ParameterConstant;
 import com.oneworld.web.constant.RequestConstant;
+import com.oneworld.web.dao.AppointmentMapper;
 import com.oneworld.web.dao.JoinMapper;
+import com.oneworld.web.model.Appointment;
 import com.oneworld.web.model.Join;
 import com.oneworld.web.service.JoinService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,16 @@ import java.util.Map;
 public class JoinServiceImpl implements JoinService {
     @Autowired
     private JoinMapper joinMapper;
+    @Autowired
+    private AppointmentMapper appointmentMapper;
 
     public Map insertJoin(Join join) {
         Map returnMap = new HashMap();
         try{
             joinMapper.insertJoin(join);
+            Appointment appointment = appointmentMapper.findAppointmentById(join.getAppointment_id());
+            appointment.setWant_join(appointment.getWant_join()+1);
+            appointmentMapper.updateApp(appointment);
             returnMap.put(ParameterConstant.RETURN_CODE,0);
             returnMap.put(ParameterConstant.RETURN_MSG,"申请成功，等待对方审核");
         }catch (Exception e){

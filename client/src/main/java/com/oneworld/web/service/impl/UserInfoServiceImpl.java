@@ -2,7 +2,9 @@ package com.oneworld.web.service.impl;
 
 import com.oneworld.web.constant.ParameterConstant;
 import com.oneworld.web.constant.RequestConstant;
+import com.oneworld.web.dao.IndustryMapper;
 import com.oneworld.web.dao.UserinfoMapper;
+import com.oneworld.web.model.Industry;
 import com.oneworld.web.model.UserInfo;
 import com.oneworld.web.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,8 @@ import java.util.Map;
 public class UserInfoServiceImpl implements UserInfoService {
     @Autowired
     private UserinfoMapper userinfoMapper;
-
+    @Autowired
+    private IndustryMapper industryMapper;
     public Map insertuserInfo(UserInfo userInfo) {
        Map returnMap = new HashMap();
        try{
@@ -37,7 +40,16 @@ public class UserInfoServiceImpl implements UserInfoService {
         try {
             UserInfo userInfo = userinfoMapper.findUserInfoByAccount(account);
             if(userInfo != null){
-                returnMap.put(ParameterConstant.RETURN_DATA,userInfo);
+                String jobId = userInfo.getJob();
+                if(jobId != null){
+                    Industry industry = industryMapper.findIndustryById(userInfo.getJob());
+//                    userInfo.setJob(industry.getIndustry_name());
+                    returnMap.put(ParameterConstant.RETURN_DATA,userInfo);
+                    returnMap.put("job",industry.getIndustry_name());
+//                    userInfo.setJob(jobId);
+                }else {
+                    returnMap.put(ParameterConstant.RETURN_DATA,userInfo);
+                }
             }else{
                 returnMap = RequestConstant.getRequestDesCode(-2);
             }

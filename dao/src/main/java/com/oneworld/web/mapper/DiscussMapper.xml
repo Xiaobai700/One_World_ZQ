@@ -59,7 +59,7 @@
         UPDATE t_discuss
         <set>
             <if test="answer_times != null">
-                amswer_times = #{answer_times,jdbcType=INTEGER}
+                answer_times = #{answer_times,jdbcType=INTEGER}
             </if>
         </set>
         where id = #{id,jdbcType=VARCHAR}

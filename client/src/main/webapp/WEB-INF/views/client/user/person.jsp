@@ -34,7 +34,7 @@
                         <img alt="image" class="img-responsive" src="head/${index.userInfo.head }">
                     </div>
                     <div class="ibox-content profile-content">
-                        <h4><strong>${index.userInfo.nickName }</strong>&nbsp;${index.industry.industry_name}</h4>
+                        <h4><strong>${index.userInfo.nickName }</strong>&nbsp;${index.industry.industry_name}行业</h4>
                         <p><i class="fa fa-map-marker"></i> ${index.userInfo.location}</p>
                         <h5>
                             关于TA

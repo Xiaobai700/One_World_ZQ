@@ -53,7 +53,7 @@
                 <div class="" style="float: left;width:15%;height: 100px;margin-top: 10px;margin-left: 10px;">
                     <span><img src="head/${userInfo.head }" style="width: 60px;height: 60px;border-radius: 30px;" /></span><br />
                     <span style="margin-top: 6px;font-size: smaller;">${userInfo.nickName }</span>
-                    <span style="margin-top: 6px;font-size: smaller;">${userInfo.job }</span><br />
+                    <span style="margin-top: 6px;font-size: smaller;">${job }</span><br />
                     <span style="margin-left: 15px;color: palevioletred;"class="gender ion-female"></span>
                     <span style="margin-left: 1px;font-size: smaller;"> ${userInfo.age } </span><br />
                 </div>

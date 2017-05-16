@@ -138,7 +138,7 @@
                     </ul>
                 </li>
 
-                <li>
+                <%--<li>
                     <a href="#">
                         <i class="glyphicon glyphicon-wrench"></i>
                         <span class="nav-label">系统管理</span>
@@ -149,7 +149,7 @@
                             <a class="J_menuItem" href="version-list.html" data-index="0">版本列表</a>
                         </li>
                     </ul>
-                </li>
+                </li>--%>
                 <li>
                     <a href="#">
                         <i class="glyphicon glyphicon-wrench"></i>
@@ -161,7 +161,10 @@
                             <a class="J_menuItem" href="data-show.html" data-index="0">各行业用户所占比例展示</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="invitation-show.html" data-index="0">各类列子所占比例展示</a>
+                            <a class="J_menuItem" href="invitation-show.html" data-index="0">各类帖子所占比例展示</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="app-show.html" data-index="0">各类约伴活动所占比例展示</a>
                         </li>
                     </ul>
                 </li>
@@ -187,7 +190,7 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a class="J_menuItem" href="message-list.html" data-index="0">增加公告</a>
+                            <a class="J_menuItem" href="message-list.html" data-index="0">公告列表</a>
                         </li>
                     </ul>
                 </li>
@@ -219,11 +222,11 @@
         <div class="row content-tabs">
             <button class="roll-nav roll-left J_tabLeft"><i class="fa fa-backward"></i>
             </button>
-            <%--<nav class="page-tabs J_menuTabs">
-                <div class="page-tabs-content">
-                    <a href="javascript:;" class="active J_menuTab" data-id="index_v1.html">首页</a>
-                </div>
-            </nav>--%>
+            <nav class="page-tabs J_menuTabs">
+            <div class="page-tabs-content">
+                <a href="javascript:;" class="active J_menuTab" data-id="index_v1.html">首页</a>
+            </div>
+        </nav>
             <button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i>
             </button>
             <div class="btn-group roll-nav roll-right">

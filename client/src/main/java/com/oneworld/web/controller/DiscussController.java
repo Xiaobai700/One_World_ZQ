@@ -54,7 +54,7 @@ public class DiscussController {
             String user_account = (String) request.getSession().getAttribute("account");
 //            UserInfo s_userInfo =(UserInfo) userInfoService.findUserInfoByAccount(user_account).get("data");
             if(user_account == null){
-                modelAndView.addObject("userHead","img/person.jpg");
+                modelAndView.addObject("userHead","person.jpg");
             }else {
                 UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(user_account).get("data");
                 modelAndView.addObject("userHead",userInfo.getHead());

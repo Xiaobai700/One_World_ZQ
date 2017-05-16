@@ -50,4 +50,19 @@ public class StaticController {
             outWriter.write(mapper.writeValueAsString(returnMap));
         }
     }
+
+    @RequestMapping("app.json")
+    public void appChart(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        PrintWriter outWriter = response.getWriter();
+        ObjectMapper mapper = new ObjectMapper();
+        Map returnMap = new HashMap();
+        try{
+            returnMap = staticService.appChart();
+            outWriter.write(mapper.writeValueAsString(returnMap));
+        }catch (Exception e){
+            e.printStackTrace();
+            outWriter.write(mapper.writeValueAsString(returnMap));
+        }
+    }
 }

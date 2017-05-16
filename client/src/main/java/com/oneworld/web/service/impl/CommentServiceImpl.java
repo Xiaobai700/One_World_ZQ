@@ -8,6 +8,7 @@ import com.oneworld.web.model.Comment;
 import com.oneworld.web.model.UserInfo;
 import com.oneworld.web.service.CommentService;
 import com.oneworld.web.service.ReplyService;
+import com.oneworld.web.service.UserInfoService;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,8 @@ public class CommentServiceImpl implements CommentService{
     private UserinfoMapper userinfoMapper;
     @Autowired
     private ReplyService replyService;
+    @Autowired
+    private UserInfoService userInfoService;
 
     public Map insertComment(Comment comment) {
         Map returnMap = new HashMap();
@@ -60,7 +63,9 @@ public class CommentServiceImpl implements CommentService{
                 for (Comment comment:commentList) {
                     Map<String,Object> commentMap = new HashedMap();
                     /*评论者的信息*/
-                    UserInfo userInfo = userinfoMapper.findUserInfoByAccount(comment.getCommenter_account());
+                    UserInfo userInfo =(UserInfo) userInfoService.findUserInfoByAccount(comment.getCommenter_account()).get("data");
+                    String job =(String) userInfoService.findUserInfoByAccount(comment.getCommenter_account()).get("job");
+//                    UserInfo userInfo = userinfoMapper.findUserInfoByAccount(comment.getCommenter_account());
                     /*评论下的回复*/
                     Integer replyType = 0;
                     switch (comment.getLabel()){
@@ -80,6 +85,7 @@ public class CommentServiceImpl implements CommentService{
                     Map za = replyService.getReply(replyMap);
                     Integer replyNumbers = Integer.parseInt(replyService.getReply(replyMap).get("replyNumbers").toString());
                     commentMap.put("userInfo",userInfo);
+                    commentMap.put("job",job);
                     commentMap.put("comment",comment);
                     commentMap.put("replyNumbers",replyNumbers);
                     commentMap.put("commentNumbers",commentList.size());

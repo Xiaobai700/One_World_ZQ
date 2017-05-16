@@ -133,7 +133,14 @@
                 		<div>性别</div>
                             <input type="hidden" id="user_sex" value="${index.userInfo.sex }">
                 		<div>
-
+                            <c:if test="${index.userInfo.sex == null }">
+                                <label class="radio-inline">
+                                    <input type="radio" name="sex"class="sex" id="inlineRadio"  value="gender ion-male"> 男
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="sex"class="sex" id="inlineRadio2"  value="gender ion-female"> 女
+                                </label>
+                            </c:if>
                             <c:if test="${index.userInfo.sex == 'gender ion-male'}">
                                 <label class="radio-inline">
                                 <input type="radio" name="sex"class="sex" id="inlineRadio" checked="checked" value="gender ion-male"> 男
@@ -867,7 +874,7 @@ dsy.add("0_33",["台北","高雄","台中","花莲","基隆","嘉义","金门","
                     	</div>
                     	<!-- 有几人加入 -->
                     	<div style="width:100%;float:left;margin-top:8px;">
-                    	<span style="margin-left:20px;margin-top:20px;">有${app.want_join_count}人申请加入</span>
+                    	<span style="margin-left:20px;margin-top:20px;">有${app.appointment.want_join}人申请加入</span>
                     	</div>
                     </div>
                      </c:forEach>

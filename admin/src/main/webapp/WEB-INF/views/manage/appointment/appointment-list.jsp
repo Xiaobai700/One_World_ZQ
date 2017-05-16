@@ -46,7 +46,7 @@
                     <table class="table table-striped table-bordered table-hover dataTables-example">
                         <thead>
                         <tr>
-                            <th>所属标签</th>
+                            <%--<th>所属标签</th>--%>
                             <th>活动地点</th>
                             <th>性别限制</th>
                             <th>是否结束</th>
@@ -61,7 +61,7 @@
                         </tbody>
                         <tfoot>
                         <tr>
-                            <th>所属标签</th>
+                            <%--<th>所属标签</th>--%>
                             <th>活动内容</th>
                             <th>活动地点</th>
                             <th>性别限制</th>

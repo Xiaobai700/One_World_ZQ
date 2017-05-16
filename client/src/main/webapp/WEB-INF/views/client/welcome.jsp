@@ -226,7 +226,7 @@
             </div>
             <div class="modal-body">
                 <input type="text" class="form-control" id="zc_account" placeholder="输入账号，您的手机号">&nbsp;
-                <input type="text" class="form-control" id="zc_password"placeholder="输入密码，6位">
+                <input type="password" class="form-control" id="zc_password"placeholder="输入密码，6位">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -265,17 +265,17 @@
         $.ajax({
             url:"userRegist.action",
             type:"post",
+            dataType:"json",
             data:{
                 account:$("#zc_account").val(),
                 password:$("#zc_password").val()
             },
             success:function(data){
-                var dataObj=eval("("+data+")");
-                if(dataObj.code == 0){
-                    layer.msg(dataObj.msg,{time:2000});
-                    window.location.reload();
+                if(data.code == 2){
+                    layer.msg("注册成功直接登陆",{time:3000});
+                    window.location.href="index.do";
                 }else{
-
+                    layer.msg(data.msg);
                 }
             },
             error:function(data){

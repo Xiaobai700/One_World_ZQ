@@ -9,4 +9,6 @@ public interface StaticService {
     public Map invitationChart();
 
     public Map industryChart();
+
+    public Map appChart();
 }

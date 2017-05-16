@@ -1,14 +1,9 @@
 package com.oneworld.web.service.impl;
 
 import com.oneworld.web.constant.ParameterConstant;
-import com.oneworld.web.dao.AppointmentMapper;
-import com.oneworld.web.dao.DiscussMapper;
-import com.oneworld.web.dao.IndustryMapper;
-import com.oneworld.web.dao.ShareMapper;
-import com.oneworld.web.model.Appointment;
-import com.oneworld.web.model.Discuss;
-import com.oneworld.web.model.Industry;
-import com.oneworld.web.model.Share;
+import com.oneworld.web.constant.RequestConstant;
+import com.oneworld.web.dao.*;
+import com.oneworld.web.model.*;
 import com.oneworld.web.service.StaticService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +26,8 @@ public class StaticServiceImpl implements StaticService {
     private DiscussMapper discussMapper;
     @Autowired
     private ShareMapper shareMapper;
+    @Autowired
+    private AppTypeMapper appTypeMapper;
 
     public Map invitationChart() {
         Map returnMap = new HashMap();
@@ -91,7 +88,31 @@ public class StaticServiceImpl implements StaticService {
             returnMap.put("nameList",industryNameList);
         }catch (Exception e){
             e.printStackTrace();
+            returnMap = RequestConstant.getRequestDesCode(-1);
         }
         return returnMap;
+    }
+
+    public Map appChart() {
+        Map returnMap = new HashMap();
+        try{
+            List<Map<String,Object>> appList = new ArrayList<Map<String, Object>>();
+            List<String> appTypeNameList = new ArrayList<String>();
+            List<AppType> appTypeList = appTypeMapper.queryAllAppType();
+            for (AppType appType:appTypeList) {
+                Map appResult = new HashMap();
+                appResult.put("name",appType.getTypeName());
+                appResult.put("value",appType.getAttention_num());
+                appList.add(appResult);
+                appTypeNameList.add(appType.getTypeName());
+            }
+            returnMap.put(ParameterConstant.RETURN_CODE,0);
+            returnMap.put("nameList",appTypeNameList);
+            returnMap.put(ParameterConstant.RETURN_DATA,appList);
+        }catch (Exception e){
+            e.printStackTrace();
+            returnMap = RequestConstant.getRequestDesCode(-1);
+        }
+        return  returnMap;
     }
 }

@@ -38,7 +38,7 @@ jQuery(function () {
             },
 
             "aoColumns": [
-                {"mData": "app_type", 'sClass': 'center'},
+                // {"mData": "app_type", 'sClass': 'center'},
                 {"mData": "site", 'sClass': 'center'},
                 {"mData": "sex_restrict", 'sClass': 'center'},
                 {"mData": "over_flag", 'sClass': 'center',"mRender": function(data, type, full) {

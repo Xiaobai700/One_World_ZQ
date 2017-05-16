@@ -372,6 +372,7 @@ span.js_bz:hover{
     width: 900px;
     float: left;
     background-color: white;
+    min-height: 420px;
 }
 .small_tx{
     width: 50px;
@@ -665,10 +666,11 @@ div.other{
     padding-top: 5px;
     margin-left: 15px;
     width: 800px;
-    height: 60px;
+    height: 66px;
     float: left;
     border-radius: 13px;
     border: 1px solid purple;
+    overflow: hidden;
 }
 .personal_main_right_fx{
     height: 300px;

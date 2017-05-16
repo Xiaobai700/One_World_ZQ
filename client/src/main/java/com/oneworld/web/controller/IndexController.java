@@ -43,7 +43,7 @@ public class IndexController {
 //            获得登陆者的信息，这样写的原因是当用户改了头像的时候导航上现实的头像也会跟着变化不用重新登录
             String user_account = (String) request.getSession().getAttribute("account");
             if(user_account == null){
-                modelAndView.addObject("userHead","img/person.jpg");
+                modelAndView.addObject("userHead","person.jpg");
             }else {
                 UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(user_account).get("data");
                 modelAndView.addObject("userHead",userInfo.getHead());

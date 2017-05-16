@@ -11,6 +11,7 @@ import com.oneworld.web.model.UserInfo;
 import com.oneworld.web.service.CommentService;
 import com.oneworld.web.service.DiscussService;
 import com.oneworld.web.service.LikeService;
+import com.oneworld.web.service.UserInfoService;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,9 @@ public class DisscussServiceImpl implements DiscussService {
 
     @Autowired
     private LikeService likeService;
+
+    @Autowired
+    private UserInfoService userInfoService;
 
     public Map insertDiscuss(Map map) {
         Map returnMap = new HashMap();
@@ -170,10 +174,12 @@ public class DisscussServiceImpl implements DiscussService {
                         Map<String,Object> answer = new HashedMap();
 //                        /*该回答下所有的评论*/
                         List<Map<String,Object>> comments = (List<Map<String,Object>>) commentService.queryCommentsByTarget_id(a.getId(),1).get("data");
-                        UserInfo userInfo = userinfoMapper.findUserInfoByAccount(a.getAnswer_account());
+                        UserInfo userInfo =(UserInfo) userInfoService.findUserInfoByAccount(a.getAnswer_account()).get("data");
+                        String job = (String) userInfoService.findUserInfoByAccount(a.getAnswer_account()).get("job");
                         answer.put("answer",a);
                         answer.put("answerTime",fmt.format(a.getAnswer_time()));
                         answer.put("answerUser",userInfo);
+                        answer.put("job",job);
                         answer.put("comment",comments);
                         answer.put("isLike",flag);
                         answers.add(answer);

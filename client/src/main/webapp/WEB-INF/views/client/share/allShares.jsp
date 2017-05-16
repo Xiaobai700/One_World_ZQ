@@ -136,6 +136,10 @@
             <a href="allSharesLike.do"><span id="an_re_du" class="${color_2}">按热度</span></a>
         </div>
         <div class="fx_right1">
+            <c:if test="${index.shareNumbers == 0}">
+                <h2><p style="font-family: '微软雅黑';margin-left: 90px;
+                margin-top: 60px;">啥也没搜到！看看别的吧！</p></h2>
+            </c:if>
             <!--所有分享主页就是很多个分享的缩略图放在一起，分享大图-->
             <c:forEach var="shares1" items="${index.share}">
             <div class="fx_dt" data-target="#${shares1.share.id }">

@@ -71,13 +71,17 @@ public class CommonController {
                 List<Discuss> all =(List<Discuss>) discussService.searchDiscuss(discussMap).get("data");
 
                 String user_account2 = (String) request.getSession().getAttribute("account");
-                UserInfo s_userInfo =(UserInfo) userInfoService.findUserInfoByAccount(user_account2).get("data");
+                if(user_account2 == null){
+                    modelAndView.addObject("userHead","img/person.jpg");
+                }else {
+                    UserInfo s_userInfo =(UserInfo) userInfoService.findUserInfoByAccount(user_account2).get("data");
+                    modelAndView.addObject("userHead",s_userInfo.getHead());
+                }
                 Map requestMap2 = new HashMap();
                 requestMap2.put("pageSize",10);
                 requestMap2.put("keys",keys);
                 returnMap = (Map)indexService.discussPageAll(requestMap2).get("data");
 
-                modelAndView.addObject("userInfo", s_userInfo);
                 modelAndView.addObject("account",user_account2);
                 modelAndView.addObject("color_1", "badge badge-primary");
                 modelAndView.addObject("color_2", "badge");
@@ -135,6 +139,12 @@ public class CommonController {
                 modelAndView = new ModelAndView("/client/user/fansOrcarer");
                 Map returnMap4 = new HashMap();
                 String account = (String) request.getSession().getAttribute("account");
+                if(account == null){
+                    modelAndView.addObject("userHead","img/person.jpg");
+                }else {
+                    UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(account).get("data");
+                    modelAndView.addObject("userHead",userInfo.getHead());
+                }
                 String label = "搜索到的用户";
                 Map requestMap4 = new HashMap();
                 requestMap4.put("keys",keys);

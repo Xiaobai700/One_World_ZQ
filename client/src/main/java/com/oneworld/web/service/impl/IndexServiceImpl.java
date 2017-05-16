@@ -125,10 +125,12 @@ private AttentionService attentionService;
 //                找出回答了这个问题的前六个用户的信息
                 List<UserInfo> userInfos = (List<UserInfo>) answerService.getUserInfosByDiscuss_id(d.getId()).get("data");
                 List heads = new ArrayList();
-//                取出头像
-                for (UserInfo u : userInfos) {
-                    String head = u.getHead();
-                    heads.add(head);
+                if(userInfos != null){
+//              取出头像
+                    for (UserInfo u : userInfos) {
+                        String head = u.getHead();
+                        heads.add(head);
+                    }
                 }
                 disResult.put("discuss",d);
                 disResult.put("heads",heads);
@@ -285,6 +287,7 @@ private AttentionService attentionService;
                 discuss.add(disResult);
             }
             discussResultMap.put("dis",discuss);
+            discussResultMap.put("discussNumbers",discusses.size());
             returnMap.put(ParameterConstant.RETURN_DATA,discussResultMap);
         }catch (Exception e){
             e.printStackTrace();
@@ -308,6 +311,9 @@ private AttentionService attentionService;
 //                获得这个讨论的作者的信息
                 UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(d.getAsker_account()).get("data");
                 String time = fmt.format(d.getAsk_time());
+
+                Industry industry = industryMapper.findIndustryById(d.getIndustry_id());
+                disResult.put("industry",industry);
                 disResult.put("time",time);
                 disResult.put("discuss",d);
                 disResult.put("userInfo",userInfo);
@@ -351,6 +357,7 @@ private AttentionService attentionService;
                 share.add(shareResult);
             }
             shareRsultMap.put("share",share);
+            shareRsultMap.put("shareNumbers",shares.size());
             returnMap.put(ParameterConstant.RETURN_DATA,shareRsultMap);
         }catch (Exception e){
             e.printStackTrace();
@@ -423,13 +430,13 @@ private AttentionService attentionService;
                 for (Appointment a:appointments) {
                     Map<String,Object> appMe = new HashedMap();
 //显示所有想要加入的信息 在显示在页面上的时候 再进行判断 如果已经成功加入 就再做标记
-                    Map requestMap = new HashMap();
-                    requestMap.put("appointment_id",a.getId());
-                    List<Join> joins = joinMapper.queryJoinsByMap(requestMap);
-                    int count = joins.size();
+//                    Map requestMap = new HashMap();
+//                    requestMap.put("appointment_id",a.getId());
+                    /*List<Join> joins = joinMapper.queryJoinsByMap(requestMap);
+                    int count = joins.size();*/
                     appMe.put("appointment",a);
                     appMe.put("meTime",fmt.format(a.getPublish_time()));
-                    appMe.put("want_join_count",count);
+//                    appMe.put("want_join_count",count);
                     apps.add(appMe);
                 }
 

@@ -217,7 +217,7 @@ $(".share").click(function(){
 		},
 		dataType:"text",
 		success:function(data){
-			 window.location.href="allShares.do";
+			 parent.location.href="allShares.do";
 		}
 	});
 });

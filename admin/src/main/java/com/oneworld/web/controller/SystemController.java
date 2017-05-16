@@ -27,4 +27,9 @@ public class SystemController {
         ModelAndView modelAndView = new ModelAndView("/manage/system/invitationShow");
         return modelAndView;
     }
+    @RequestMapping("app-show.html")
+    public ModelAndView appShow(HttpServletRequest request, HttpServletResponse response){
+        ModelAndView modelAndView = new ModelAndView("/manage/system/appShow");
+        return modelAndView;
+    }
 }

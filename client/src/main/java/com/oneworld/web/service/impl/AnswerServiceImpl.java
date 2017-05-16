@@ -3,8 +3,10 @@ package com.oneworld.web.service.impl;
 import com.oneworld.web.constant.ParameterConstant;
 import com.oneworld.web.constant.RequestConstant;
 import com.oneworld.web.dao.AnswerMapper;
+import com.oneworld.web.dao.DiscussMapper;
 import com.oneworld.web.dao.UserinfoMapper;
 import com.oneworld.web.model.Answer;
+import com.oneworld.web.model.Discuss;
 import com.oneworld.web.model.UserInfo;
 import com.oneworld.web.service.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,8 @@ import java.util.Map;
 public class AnswerServiceImpl implements AnswerService {
     @Autowired
     private AnswerMapper answerMapper;
-
+    @Autowired
+    private DiscussMapper discussMapper;
     @Autowired
     private UserinfoMapper userinfoMapper;
 
@@ -30,8 +33,18 @@ public class AnswerServiceImpl implements AnswerService {
         Map returnMap = new HashMap();
         try{
             answerMapper.insertAnswer(answer);
-            returnMap.put(ParameterConstant.RETURN_CODE,0);
-            returnMap.put(ParameterConstant.RETURN_MSG,"回答成功！");
+            /*给相应的讨论的回答数加1*/
+            Discuss discuss = discussMapper.findDiscussById(answer.getDiscuss_id());
+            if(discuss != null){
+                discuss.setAnswer_times(discuss.getAnswer_times()+1);
+                discussMapper.updateDiscuss(discuss);
+                returnMap.put(ParameterConstant.RETURN_CODE,0);
+                returnMap.put(ParameterConstant.RETURN_MSG,"回答成功！");
+            }else {
+                returnMap.put(ParameterConstant.RETURN_MSG,"该讨论不存在！");
+                returnMap.put(ParameterConstant.RETURN_CODE,1008);
+            }
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -84,7 +97,7 @@ public class AnswerServiceImpl implements AnswerService {
         Map returnMap = new HashMap();
         try{
             List<Answer> answers = (List<Answer>) findAnswersByDiscuss_id(discuss_id).get("data");
-            if(answers.size()>0){
+            if(answers != null){
                 List<UserInfo> userInfos = new ArrayList<UserInfo>();
                 for (Answer a : answers) {
                     UserInfo userInfo = userinfoMapper.findUserInfoByAccount(a.getAnswer_account());
