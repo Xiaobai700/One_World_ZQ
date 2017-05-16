@@ -165,7 +165,7 @@ pageEncoding="utf-8"%>
 		    			    	</c:when>
 		    			    </c:choose>
 		    			  </c:forEach>
-                                <span style="float: right;margin-top: 10px;" class="glyphicon glyphicon-plus-sign joined join" onclick="join_app(${appointment.appointment.id},${appointment.orgnizerInfo.account})">申请加入</span><!--加入活动的小图标-->
+                                <span style="float: right;margin-top: 10px;" class="glyphicon glyphicon-plus-sign joined join" onclick="join_app('${appointment.appointment.id}',${appointment.orgnizerInfo.account})">申请加入</span><!--加入活动的小图标-->
                                 <input type="hidden" value="${appointment.appointment.id}">
                                 <span style="float: right; margin-top: 10px;">${appointment.time}&nbsp;</span><!--活动发起时间-->
                             </div>

@@ -113,4 +113,15 @@ $("#inform").click(function () {
     $("#systemMessage").hide();
     $("#informMessage").show();
 });
+
+$(document).click(function () {
+    $(".upUp").hide();
+    $(".myMessage").hide();
+});
+
+$("#edit").toggle(function () {
+    $("#locationSelect").show();
+},function () {
+    $("#locationSelect").hide();
+});
     });

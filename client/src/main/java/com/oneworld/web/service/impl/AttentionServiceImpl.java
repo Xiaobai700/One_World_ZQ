@@ -38,33 +38,39 @@ public class AttentionServiceImpl implements AttentionService{
     public Map careUser(String myAccount,String userAccount) {
         Map returnMap = new HashMap();
         try{
-            Map requestMap = new HashMap();
-            requestMap.put("carer_account",myAccount);
-            requestMap.put("user_account",userAccount);
-            UserInfo me = userinfoMapper.findUserInfoByAccount(myAccount);
-            UserInfo userInfo = userinfoMapper.findUserInfoByAccount(userAccount);
-            Attention attention1 = attentionMapper.findAttentionByTwoAccount(requestMap);
-            if(attention1 != null){
-                attentionMapper.deleteAttentionById(attention1.getId());
-                me.setCare_count(me.getCare_count()-1);
-                userinfoMapper.updateUserInfo(me);
-                userInfo.setFans_count(userInfo.getFans_count()-1);
-                userinfoMapper.updateUserInfo(userInfo);
-                returnMap.put(ParameterConstant.RETURN_CODE,1);
-                returnMap.put(ParameterConstant.RETURN_MSG,"取消关注成功！");
+            if(myAccount.equals(userAccount)){
+                returnMap.put(ParameterConstant.RETURN_CODE,1008);
+                returnMap.put(ParameterConstant.RETURN_MSG,"不能关注自己！");
             }else {
-                Attention attention = new Attention();
-                attention.setId(UUID.randomUUID().toString());
-                attention.setCarer_account(myAccount);
-                attention.setUser_account(userAccount);
-                attention.setAttention_time(new Timestamp(new Date().getTime()));
-                attentionMapper.insertAttention(attention);
-                me.setCare_count(me.getCare_count()+1);
-                userinfoMapper.updateUserInfo(me);
-                userInfo.setFans_count(userInfo.getFans_count()+1);
-                userinfoMapper.updateUserInfo(userInfo);
-                returnMap.put(ParameterConstant.RETURN_CODE,0);
-                returnMap.put(ParameterConstant.RETURN_MSG,"关注成功！");
+                Map requestMap = new HashMap();
+                requestMap.put("carer_account",myAccount);
+                requestMap.put("user_account",userAccount);
+                UserInfo me = userinfoMapper.findUserInfoByAccount(myAccount);
+                UserInfo userInfo = userinfoMapper.findUserInfoByAccount(userAccount);
+                Attention attention1 = attentionMapper.findAttentionByTwoAccount(requestMap);
+                if(attention1 != null){
+                    attentionMapper.deleteAttentionById(attention1.getId());
+                    me.setCare_count(me.getCare_count()-1);
+                    userinfoMapper.updateUserInfo(me);
+                    userInfo.setFans_count(userInfo.getFans_count()-1);
+                    userinfoMapper.updateUserInfo(userInfo);
+                    returnMap.put(ParameterConstant.RETURN_CODE,1);
+                    returnMap.put(ParameterConstant.RETURN_MSG,"取消关注成功！");
+                }else {
+                    Attention attention = new Attention();
+                    attention.setId(UUID.randomUUID().toString());
+                    attention.setCarer_account(myAccount);
+                    attention.setUser_account(userAccount);
+                    attention.setAttention_time(new Timestamp(new Date().getTime()));
+                    attentionMapper.insertAttention(attention);
+                    me.setCare_count(me.getCare_count()+1);
+                    userinfoMapper.updateUserInfo(me);
+                    userInfo.setFans_count(userInfo.getFans_count()+1);
+                    userinfoMapper.updateUserInfo(userInfo);
+                    returnMap.put(ParameterConstant.RETURN_CODE,0);
+                    returnMap.put(ParameterConstant.RETURN_MSG,"关注成功！");
+            }
+
             }
         }catch (Exception e){
             e.printStackTrace();

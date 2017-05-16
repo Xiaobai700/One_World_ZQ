@@ -72,7 +72,7 @@ public class CommonController {
 
                 String user_account2 = (String) request.getSession().getAttribute("account");
                 if(user_account2 == null){
-                    modelAndView.addObject("userHead","img/person.jpg");
+                    modelAndView.addObject("userHead","person.jpg");
                 }else {
                     UserInfo s_userInfo =(UserInfo) userInfoService.findUserInfoByAccount(user_account2).get("data");
                     modelAndView.addObject("userHead",s_userInfo.getHead());
@@ -101,7 +101,7 @@ public class CommonController {
                 Map resultMap = new HashMap();
                 String user_account = (String) request.getSession().getAttribute("account");
                 if(user_account == null){
-                    modelAndView.addObject("userHead","img/person.jpg");
+                    modelAndView.addObject("userHead","person.jpg");
                 }else {
                     UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(user_account).get("data");
                     modelAndView.addObject("userHead",userInfo.getHead());
@@ -109,6 +109,7 @@ public class CommonController {
                 Map requestMap = new HashMap();
                 requestMap.put("user_account",user_account);
                 requestMap.put("keys",keys);
+                requestMap.put("is_checked",1);
                 resultMap = (Map) indexService.yuebanAll(requestMap).get("data");
 
                 modelAndView.addObject("account",user_account);
@@ -121,7 +122,7 @@ public class CommonController {
                 modelAndView = new ModelAndView("/client/share/allShares");
                 String user_account1 = (String) request.getSession().getAttribute("account");
                 if(user_account1 == null){
-                    modelAndView.addObject("userHead","img/person.jpg");
+                    modelAndView.addObject("userHead","person.jpg");
                 }else {
                     UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(user_account1).get("data");
                     modelAndView.addObject("userHead",userInfo.getHead());
@@ -140,7 +141,7 @@ public class CommonController {
                 Map returnMap4 = new HashMap();
                 String account = (String) request.getSession().getAttribute("account");
                 if(account == null){
-                    modelAndView.addObject("userHead","img/person.jpg");
+                    modelAndView.addObject("userHead","person.jpg");
                 }else {
                     UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(account).get("data");
                     modelAndView.addObject("userHead",userInfo.getHead());

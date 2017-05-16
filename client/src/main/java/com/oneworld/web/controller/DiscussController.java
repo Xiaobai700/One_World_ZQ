@@ -114,7 +114,7 @@ public class DiscussController {
 
             String user_account = (String) request.getSession().getAttribute("account");
             if(user_account == null){
-                modelAndView.addObject("userHead","img/person.jpg");
+                modelAndView.addObject("userHead","person.jpg");
             }else {
                 UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(user_account).get("data");
                 modelAndView.addObject("userHead",userInfo.getHead());
@@ -187,7 +187,7 @@ public class DiscussController {
         ModelAndView modelAndView = new ModelAndView("/client/discuss/newDiscuss");
         String account = (String) request.getSession().getAttribute("account");
         if(account == null){
-            modelAndView.addObject("userHead","img/person.jpg");
+            modelAndView.addObject("userHead","person.jpg");
         }else {
             UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(account).get("data");
             modelAndView.addObject("userHead",userInfo.getHead());
@@ -207,7 +207,7 @@ public class DiscussController {
         ModelAndView modelAndView = new ModelAndView("/client/discuss/talksDetails");
         String user_account = (String) request.getSession().getAttribute("account");
         if(user_account == null){
-            modelAndView.addObject("userHead","img/person.jpg");
+            modelAndView.addObject("userHead","person.jpg");
         }else {
             UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(user_account).get("data");
             modelAndView.addObject("userHead",userInfo.getHead());

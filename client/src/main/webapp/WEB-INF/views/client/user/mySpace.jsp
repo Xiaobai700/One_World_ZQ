@@ -162,12 +162,14 @@
                 		</div>
                 	</div>
                 	<div class="col-md-12"><!-- 生日常在地 -->
-                		<div class="col-md-6">
+                		<div class="col-md-3">
                 		<div>生日</div>
                 	<input id="datepicker" type="text"  class="form-control" value="${index.userInfo.birth }" >
                 		</div>
-                		<div class="col-md-6">
-                		<%--<div>常住地: ${index.userInfo.location }</div>--%>
+                        <div class="col-md-3">
+                            常住地：<span class="glyphicon glyphicon-pencil" id="edit"></span><input type="text" class="form-control" value="${index.userInfo.location}" id="location">
+                        </div>
+                		<div class="col-md-6" id="locationSelect" style="display: none;">
                 <select id="province" class="form-control duckr-select short" data-reactid=".0.1.1.1.1.0.2.1.1">
                 <option data-reactid=".0.1.1.1.1.0.2.1.1.0">北京市</option>
                 <option data-reactid=".0.1.1.1.1.0.2.1.1.1">天津市</option>

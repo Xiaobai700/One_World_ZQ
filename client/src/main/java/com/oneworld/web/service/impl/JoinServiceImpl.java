@@ -27,12 +27,17 @@ public class JoinServiceImpl implements JoinService {
     public Map insertJoin(Join join) {
         Map returnMap = new HashMap();
         try{
-            joinMapper.insertJoin(join);
             Appointment appointment = appointmentMapper.findAppointmentById(join.getAppointment_id());
-            appointment.setWant_join(appointment.getWant_join()+1);
-            appointmentMapper.updateApp(appointment);
-            returnMap.put(ParameterConstant.RETURN_CODE,0);
-            returnMap.put(ParameterConstant.RETURN_MSG,"申请成功，等待对方审核");
+            if(appointment.getOrganizer_account().equals(join.getJoin_account())){
+                returnMap.put(ParameterConstant.RETURN_CODE,1008);
+                returnMap.put(ParameterConstant.RETURN_MSG,"这是你发布的活动，不需要申请！");
+            }else {
+                joinMapper.insertJoin(join);
+                appointment.setWant_join(appointment.getWant_join()+1);
+                appointmentMapper.updateApp(appointment);
+                returnMap.put(ParameterConstant.RETURN_CODE,0);
+                returnMap.put(ParameterConstant.RETURN_MSG,"申请成功，等待对方审核");
+            }
         }catch (Exception e){
             e.printStackTrace();
             returnMap = RequestConstant.getRequestDesCode(-1);

@@ -176,7 +176,7 @@ public class UserController {
         Map returnMap = new HashMap();
         String account =(String) request.getSession().getAttribute("account");
         if(account == null){
-            modelAndView.addObject("userHead","img/person.jpg");
+            modelAndView.addObject("userHead","person.jpg");
         }else {
             UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(account).get("data");
             modelAndView.addObject("userHead",userInfo.getHead());

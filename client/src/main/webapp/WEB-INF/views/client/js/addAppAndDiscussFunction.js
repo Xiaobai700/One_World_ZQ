@@ -178,11 +178,15 @@ function join_app(id,user_account) {
                 data:{
                     appointment_id:id
                 },
+                dataType:"json",
                 success:function(data){
-                    var dataObj=eval("("+data+")");
-                    if(dataObj.code == 0){
+                    // var dataObj=eval("("+data+")");
+                    if(data.code == 0){
                         layer.msg("申请成功等待对方审核！");
                         ws.send(user_account+','+2+','+id);
+                        window.location.reload();
+                    }else {
+                        layer.msg(data.msg,{time:2000});
                         window.location.reload();
                     }
                 }
@@ -206,6 +210,8 @@ function checkJoin(id,user_account,appId) {
                 ws.send(user_account+','+3+','+1+','+appId);
                 /*在发送消息之后刷新页面*/
                 window.location.reload();
+            }else {
+                layer.msg(data.msg);
             }
         }
     });
@@ -226,6 +232,8 @@ function rejectJoin(id,user_account,appId) {
                 ws.send(user_account+','+3+','+0+','+appId);
                 /*在发送消息之后刷新页面*/
                 window.location.reload();
+            }else {
+                layer.msg(data.msg);
             }
         }
     });
@@ -259,6 +267,7 @@ function careUser(user_account,careType) {
                         /*在发送消息之后刷新页面*/
                         window.location.reload();
                     }else {
+                        layer.msg(data.msg);
                         /*取消关注的时候就不发消息给用户了*/
                         window.location.reload();
                     }
@@ -327,7 +336,8 @@ $("#province option").click(function(){
     sheng = $(this).text();
 });
 function updateMyInfo() {
-    var sex = $('input[name="sex"]').val();
+    // var sex = $('input[name="sex"]').val();
+    var sex = $("input[type='radio']:checked").val();
     var nickName = $("#nickName").val();
     var hobby = $("#hobby").val();
     var signature = $("#signature").val();
