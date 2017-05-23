@@ -131,7 +131,7 @@
                                 <c:if test="${app.isJoin == true}">
                                     <span style="float: right;margin-top: 10px;" class="glyphicon glyphicon-ok-circle">已申请</span>
                                 </c:if>
-                                <span style="float: right; margin-top: 10px;">2016.11.9&nbsp;</span><!--活动发起时间-->
+                                <span style="float: right; margin-top: 10px;">${app.time}&nbsp;</span><!--活动发起时间-->
                             </div>
                             <!--约伴活动的其他具体信息-->
                             <a href="appDetails.do?id=${app.appointment.id}">

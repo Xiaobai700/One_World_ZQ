@@ -64,6 +64,12 @@ public class UserController {
 
     }
 
+    @RequestMapping("loginOut.action")
+    public ModelAndView userLoginOut(HttpServletRequest request,HttpServletResponse response) throws IOException {
+        request.getSession().invalidate();
+        return new ModelAndView("/client/login");
+    }
+
     @RequestMapping("userRegist.action")
     @ResponseBody
     public void userRegist(HttpServletRequest request,HttpServletResponse response,

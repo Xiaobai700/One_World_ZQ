@@ -99,8 +99,6 @@ pageEncoding="utf-8"%>
                         <li class="li_cai_dan"><a href="welcome.do"><div class="cai_dan">欢迎</div></a></li>
                         <li class="li_cai_dan"><a href="discussPageNew.do"><div class="cai_dan">职业讨论</div></a></li>
                         <li class="li_cai_dan"><a href="allyueban.do"><div class="cai_dan">约伴</div></a></li>
-                        <%--<li class="li_cai_dan"><a href="#">消息<span class="label label-danger" id="message">22</span></a></li>--%>
-
                         <li style="width: 90px;"><a>发起活动</a>
                             <ul class="hd">
                                 <li><a onclick="addAppPage('发布约伴活动','add-app.html')" >活动约伴</a></li>

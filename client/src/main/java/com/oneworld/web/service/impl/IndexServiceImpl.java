@@ -154,6 +154,7 @@ private AttentionService attentionService;
 /**所有约伴 按时间排序*/
     public Map yuebanAll(Map map) {
        Map returnMap = new HashMap();
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
        try{
            String user_account = (String) map.get("user_account");
 //           List<Appointment> appointments = (List<Appointment>) appointService.findAllAppointment().get("data");
@@ -175,6 +176,7 @@ private AttentionService attentionService;
                appResult.put("isJoin",isJoin);
                appResult.put("orgnizerInfo",userInfo);
                appResult.put("appointment",appointment);
+               appResult.put("time",fmt.format(appointment.getPublish_time()));
                apps.add(appResult);
            }
 //           所有活动类型
@@ -190,6 +192,7 @@ private AttentionService attentionService;
     }
 /**根据想要加入的人数倒序排列*/
     public Map allYueban(Map map) {
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
         Map returnMap = new HashMap();
         try{
             String user_account = (String) map.get("user_account");
@@ -212,6 +215,7 @@ private AttentionService attentionService;
                 appResult.put("appSize",appointments.size());/*某种活动类型下的活动的个数*/
                 appResult.put("orgnizerInfo",userInfo);
                 appResult.put("appointment",appointment);
+                appResult.put("time",fmt.format(appointment.getPublish_time()));
                 apps.add(appResult);
             }
 
@@ -228,26 +232,28 @@ private AttentionService attentionService;
 /**根据活动的类型模糊查询*/
     public Map yueBanType(Map map) {
         Map returnMap = new HashMap();
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
         try{
             String user_account = (String) map.get("user_account");
             List<Appointment> appointments = appointmentMapper.queryAppsPage(map);
 
             Map<String,Object> appResultMap = new HashMap<String,Object>();
             List<Map<String,Object>> apps = new ArrayList<Map<String, Object>>();
-            for (Appointment appointment : appointments) {
+            for (Appointment a : appointments) {
                 Map<String,Object> appResult = new HashedMap();
 //                发布此活动的用户的信息
-                UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(appointment.getOrganizer_account()).get("data");
+                UserInfo userInfo = (UserInfo) userInfoService.findUserInfoByAccount(a.getOrganizer_account()).get("data");
 //                有可能还会有活动的主题信息
 
                 boolean isJoin = false;
 //               先判断用户是否登陆
                 if(user_account != null){
-                    isJoin = joinService.isJoined(user_account,appointment.getId());
+                    isJoin = joinService.isJoined(user_account,a.getId());
                 }
                 appResult.put("isJoin",isJoin);
                 appResult.put("orgnizerInfo",userInfo);
-                appResult.put("appointment",appointment);
+                appResult.put("appointment",a);
+                appResult.put("time",fmt.format(a.getPublish_time()));
                 apps.add(appResult);
             }
 

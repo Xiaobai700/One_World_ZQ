@@ -14,11 +14,9 @@ import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Master ZQ on 2017/3/3.
@@ -80,11 +78,17 @@ public class AppointServiceImpl implements AppointService {
         Map returnMap = new HashedMap();
         try{
             AppType appType = appTypeMapper.findAppTypeById(appointment.getApp_type());
-            appType.setAttention_num(appType.getAttention_num()+1);
-            appointmentMapper.insertAppointment(appointment);
-            appTypeMapper.updateAppType(appType);
-            returnMap.put(ParameterConstant.RETURN_CODE,0);
-            returnMap.put(ParameterConstant.RETURN_MSG,"新增活动成功，等待系统管理员审核！");
+            if(appType != null){
+                appType.setUpdate_time(new Timestamp(new Date().getTime()));
+                appType.setAttention_num(appType.getAttention_num()+1);
+                appointmentMapper.insertAppointment(appointment);
+                appTypeMapper.updateAppType(appType);
+                returnMap.put(ParameterConstant.RETURN_CODE,0);
+                returnMap.put(ParameterConstant.RETURN_MSG,"新增活动成功，等待系统管理员审核！");
+            }else {
+                returnMap.put(ParameterConstant.RETURN_CODE,1008);
+                returnMap.put(ParameterConstant.RETURN_MSG,"该活动类型不存在！");
+            }
         }catch (Exception e){
             e.printStackTrace();
         }

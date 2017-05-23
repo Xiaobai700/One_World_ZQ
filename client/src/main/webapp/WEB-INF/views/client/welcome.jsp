@@ -262,27 +262,34 @@
     });
     //注册
     $(".zc").click(function(){
-        $.ajax({
-            url:"userRegist.action",
-            type:"post",
-            dataType:"json",
-            data:{
-                account:$("#zc_account").val(),
-                password:$("#zc_password").val()
-            },
-            success:function(data){
-                if(data.code == 2){
-                    layer.msg("注册成功直接登陆",{time:3000});
-                    window.location.href="index.do";
-                }else{
-                    layer.msg(data.msg);
+        var account = $("#zc_account").val();
+        var password = $("#zc_password").val();
+        var regex = /^1(3|4|5|7|8)\d{9}$/;
+        if(!regex.test(account)){
+            layer.msg("请输入正确的手机号！");
+        }else {
+            $.ajax({
+                url:"userRegist.action",
+                type:"post",
+                dataType:"json",
+                data:{
+                    account:account,
+                    password:password
+                },
+                success:function(data){
+                    if(data.code == 2){
+                        layer.msg("注册成功直接登陆",{time:3000});
+                        window.location.href="index.do";
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                },
+                error:function(data){
+                    layer.msg("注册失败");
+                    window.location.href="welcome.do";
                 }
-            },
-            error:function(data){
-                layer.msg("注册失败");
-                window.location.href="welcome.do";
-            }
-        });
+            });
+        }
     });
 </script>
 </body>
